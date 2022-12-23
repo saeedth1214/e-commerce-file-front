@@ -5,12 +5,23 @@
       :items="files"
       class="elevation-1"
       hide-default-footer
+      :page.sync="page"
       :search="search"
+      :loading="loading"
       loading-text="لطفا منتظر بمانید"
     >
+      <template v-slot:footer>
+        <div class="text-center pt-2">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            @input="handlePageChange"
+          ></v-pagination>
+        </div>
+      </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>لیست کاربران</v-toolbar-title>
+          <v-toolbar-title>لیست فایل ها </v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-text-field
             v-model="search"
@@ -58,8 +69,8 @@
 <script>
 export default {
   props: {
-    files: {
-      type: Array,
+    userId: {
+      type: Number,
       required: true,
     },
   },
@@ -67,9 +78,38 @@ export default {
   data() {
     return {
       search: null,
+      files: [],
+      page: 1,
+      pageCount: 0,
+      
+      loading:true,
     };
   },
 
+  methods: {
+    async handlePageChange(value) {
+      this.page = value;
+      this.initialize();
+    },
+    async initialize() {
+      let params = {};
+      this.loading = true;
+      params["page"] = this.page;
+      params["filters[user_id]"] = this.userId;
+      await this.$axios.get("frontend/files", { params }).then((res) => {
+        this.files = res.data.data;
+        this.setPagination(res.data.meta.pagination);
+      });
+      this.loading = false;
+    },
+    async setPagination(pagination) {
+      this.page = await pagination.current_page;
+      this.pageCount = await pagination.total_pages;
+    },
+  },
+  async created() {
+    this.initialize();
+  },
   computed: {
     headers() {
       return this.$store.state.option.file.headers;

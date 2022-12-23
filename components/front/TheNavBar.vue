@@ -11,10 +11,10 @@
     <v-col :md="$vuetify.breakpoint.mdAndUp ? '3' : '6'" sm="6" lg="3">
       <div class="auth" v-if="!$auth.loggedIn">
         <span>
-          <a href="/authenticate">ورود</a>
+          <a href="/authenticate?login">ورود</a>
         </span>
         <span>
-          <a href="/authenticate"> ثبت نام </a>
+          <a href="/authenticate?register"> ثبت نام </a>
         </span>
       </div>
       <div class="auth" v-else>
@@ -248,17 +248,19 @@ export default {
   li:nth-last-child(1) {
     position: relative;
     .sub-category {
-      background-color: #1d262d;
+      background-color: #253039;
       padding: 0.8rem;
       position: absolute;
       right: -250px;
       border-radius: 10px;
       margin-top: 10px;
       text-align: center;
+      z-index: 1000;
+      top: 20px;
       &::after {
         content: "";
         position: absolute;
-        bottom: 48px;
+        bottom: 120px;
         width: 0;
         height: 0;
         right: 320px;
@@ -268,9 +270,10 @@ export default {
       }
       ul {
         display: grid;
-        -columns: repeat(4, 150px);
+        grid-template-columns: repeat(4, 150px);
         white-space: normal;
         list-style: none;
+        direction: rtl;
 
         li {
           display: block;
@@ -357,6 +360,22 @@ export default {
       color: #a5b7c6;
       font-size: 1rem;
       text-decoration: none;
+    }
+  }
+  li:nth-last-child(1) {
+    .sub-category {
+      height: 250px;
+      overflow: hidden;
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        padding-right: 1.5rem;
+        padding-top: 1rem;
+        overflow-y: scroll;
+        height: 250px;
+      }
     }
   }
 }

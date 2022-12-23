@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="12" md="4" lg="4" sm="4">
             <div class="introduce">
-              <h3>درباره من</h3>
+              <h4>درباره من</h4>
               <p style="margin-top: 1rem">
                 برنامه نویس وطراح وب با بیش از 2 سال فعالیت در این زمینه مهارت
                 ها : php , laravel , vuejs , nuxtjs
@@ -14,7 +14,7 @@
           </v-col>
           <v-col cols="12" md="3" lg="3" sm="3">
             <div class="content-footer">
-              <h3>محتوای سایت</h3>
+              <h4>محتوای سایت</h4>
               <ul>
                 <li>
                   <nuxt-link to="/front/files">فایل ها </nuxt-link>
@@ -30,7 +30,7 @@
           </v-col>
           <v-col cols="12" md="5" lg="5" sm="5">
             <div class="contact-me">
-              <h3>ارتباط با من</h3>
+              <h4>ارتباط با من</h4>
               <ul>
                 <li>
                   ایمیل :
@@ -88,7 +88,7 @@ footer {
   bottom: 0;
   left: 0;
 }
-h3 {
+h4 {
   color: #fff;
 }
 ul {

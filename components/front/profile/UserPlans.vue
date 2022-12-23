@@ -10,7 +10,7 @@
       :loading="loading"
       loading-text="لطفا منتظر بمانید"
     >
-      <!-- <template v-slot:footer>
+      <template v-slot:footer>
         <div class="text-center pt-2">
           <v-pagination
             v-model="page"
@@ -18,10 +18,10 @@
             @input="handlePageChange"
           ></v-pagination>
         </div>
-      </template> -->
+      </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>لیست کاربران</v-toolbar-title>
+          <v-toolbar-title>لیست طرح ها</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-text-field
             v-model="search"
@@ -53,18 +53,15 @@
 </template>
 <script>
 export default {
-  props: {
-    plans: {
-      type: Array,
-      required: true,
-    },
-  },
   data: () => ({
     search: null,
     items: [],
     loading: false,
     unique: false,
     roleText: "کاربر عادی",
+    plans: [],
+    page: 1,
+    pageCount: 0,
     user: {
       first_name: null,
       last_name: null,
@@ -80,6 +77,38 @@ export default {
     headers() {
       return this.$store.state.option.plan.headers;
     },
+  },
+
+  props: {
+    userId: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  methods: {
+    async handlePageChange(value) {
+      this.page = value;
+      this.initialize();
+    },
+    async initialize() {
+      let params = {};
+      this.loading = true;
+      params["page"] = this.page;
+      params["filters[user_id]"] = this.userId;
+      await this.$axios.get("frontend/plans", { params }).then((res) => {
+        this.plans = res.data.data;
+        this.setPagination(res.data.meta.pagination);
+      });
+      this.loading = false;
+    },
+    async setPagination(pagination) {
+      this.page = await pagination.current_page;
+      this.pageCount = await pagination.total_pages;
+    },
+  },
+  async created() {
+    this.initialize();
   },
 };
 </script>

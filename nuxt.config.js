@@ -235,7 +235,11 @@ export default {
   },
   env: {
     dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/api/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/",
+    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/frontend/",
+
+    // dropzoneUrl: "http://e-commerce-file.test/api/panel/",
+    // dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
+
     count: 5,
     BASE_URL: "https://api-ecommerce-file.iran.liara.run/api/",
     // BASE_URL: "http://e-commerce-file.test/api/",

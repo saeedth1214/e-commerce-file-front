@@ -218,20 +218,13 @@ export default {
   },
   axios: {
     baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
+    // baseUrl: "http://e-commerce-file.test/api",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    proxy: true,
   },
 
-  proxy: {
-    "/api/": {
-      target: "https://api-ecommerce-file.iran.liara.run/api/",
-      pathRewrite: { "^/api/": "" },
-      changeOrigin: true,
-    },
-  },
   sweetalert: {
     confirmButtonColor: "#41b882",
     cancelButtonColor: "#ff7674",
@@ -245,6 +238,7 @@ export default {
     dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/",
     count: 5,
     BASE_URL: "https://api-ecommerce-file.iran.liara.run/api/",
+    // BASE_URL: "http://e-commerce-file.test/api/",
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

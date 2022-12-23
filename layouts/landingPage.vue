@@ -1,15 +1,12 @@
 <template>
   <div>
-    <TheHeader>
+    <FrontHeader>
       <TheNavBar />
       <TheSearchbox />
       <Nuxt />
-    </TheHeader>
+    </FrontHeader>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
+<script></script>
 
 <style></style>

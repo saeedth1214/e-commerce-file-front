@@ -104,8 +104,6 @@
 <script>
 export default {
   data: () => ({
-    interval: {},
-    value: 0,
     temporaryDrawer: true,
   }),
 
@@ -126,24 +124,10 @@ export default {
       this.temporaryDrawer = newVal;
     },
   },
-  beforeDestroy() {
-    clearInterval(this.interval);
-  },
-  mounted() {
-    this.interval = setInterval(() => {
-      if (this.value === 100) {
-        return (this.value = 0);
-      }
-      this.value += 10;
-    }, 1000);
-  },
 };
 </script>
 
 <style scoped lang="scss">
-.v-progress-circular {
-  margin: 1rem;
-}
 .brand {
   text-align: right;
   padding-right: 2rem;

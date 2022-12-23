@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <p class="text-center text-h5" style="width: 100%">فایل های مشابه</p>
-    <v-row dense>
+    <!-- <v-row dense>
       <v-col
         cols="12"
         md="4"
@@ -95,7 +95,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-card-text>
 </template>
 

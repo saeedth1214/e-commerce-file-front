@@ -217,8 +217,8 @@ export default {
     },
   },
   axios: {
-    baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
-    // baseUrl: "http://e-commerce-file.test/api",
+    // baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
+    baseUrl: "http://e-commerce-file.test/api",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -234,15 +234,15 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/api/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/frontend/",
+    // dropzoneUrl: "/api/panel/",
+    // dropzoneUrlFront: "/api/frontend/",
 
-    // dropzoneUrl: "http://e-commerce-file.test/api/panel/",
-    // dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
+    dropzoneUrl: "http://e-commerce-file.test/api/panel/",
+    dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
 
     count: 5,
-    BASE_URL: "https://api-ecommerce-file.iran.liara.run/api/",
-    // BASE_URL: "http://e-commerce-file.test/api/",
+    // BASE_URL: "https://api-ecommerce-file.iran.liara.run/api/",
+    BASE_URL: "http://e-commerce-file.test/api/",
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

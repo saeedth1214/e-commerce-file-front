@@ -228,7 +228,7 @@ export default {
   proxy: {
      '/api/': {
      target: 'https://api-ecommerce-file.iran.liara.run/api',
-      pathRewrite: {'^/api/': 'https://api-ecommerce-file.iran.liara.run'},
+      pathRewrite: {'^/api/': 'https://front-ecommerce-file.iran.liara.run'},
       changeOrigin: true
     }
 },

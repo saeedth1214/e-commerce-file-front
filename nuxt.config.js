@@ -219,6 +219,7 @@ export default {
   axios: {
 //     baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
     // baseUrl: "http://e-commerce-file.test/api",
+    proxy:true,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

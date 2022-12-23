@@ -217,8 +217,7 @@ export default {
     },
   },
   axios: {
-//     baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
-    // baseUrl: "http://e-commerce-file.test/api",
+    baseUrl: "https://api-ecommerce-file.iran.liara.run/api",
     proxy:true,
     headers: {
       "Content-Type": "application/json",
@@ -227,7 +226,11 @@ export default {
   },
   
   proxy: {
-  '/api/': { target: 'https://api-ecommerce-file.iran.liara.run' }
+     '/api/': {
+     target: 'https://api-ecommerce-file.iran.liara.run/api',
+      pathRewrite: {'^/api/': 'https://api-ecommerce-file.iran.liara.run'},
+      changeOrigin: true
+    }
 },
 
   sweetalert: {

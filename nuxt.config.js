@@ -231,7 +231,7 @@ export default {
      '/panel/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/panel/',
     },
-    '/auth/': {
+    '/auth/*': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/auth/',
     },
     '/user/': {

@@ -234,7 +234,18 @@ export default {
       target: 'https://api-ecommerce-file.iran.liara.run/api/panel/',
       pathRewrite: {'^/panel/': ''},
       changeOrigin: true
-    }
+    },
+    'auth/': {
+      target: 'https://api-ecommerce-file.iran.liara.run/api/auth/',
+      pathRewrite: {'^/auth/': ''},
+      changeOrigin: true
+    },
+    'user/': {
+      target: 'https://api-ecommerce-file.iran.liara.run/api/user/',
+      pathRewrite: {'^/user/': ''},
+      changeOrigin: true
+    },
+    
 },
   sweetalert: {
     confirmButtonColor: "#41b882",

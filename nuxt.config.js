@@ -218,23 +218,22 @@ export default {
   },
   axios: {
     proxy:true,
-    baseURL: "https://api-ecommerce-file.iran.liara.run/api",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
   },
   proxy: {
-  'frontend/': {
+  '/frontend/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/frontend/',
     },
-     'panel/': {
+     '/panel/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/panel/',
     },
     '/auth/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/auth/',
     },
-    'user/': {
+    '/user/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/user/',
     },
     

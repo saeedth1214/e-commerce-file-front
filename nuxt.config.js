@@ -217,13 +217,25 @@ export default {
     },
   },
   axios: {
-    // baseURL: "http://e-commerce-file.test/api/",
+    proxy:true,
     baseURL: "https://api-ecommerce-file.iran.liara.run/api",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
   },
+  proxy: {
+  'frontend/': {
+      target: 'https://api-ecommerce-file.iran.liara.run/api/frontend/',
+      pathRewrite: {'^/frontend/': ''},
+      changeOrigin: true
+    },
+     'panel/': {
+      target: 'https://api-ecommerce-file.iran.liara.run/api/panel/',
+      pathRewrite: {'^/panel/': ''},
+      changeOrigin: true
+    }
+},
   sweetalert: {
     confirmButtonColor: "#41b882",
     cancelButtonColor: "#ff7674",
@@ -236,8 +248,6 @@ export default {
     dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/api/panel/",
     dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/frontend/",
 
-    // dropzoneUrl: "http://e-commerce-file.test/api/panel/",
-    // dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },

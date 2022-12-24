@@ -227,23 +227,15 @@ export default {
   proxy: {
   'frontend/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/frontend/',
-//       pathRewrite: {'^/frontend/': ''},
-      changeOrigin: true
     },
      'panel/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/panel/',
-//       pathRewrite: {'^/panel/': ''},
-      changeOrigin: true
     },
     'auth/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/auth/',
-//       pathRewrite: {'^/auth/': ''},
-      changeOrigin: true
     },
     'user/': {
       target: 'https://api-ecommerce-file.iran.liara.run/api/user/',
-//       pathRewrite: {'^/user/': ''},
-      changeOrigin: true
     },
     
 },

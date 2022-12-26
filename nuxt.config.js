@@ -223,7 +223,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api-ecommerce-file/",
+      target: "http://api-ecommerce-file/",
     },
   },
   sweetalert: {
@@ -235,8 +235,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api-ecommerce-file/api/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file/api/frontend/",
+    dropzoneUrl: "http://api-ecommerce-file/api/panel/",
+    dropzoneUrlFront: "http://api-ecommerce-file/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },

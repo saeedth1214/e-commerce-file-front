@@ -2,9 +2,9 @@
   <div>
     <validation-provider #default="{ errors }" :name="title" :rules="rules">
       <div>
-        <p class="text-body-2 font-weight-light">{{ $t(`${title}.title`)}}</p>
+        <p class="text-body-2 font-weight-light">{{ $t(`${title}.title`) }}</p>
       </div>
-      <v-select
+      <vue-select
         dir="rtl"
         :multiple="multiple"
         :label="label"
@@ -19,27 +19,26 @@
         :disabled="disabled"
       >
         <template #list-footer>
-          <li v-show="hasNextPage" ref="load" class="loader">موردی برای نمایش وجود ندارد</li>
+          <li v-show="hasNextPage" ref="load" class="loader">
+            موردی برای نمایش وجود ندارد
+          </li>
         </template>
-        <template #no-options="{ search, searching, loading }">موردی یافت نشد</template>
+        <template #no-options="{ search, searching, loading }"
+          >موردی یافت نشد</template
+        >
         <template #spinner="{ loading }">
           <div v-if="loading" class="vs__spinner"></div>
         </template>
-      </v-select>
+      </vue-select>
       <div v-if="errors.length">
-        <p class="red--text text-body-2 font-weight-light">{{errors[0]}}</p>
+        <p class="red--text text-body-2 font-weight-light">{{ errors[0] }}</p>
       </div>
     </validation-provider>
   </div>
 </template>
 
 <script>
-import vSelect from "vue-select";
-
 export default {
-  components: {
-    vSelect
-  },
   data() {
     return {
       observer: null,
@@ -48,7 +47,7 @@ export default {
       pagination: {},
       items: [],
       setInitialItem: false,
-      loading: true
+      loading: true,
     };
   },
 
@@ -68,41 +67,41 @@ export default {
         await this.fetchItems({ page: this.currentPage });
         this.loading = false;
       }
-    }
+    },
   },
   props: {
     url: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     multiple: {
       type: Boolean,
-      required: false
+      required: false,
     },
     itemId: {
       type: null,
-      default: null
+      default: null,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     rules: {
       type: String,
-      required: false
+      required: false,
     },
     renderInfinite: {
       type: Boolean,
-      required: false
+      required: false,
     },
     disabled: {
       type: Boolean,
-      required: false
-    }
+      required: false,
+    },
   },
   mounted() {
     this.observer = new IntersectionObserver(this.infiniteScroll);
@@ -115,56 +114,55 @@ export default {
       set(newVal) {
         this.$emit("selectedValue", newVal);
         return newVal;
-      }
+      },
     },
     hasNextPage() {
       return this.currentPage < this.pagination.total_pages;
-    }
+    },
   },
 
   async created() {
-    this.loading = true;
     await this.fetchItems({ page: this.currentPage });
-    this.loading = false;
   },
   methods: {
     async fetchItems(params) {
-      // this.loading = true;
-      try {
-        const { data } = await this.$axios.get(`${this.url}`, {
-          params
-        });
-        // may item was added to items before
-        if (this.setInitialItem && this.itemId) {
-          data.data = data.data.filter(item => {
-            if (typeof this.itemId == "number") {
-              return this.itemId !== item.id;
-            } else {
-              return !this.itemId.includes(item.id);
-            }
-          });
-        }
-        if (this.itemId && !this.setInitialItem) {
-          this.checkIdisExists(data.data);
-        }
-
-        await this.items.push(...data.data);
-        this.pagination = data.meta.pagination;
-      } catch (error) {
-        console.log(error, "resp");
-      }
-      // this.loading = false;
+      this.loading = true;
+      await this.$axios
+        .get(`${this.url}`, {
+          params,
+        })
+        .then((res) => {
+          let responseData = res.data.data;
+          // maybe item was added to items before
+          if (this.setInitialItem && this.itemId) {
+            responseData = responseData.filter((item) => {
+              if (typeof this.itemId == "number") {
+                return this.itemId !== item.id;
+              } else {
+                return !this.itemId.includes(item.id);
+              }
+            });
+          }
+          if (this.itemId && !this.setInitialItem) {
+            this.checkIdisExists(responseData);
+          }
+          this.items.push(...responseData);
+          this.pagination = res.data.meta.pagination;
+          console.log(this.items, "items");
+        })
+        .catch((err) => console.log(err));
+      this.loading = false;
     },
     async checkIdisExists(items) {
       try {
         if (typeof this.itemId == "number") {
-          if (items.findIndex(item => item.id == this.itemId) == -1) {
+          if (items.findIndex((item) => item.id == this.itemId) == -1) {
             const { data } = await this.$axios.get(
-              `${this.url.substr(0, this.url.indexOf("?"))}/${this.itemId}`
+              `${this.url}/${this.itemId}`
             );
             this.items.push({
               id: data.data.id,
-              name: data.data.name
+              name: data.data.name,
             });
             this.setInitialItem = true;
           } else {
@@ -173,13 +171,13 @@ export default {
         }
         if (Object.keys(this.itemId).length) {
           for (const id of this.itemId) {
-            if (items.findIndex(item => item.id == id) == -1) {
+            if (items.findIndex((item) => item.id == id) == -1) {
               const { data } = await this.$axios.get(
                 `${this.url.substr(0, this.url.indexOf("?"))}/${id}`
               );
               this.items.push({
                 id: data.data.id,
-                name: data.data.name
+                name: data.data.name,
               });
             }
           }
@@ -209,12 +207,9 @@ export default {
         await this.$nextTick();
         ul.scrollTop = scrollTop;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-
-<style scoped>
-</style>
-
+<style scoped></style>

@@ -175,13 +175,6 @@ body {
   margin-top: 0px !important;
 }
 
-/* .v-progress-circular {
-  top: 70px !important;
-  left: -64px !important;
-  height: 40px !important;
-  width: 40px !important;
-  color: blue;
-} */
 @-moz-keyframes loader {
   from {
     transform: rotate(0);

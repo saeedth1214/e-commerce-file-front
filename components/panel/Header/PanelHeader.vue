@@ -18,9 +18,9 @@
             >
           </v-avatar>
         </v-badge>
-        <v-btn class="ml-2" icon color="transparent" nuxt to="/front/basket">
-          <v-icon color="#fff">mdi-cart</v-icon>
-        </v-btn>
+        <!-- <v-btn class="ml-2" icon color="transparent" nuxt to="/front/basket">
+          <v-icon color="#00">mdi-cart</v-icon>
+        </v-btn> -->
       </span>
       <div class="menu-item" :style="[auth ? { display: 'block' } : '']">
         <ul>
@@ -111,5 +111,9 @@ export default {
       }
     }
   }
+}
+
+td:nth-child(2) {
+  text-align: center;
 }
 </style>

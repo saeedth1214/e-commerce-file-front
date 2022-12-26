@@ -12,7 +12,11 @@
     >
       <template v-slot:footer>
         <div class="text-center pt-2">
-          <v-pagination v-model="page" :length="pageCount" @input="handlePageChange"></v-pagination>
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            @input="handlePageChange"
+          ></v-pagination>
         </div>
       </template>
       <template v-slot:top>
@@ -43,7 +47,7 @@
                 <v-icon dark>mdi-plus</v-icon>
               </v-btn>
             </template>
-            <v-card>
+            <v-card color="#fff">
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
@@ -54,7 +58,7 @@
                       <v-row>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="category-slug"
                             rules="required|min:3|max:64"
                           >
@@ -67,7 +71,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="category-name"
                             rules="required|min:3|max:64"
                           >
@@ -81,7 +85,9 @@
                       </v-row>
                       <v-row dense>
                         <div class="mt-5">
-                          <v-btn class="mr-4" type="submit" :disabled="invalid">ایجاد</v-btn>
+                          <v-btn class="mr-4" type="submit" :disabled="invalid"
+                            >ایجاد</v-btn
+                          >
                           <v-btn class="mr-4" @click="close">انصراف</v-btn>
                         </div>
                       </v-row>
@@ -93,11 +99,17 @@
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5">آیا از حذف تگ مطمعن هستید؟</v-card-title>
+              <v-card-title class="text-h5"
+                >آیا از حذف تگ مطمعن هستید؟</v-card-title
+              >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">انصراف</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">حذف</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >انصراف</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >حذف</v-btn
+                >
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -113,7 +125,7 @@
         <p class="font-weight-bold">موردی پیدا نشد</p>
       </template>
     </v-data-table>
-    <SnackBar/>
+    <SnackBar />
   </div>
 </template>
 
@@ -131,8 +143,8 @@ export default {
     editedItem: {
       id: null,
       name: "",
-      slug: ""
-    }
+      slug: "",
+    },
   }),
   computed: {
     formTitle() {
@@ -140,7 +152,7 @@ export default {
     },
     headers() {
       return this.$store.state.option.tag.headers;
-    }
+    },
   },
 
   watch: {
@@ -149,7 +161,7 @@ export default {
     },
     dialogDelete(val) {
       val || this.closeDelete();
-    }
+    },
   },
 
   created() {
@@ -171,24 +183,26 @@ export default {
       this.page && (params["page"] = this.page);
       await this.$axios
         .get("panel/tags", { params })
-        .then(res => {
+        .then((res) => {
           this.items = res.data.data;
           this.setPagination(res.data.meta.pagination);
         })
-        .catch(err => {
+        .catch((err) => {
           this.loading = false;
         });
       this.loading = false;
     },
     async deleteItemConfirm() {
-      await this.$axios.delete(`panel/tags/${this.editedItem.id}`).then(res => {
-        if (res.status === 204) {
-          this.dialogDelete = false;
-          this.showMessage("success", "تگ انتخابی حذف شد");
-          this.page = 1;
-          this.initialize();
-        }
-      });
+      await this.$axios
+        .delete(`panel/tags/${this.editedItem.id}`)
+        .then((res) => {
+          if (res.status === 204) {
+            this.dialogDelete = false;
+            this.showMessage("success", "تگ انتخابی حذف شد");
+            this.page = 1;
+            this.initialize();
+          }
+        });
     },
     deleteItem(item) {
       this.editedItem = item;
@@ -219,7 +233,7 @@ export default {
         alloweOutsideClick: false,
         timer: 3000,
         timerProgressBar: true,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
     },
 
@@ -227,23 +241,22 @@ export default {
       if (this.editedIndex > -1) {
         await this.$axios
           .put(`panel/tags/${this.editedItem.id}`, this.editedItem)
-          .then(res => {
+          .then((res) => {
             this.initialize();
             this.showMessage("success", "تگ انتخابی ویرایش شد");
           });
       } else {
         const data = await this.$axios
           .post("panel/tags", this.editedItem)
-          .then(res => {
+          .then((res) => {
             this.initialize();
             this.showMessage("success", " تگ جدیدی اضافه شد.");
           });
       }
       this.close();
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

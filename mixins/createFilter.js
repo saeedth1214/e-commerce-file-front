@@ -62,7 +62,7 @@ export default {
         this.rebateValue = null;
       }
 
-      console.log(this.filterItems);
+      (this.filterItems);
     },
     amountValue(newVal) {
       newVal

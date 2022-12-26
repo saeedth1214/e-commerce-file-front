@@ -9,11 +9,8 @@ export default {
     target: "server",
 
     //
-    titleTemplate: "%s - file",
-    title: "FreeECommerce",
-    // htmlAttrs: {
-    //   lang: 'en'
-    // },
+    title: "فروشگاه فایل های گرافیکی",
+
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -203,9 +200,9 @@ export default {
           property: "data",
         },
         endpoints: {
-          login: { url: "/auth/login", method: "post" },
-          logout: { url: "/auth/logout", method: "post" },
-          user: { url: "/auth/user", method: "get" },
+          login: { url: "auth/login", method: "post" },
+          logout: { url: "auth/logout", method: "post" },
+          user: { url: "auth/user", method: "get" },
         },
       },
     },
@@ -217,11 +214,16 @@ export default {
     },
   },
   axios: {
-    // baseURL: "http://e-commerce-file.test/api/",
-    baseURL: "https://api-ecommerce-file.iran.liara.run/api",
+    prefix: "/api/",
+    proxy: true,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+    },
+  },
+  proxy: {
+    "/api/": {
+      target: "http://e-commerce-file.test/",
     },
   },
   sweetalert: {
@@ -233,11 +235,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/api/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/frontend/",
-
-    // dropzoneUrl: "http://e-commerce-file.test/api/panel/",
-    // dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
+    dropzoneUrl: "http://e-commerce-file.test/api/panel/",
+    dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },

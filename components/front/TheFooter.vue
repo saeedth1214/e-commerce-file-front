@@ -93,12 +93,13 @@ h4 {
 }
 ul {
   list-style: none;
+  margin-top: 0.5rem;
   li,
   a {
     color: #a5b7c6;
     text-decoration: none;
     display: block;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 }
 .contact-me ul li {
@@ -118,5 +119,8 @@ ul {
   text-align: center;
   color: #fff;
   margin-top: 1rem;
+}
+.v-application p {
+  margin-bottom: 0px !important;
 }
 </style>

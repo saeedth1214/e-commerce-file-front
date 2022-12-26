@@ -19,29 +19,25 @@
         >
           <div class="text-center filterButton" v-if="!showFilter">
             <v-btn color="#eff3f6" @click="showFilter = true">
-              <span style="font-size: 1rem;color: #374957;font-weight: 600;}"
-                >فیلتر</span
-              >
+              فیلتر
               <v-icon color="#374957">mdi-tune</v-icon>
             </v-btn>
           </div>
 
           <div class="d-flex flex-column showfilterbox" v-else>
             <div class="d-flex justify-space-between pr-4 pl-4">
-              <p>
+              <v-btn>
                 <v-icon
                   style="cursor: pointer"
                   @click="showFilter = !showFilter"
                 >
                   mdi-arrow-expand-left
                 </v-icon>
-              </p>
-              <p>
-                <span style="font-size: 1rem;color: #374957;font-weight: 600;}"
-                  >فیلتر
-                  <v-icon color="#374957">mdi-tune</v-icon>
-                </span>
-              </p>
+              </v-btn>
+              <v-btn icon style="font-size: 1rem; font-weight: 600">
+                فیلتر
+                <v-icon color="#374957">mdi-tune</v-icon>
+              </v-btn>
             </div>
           </div>
         </v-col>

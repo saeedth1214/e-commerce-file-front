@@ -20,13 +20,13 @@
     </template>
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>لیست کاربران</v-toolbar-title>
+        <v-toolbar-title>لیست سفارش ها</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           label="جستجو"
-          single-line
+          single-linep
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>

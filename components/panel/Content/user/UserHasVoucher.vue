@@ -84,11 +84,7 @@ export default {
     };
   },
   mixins: [showMessage],
-  watch: {
-    invalidData(val) {
-      console.log(val, "val");
-    },
-  },
+
   props: {
     url: {
       type: String,

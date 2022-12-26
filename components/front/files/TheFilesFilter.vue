@@ -4,12 +4,12 @@
     :style="[showFilter ? { transform: 'translateX(0px)' } : '']"
   >
     <div class="filter">
-      <p
+      <div
         class="text-body-2 font-weight-bold d-flex justify-space-between align-center mt-4"
         style="color: #e37043; width: 100%"
       >
         دسته بندی
-      </p>
+      </div>
       <div class="categories">
         <v-chip-group v-model="category" active-class="grey white--text">
           <v-chip
@@ -30,12 +30,10 @@
             style="color: #e37043"
           >
             <p>براساس قیمت</p>
-            <!-- <p> -->
             <v-radio-group v-model="amountType">
               <v-radio label="نقدی" value="cash"></v-radio>
               <v-radio label="رایگان" value="free"></v-radio>
             </v-radio-group>
-            <!-- </p> -->
           </div>
         </v-col>
         <v-row dense v-if="amountType === 'cash'">
@@ -85,6 +83,7 @@
 <script>
 import createFilter from "@/mixins/createFilter";
 export default {
+  ssr:false,
   data() {
     return {
       category: null,

@@ -2,7 +2,7 @@
   <v-card>
     <v-row dense>
       <!-- User Info: Left col -->
-      <v-col cols="12" md="6" sm="6" xl="6" class="d-flex justify-content-between flex-column">
+      <v-col cols="12" md="5" sm="5" xl="5" class="d-flex justify-content-between flex-column pt-4">
         <!-- User Avatar & Action Buttons -->
         <div class="d-flex justify-content-start">
           <v-btn fab class="mr-4">
@@ -26,34 +26,34 @@
         </div>
       </v-col>
 
-      <v-col cols="12" md="6" sm="6" xl="6">
+      <v-col cols="12" md="7" sm="7" xl="7">
         <table class="mt-2" style="width:100%;">
           <tr>
-            <th class="pb-50">
+            <td class="pb-50">
               <v-icon>mdi-account</v-icon>
               <span class="font-weight-bold">{{$t('user.fullName')}}</span>
-            </th>
+            </td>
             <td class="pb-50">{{user.first_name + ' ' + user.last_name }}</td>
           </tr>
           <tr>
-            <th class="pb-50">
+            <td class="pb-50">
               <v-icon>mdi-account-key</v-icon>
               <span class="font-weight-bold">{{$t('user.role')}}</span>
-            </th>
+            </td>
             <td class="pb-50 text-capitalize">{{user.role}}</td>
           </tr>
           <tr>
-            <th>
+            <td>
               <v-icon>mdi-cellphone-basic</v-icon>
               <span class="font-weight-bold">{{$t("user.mobile")}}</span>
-            </th>
+            </td>
             <td>{{user.mobile ? user.mobile : 'ثبت نشده'}}</td>
           </tr>
           <tr>
-            <th>
+            <td>
               <v-icon>mdi-email-open</v-icon>
               <span class="font-weight-bold">{{$t("user.email")}}</span>
-            </th>
+            </td>
             <td>{{user.email ? user.email : 'ایمیل' }}</td>
           </tr>
         </table>

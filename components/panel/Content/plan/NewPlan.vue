@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent scrollable max-width="580px">
-    <v-card>
+    <v-card color="#fff">
       <v-toolbar dark color="indigo" dense>
         <v-toolbar-title class="text-center">اطلاعات طرح خود را وارد کنید</v-toolbar-title>
       </v-toolbar>

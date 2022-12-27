@@ -11,11 +11,11 @@ export default {
     overlay: false,
     plans: [],
   }),
-  async fetch(context) {
+  async fetch() {
     let params = {};
     this.overlay = true;
     params["includes"] = "users";
-    this.plans = await context.$axios.get("frontend/plans").then((res) => {
+    this.plans = await this.$axios.get("frontend/plans").then((res) => {
       return res.data.data;
     });
     this.overlay = false;

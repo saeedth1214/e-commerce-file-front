@@ -19,6 +19,8 @@ export default {
       return res.data.data;
     });
     this.overlay = false;
+
+    console.log(this.plans);
     // return { plans };
   },
 };

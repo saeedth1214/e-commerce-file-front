@@ -9,17 +9,17 @@
 export default {
   data: () => ({
     overlay: false,
+    plans: [],
   }),
-  async asyncData(context) {
+  async fetch(context) {
     let params = {};
+    this.overlay = true;
     params["includes"] = "users";
-    let plans = await context.$axios
-      .get("frontend/plans")
-      .then((res) => {
-        return res.data.data;
-      })
-      .catch((err) => console.log(err.response));
-    return { plans };
+    this.plans = await context.$axios.get("frontend/plans").then((res) => {
+      return res.data.data;
+    });
+    this.overlay = false;
+    // return { plans };
   },
 };
 </script>

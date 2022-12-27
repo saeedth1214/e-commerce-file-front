@@ -223,7 +223,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api-ecommerce-file.iran.liara.run/",
+      target: "http://e-commerce-file.test/",
     },
   },
   sweetalert: {
@@ -235,8 +235,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/api/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/api/frontend/",
+    dropzoneUrl: "http://e-commerce-file.test/api/panel/",
+    dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },

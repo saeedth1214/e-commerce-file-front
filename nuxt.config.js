@@ -30,6 +30,7 @@ export default {
     "quill/dist/quill.snow.css",
     "quill/dist/quill.bubble.css",
     "quill/dist/quill.core.css",
+    // "@material-design-icons-iconfont/dist/material-design-icons.css"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -223,7 +224,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api-ecommerce-file.iran.liara.run/"
+      target: "http://e-commerce-file.test/",
     },
   },
   sweetalert: {
@@ -235,8 +236,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api-ecommerce-file.iran.liara.run/panel/",
-    dropzoneUrlFront: "https://api-ecommerce-file.iran.liara.run/frontend/",
+    dropzoneUrl: "http://e-commerce-file.test/api/panel/",
+    dropzoneUrlFront: "http://e-commerce-file.test/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
   },
@@ -245,11 +246,9 @@ export default {
     rtl: true,
     customVariables: ["~/assets/variables.scss"],
     treeShake: true,
-    defaultAssets: {
-      font: {
-        family: "vazir",
-        size: 15,
-      },
+    defaultAssets: false,
+    icons: {
+      iconfont: "mdi", // default - only for display purposes
     },
     theme: {
       // ligth: true,

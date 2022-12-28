@@ -10,7 +10,7 @@ export default {
     plans: [],
   }),
   async fetch() {
-    let params = {},
+    let params = {};
     params["includes"] = "users";
     await this.$axios.get("frontend/plans").then((res) => {
        this.plans = res.data.data;

@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" class="pa-8">
     <v-container fluid>
-      <v-card color="#fff">
+      <v-card color="#fff" v-if="!loading">
         <v-row dense>
           <v-col cols="6" md="9" sm="9" lg="9">
             <div class="ma-4 d-flex">
@@ -288,7 +288,14 @@
             /> -->
         <!-- <tags v-if="file.tags.data.length" :tags="file.tags.data" /> -->
       </v-card>
-      <TheOverlay :overlay="overlay" />
+      <v-sheet color="grey lighten-3" class="pa-3" v-else>
+        <v-skeleton-loader
+          class="mx-auto"
+          width="100%"
+          height="300px"
+          type="card"
+        ></v-skeleton-loader>
+      </v-sheet>
       <SnackBar color="orange darken-2" />
     </v-container>
   </v-row>
@@ -302,7 +309,7 @@ export default {
       showPurchaseDialog: false,
       radioGroup: 1,
       is_reacted: false,
-      overlay: false,
+      loading: false,
       reactionSummary: {
         like: 0,
       },
@@ -323,7 +330,7 @@ export default {
   },
   methods: {
     async download() {
-      this.overlay = true;
+      this.loading = true;
       await this.$axios
         .post(`frontend/files/${this.file.id}/download`)
         .then((res) => {
@@ -343,21 +350,21 @@ export default {
           );
           await this.$store.commit("option/changeSnackbarText", message);
         });
-      this.overlay = false;
+      this.loading = false;
     },
     toggleDialog() {
       this.dialog = false;
       this.$router.push("/front/files");
     },
     async toggleReaction() {
-      this.overlay = true;
+      this.loading = true;
       await this.$axios
         .post(`frontend/files/${this.file.id}/reactions`)
         .then((res) => {
           this.is_reacted = res.data.data.is_reacted;
           this.reactionSummary = { ...res.data.data.reaction_summary };
         });
-      this.overlay = false;
+      this.loading = false;
     },
     async addToCart(file) {
       this.$emit("addToCart", file);

@@ -219,7 +219,6 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <TheOverlay :overlay="overlay" />
   </v-app>
 </template>
 
@@ -229,7 +228,6 @@ export default {
     return {
       loading: true,
       drawer: false,
-      overlay: false,
       dialog: false,
       files: [],
       pagination: {},
@@ -252,7 +250,7 @@ export default {
       }
     },
     async filterFiles(filters) {
-      this.overlay = true;
+      this.loading = true;
       let params = {};
       params = {...filters};
       await this.$axios
@@ -262,7 +260,7 @@ export default {
           this.pagination = res.data.meta.pagination;
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
+      this.loading = false;
     },
     async initialize() {
       let params = {};

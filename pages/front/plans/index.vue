@@ -14,7 +14,7 @@ export default {
     params["includes"] = "users";
     await this.$axios.get("frontend/plans").then((res) => {
        this.plans = res.data.data;
-    }),
+    });
   },
 };
 </script>

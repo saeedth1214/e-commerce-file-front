@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="100%">
+    <v-card width="100%" v-if="!loading">
       <v-row dense>
         <v-col cols="12" md="6" sm="6">
           <v-card-text>
@@ -115,11 +115,19 @@
         </v-col>
       </v-row>
     </v-card>
-    <TheOverlay :overlay="overlay" />
+    <v-sheet color="grey lighten-4" class="pa-3" v-else>
+      <v-skeleton-loader
+        class="mx-auto"
+        width="100%"
+        type="card"
+      ></v-skeleton-loader>
+    </v-sheet>
   </div>
 </template>
 
 <script>
+import showMessage from "@/mixins/showMessage";
+
 export default {
   data: () => ({
     profile: {
@@ -128,29 +136,29 @@ export default {
       email: null,
       mobile: null,
     },
-    overlay: false,
+    loading: false,
   }),
+  mixins: [showMessage],
 
-  props:{
-    user:{
-      type:Object,
-      required:false
-    }
+  props: {
+    user: {
+      type: Object,
+      required: false,
+    },
   },
 
   methods: {
     async updateInformation() {
-      this.overlay = true;
+      this.loading = true;
       let updatedProfile = {
         first_name: this.profile.first_name,
         last_name: this.profile.last_name,
       };
 
-      await this.$axios
-        .put("user/profile", updatedProfile)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      this.overlay = false;
+      await this.$axios.put("user/profile", updatedProfile).then((res) => {
+        this.showMessage("success", ".اطلاعات شما تغییر پیدا کرد");
+      });
+      this.loading = false;
     },
   },
   created() {

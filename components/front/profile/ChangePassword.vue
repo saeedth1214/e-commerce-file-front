@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card flat max-width="400px" class="mx-auto pa-4">
+    <v-card flat max-width="400px" class="mx-auto pa-4" v-if="!loading">
       <validation-observer v-slot="{ invalid }">
         <form @submit.prevent="changePassowrd" class="pa-4">
           <v-row dense>
@@ -63,10 +63,14 @@
         </form>
       </validation-observer>
     </v-card>
-    <TheOverlay :overlay="overlay" />
-    <v-snackbar v-model="snackbar" top color="warning" :timeout="3000">{{
-      text
-    }}</v-snackbar>
+    <v-sheet color="grey lighten-4" class="pa-3" v-else>
+      <v-skeleton-loader
+        class="mx-auto"
+        width="100%"
+        type="card"
+      ></v-skeleton-loader>
+    </v-sheet>
+    <SnackBar />
   </div>
 </template>
 <script>
@@ -75,7 +79,7 @@ export default {
   data() {
     return {
       show: false,
-      overlay: false,
+      loading: false,
       snackbar: false,
       user: {
         password: null,
@@ -85,28 +89,32 @@ export default {
     };
   },
 
-  computed: {
-    text() {
-      return this.$store.state.option.snackbar.text;
-    },
-  },
   mixins: [showMessage],
   methods: {
     async changePassowrd() {
-      this.overlay = true;
+      this.loading = true;
       await this.$axios
         .post("/user/profile/change-password", { ...this.user })
         .then((res) => {
           this.showMessage("success", "رمز عبور شما تغییر پیدا کرد");
+          this.user = {
+            password: null,
+            newPassword: null,
+            newPassword_confirmation: null,
+          };
         })
         .catch(async (err) => {
+          await this.$store.commit("option/changeSnackbarMood", true);
           await this.$store.commit(
             "option/changeSnackbarText",
             "رمزعبور اشتباه است"
           );
-          this.snackbar = true;
+          await this.$store.commit(
+            "option/changeSnackbarColor",
+            "orange darken-2"
+          );
         });
-      this.overlay = false;
+      this.loading = false;
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card v-if="!loading">
       <v-card-title>نمایش پیام </v-card-title>
       <v-spacer></v-spacer>
       <v-card-text>
@@ -111,7 +111,14 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <TheOverlay :overlay="overlay" />
+    <v-sheet color="grey lighten-3" class="pa-3">
+      <v-skeleton-loader
+        class="mx-auto"
+        width="100%"
+        height="300px"
+        type="card"
+      ></v-skeleton-loader>
+    </v-sheet>
   </div>
 </template>
 <script>
@@ -140,7 +147,7 @@ export default {
         content: null,
         status: 0,
       },
-      overlay: false,
+      loading: false,
     };
   },
 
@@ -184,7 +191,7 @@ export default {
 
   methods: {
     async replyComment() {
-      this.overlay = true;
+      this.loading = true;
       this.reply["parent_id"] = this.comment.id;
       let type = this.comment.model.data.type;
 
@@ -198,10 +205,10 @@ export default {
           this.$router.push("/panel/comments");
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
+      this.loading = false;
     },
     async updateComment() {
-      this.overlay = true;
+      this.loading = true;
       let data = {
         content: this.newComment.content,
         status: this.newComment.status,
@@ -221,7 +228,7 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
+      this.loading = false;
     },
   },
 };

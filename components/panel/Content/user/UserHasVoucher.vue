@@ -63,7 +63,6 @@
             </v-row>
           </v-col>
         </v-row>
-        <TheOverlay :overlay="overlay" />
         <v-row dense class="ma-3">
           <v-btn type="submit" color="primary" :disabled="invalid"> ثبت </v-btn>
         </v-row>
@@ -77,7 +76,6 @@ export default {
   data() {
     return {
       vouchersIds: [],
-      overlay: false,
       temporaryVouchers: [],
       selectedVoucherIds: [],
       number_authorize_use: null,
@@ -135,16 +133,14 @@ export default {
 
     async removeVoucherItem(removeId) {
       this.overlay = true;
-      this.temporaryVouchers = await this.temporaryVouchers.filter(
+      this.temporaryVouchers = this.temporaryVouchers.filter(
         (voucher) => voucher.id !== removeId
       );
       const index = this.vouchersIds.indexOf(removeId);
       this.vouchersIds.splice(index, 1);
-      this.overlay = false;
     },
 
     async addNewVoucher(addId) {
-      this.overlay = true;
       const index = this.vouchers.findIndex((item) => item.id === addId);
 
       if (index > -1) {
@@ -152,7 +148,6 @@ export default {
           ...this.vouchers[index],
         });
         this.vouchersIds.push(addId);
-        this.overlay = false;
         return;
       }
       await this.$axios
@@ -170,7 +165,6 @@ export default {
           this.vouchersIds.push(addId);
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
     },
   },
   created() {

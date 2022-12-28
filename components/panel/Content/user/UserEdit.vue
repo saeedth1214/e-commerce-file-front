@@ -185,7 +185,6 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-    <TheOverlay :overlay="overlay" />
   </div>
 </template>
 
@@ -196,7 +195,6 @@ export default {
     planId: null,
     files: [],
     fileUrl: null,
-    overlay: false,
     voucherUrl: null,
     vouchers: [],
     loading: true,
@@ -229,7 +227,7 @@ export default {
       this.planId = planId;
     },
     async changePassowrd() {
-      this.overlay = true;
+      this.loading = true;
       await this.$axios
         .patch(`panel/users/${this.user.id}/change-password`, {
           password: this.user.password,
@@ -242,11 +240,11 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
+      this.loading = false;
     },
 
     async update() {
-      this.overlay = true;
+      this.loading = true;
       let newUser = {
         first_name: this.user.first_name,
         last_name: this.user.last_name,
@@ -263,7 +261,7 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.overlay = false;
+      this.loading = false;
     },
   },
   async created() {

@@ -159,7 +159,6 @@
       </template>
     </v-data-table>
     <SnackBar />
-    <TheOverlay :overlay="overlay" />
   </div>
 </template>
 
@@ -167,7 +166,6 @@
 import showMessage from "@/mixins/showMessage.js";
 export default {
   data: () => ({
-    overlay: false,
     window: 1,
     filterItems: [],
     page: 1,

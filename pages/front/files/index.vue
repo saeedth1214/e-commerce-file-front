@@ -7,18 +7,23 @@
           @showFilterBox="showFilter = !showFilter"
         />
       </v-row>
+     
       <v-row class="sticky sticky-tag">
         <v-col cols="12" md="9" lg="9">
           <FileSeachbyTags @searchByTag="filterByTag" :tags="tags" />
         </v-col>
-        <v-col
+         <v-col
           cols="12"
           md="3"
           lg="3"
           :style="[showFilter ? { 'border-right': '1px solid #e1e1e1' } : '']"
         >
           <div class="text-center filterButton" v-if="!showFilter">
-            <v-btn color="#eff3f6" @click="showFilter = true">
+            <v-btn
+              color="#eff3f6"
+              @click="showFilter = true"
+              style="font-size: 1rem; font-weight: 600"
+            >
               فیلتر
               <v-icon color="#374957">mdi-tune</v-icon>
             </v-btn>
@@ -34,7 +39,7 @@
                   mdi-arrow-expand-left
                 </v-icon>
               </v-btn>
-              <v-btn icon style="font-size: 1rem; font-weight: 600">
+              <v-btn style="font-size: 1rem; font-weight: 600">
                 فیلتر
                 <v-icon color="#374957">mdi-tune</v-icon>
               </v-btn>
@@ -42,6 +47,7 @@
           </div>
         </v-col>
       </v-row>
+     
       <v-row style="border-bottom: 1px solid #d7d7d7">
         <v-col
           cols="12"

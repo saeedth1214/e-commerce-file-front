@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-if="!loading">
+    <v-container>
       <v-card>
         <v-toolbar color="cyan" height="auto" dark flat src="/bg.jpg">
           <v-toolbar-title></v-toolbar-title>
@@ -39,26 +39,12 @@
       </v-card>
       <UserData :tab="tab" :user="user" />
     </v-container>
-    <v-container v-else>
-      <v-skeleton-loader
-        v-bind="attrs"
-        type="cart"
-        height="350px"
-      ></v-skeleton-loader>
-    </v-container>
   </div>
 </template>
 <script>
 export default {
   data: () => ({
-    overlay: false,
     tab: 0,
-    attrs: {
-      class: "mb-6",
-      boilerplate: true,
-      elevation: 2,
-    },
-    loading: true,
     items: [
       {
         slug: "information",
@@ -108,7 +94,6 @@ export default {
     }
   },
   created() {
-    this.loading = true;
     if (this.$route.query && this.$route.query.tab) {
       let index = this.items.findIndex(
         (item) => item.slug === this.$route.query.tab
@@ -121,10 +106,6 @@ export default {
     } else {
       this.tab = 0;
     }
-  },
-
-  mounted() {
-    this.loading = false;
   },
 };
 </script>

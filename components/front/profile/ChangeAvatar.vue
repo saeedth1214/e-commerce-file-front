@@ -32,7 +32,6 @@ export default {
       url: null,
     };
   },
-
   created() {
     this.url = process.env.dropzoneUrlFront + "user/profile/change-avatar";
   },

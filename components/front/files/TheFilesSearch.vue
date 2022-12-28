@@ -30,10 +30,8 @@
           </v-col>
           <v-col cols="1">
             <div class="filter">
-              <v-btn color="#eff3f6">
-                <v-icon color="#374957" @click="$emit('showFilterBox')"
-                  >mdi-tune</v-icon
-                >
+              <v-btn color="#eff3f6" @click="$emit('showFilterBox')">
+                <v-icon color="#374957">mdi-tune</v-icon>
               </v-btn>
             </div>
           </v-col>

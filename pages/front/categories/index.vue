@@ -9,8 +9,16 @@
       :files="files"
       :pagination="pagination"
       :categoryName="filterCategory.name"
+      v-if="!loading"
     />
-    <TheOverlay :overlay="overlay" />
+    <v-sheet color="grey lighten-3" class="pa-3" v-else>
+      <v-skeleton-loader
+        class="mx-auto"
+        width="100%"
+        height="300px"
+        type="card"
+      ></v-skeleton-loader>
+    </v-sheet>
   </div>
 </template>
 

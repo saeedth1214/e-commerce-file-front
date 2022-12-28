@@ -117,7 +117,9 @@
               </li>
               <li>
                 <span>
-                  <a href="/front/profile/?tab=change-password">تغییر رمزعیور</a>
+                  <a href="/front/profile/?tab=change-password"
+                    >تغییر رمزعیور</a
+                  >
                 </span>
                 <span>
                   <v-icon color="#253039">mdi-lock-open</v-icon>
@@ -365,7 +367,7 @@ export default {
       &::after {
         content: "";
         position: absolute;
-        bottom: 120px;
+        bottom: 78px;
         width: 0;
         height: 0;
         right: 320px;

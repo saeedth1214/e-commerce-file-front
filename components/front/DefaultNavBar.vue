@@ -170,32 +170,35 @@
               <li>
                 <a href="/front/plans">طرح ها</a>
               </li>
-              <li @click="active = !active">
+              <li>
                 <span>
-                  <v-icon color="#a5b7c6">{{
+                  <v-icon color="#a5b7c6" @click="active = !active">{{
                     active ? "mdi-chevron-up" : "mdi-chevron-down"
                   }}</v-icon>
                   دسته بندی
                 </span>
-                <div
+                <v-card
                   class="sub-category"
                   :style="[!active ? { display: 'none' } : '']"
+                  max-width="650px"
                 >
-                  <ul>
-                    <li v-for="category in categories" :key="category.id">
-                      <nuxt-link
-                        :to="{
-                          path: '/front/categories',
-                          query: {
-                            category: category.name,
-                          },
-                        }"
-                      >
-                        {{ category.name }}
-                      </nuxt-link>
-                    </li>
-                  </ul>
-                </div>
+                  <v-card-actions>
+                    <ul>
+                      <li v-for="category in categories" :key="category.id">
+                        <nuxt-link
+                          :to="{
+                            path: '/front/categories',
+                            query: {
+                              category: category.name,
+                            },
+                          }"
+                        >
+                          {{ category.name }}
+                        </nuxt-link>
+                      </li>
+                    </ul>
+                  </v-card-actions>
+                </v-card>
               </li>
             </ul>
           </div>
@@ -303,6 +306,7 @@ export default {
     onClickOutside(e) {
       if (!e.target.classList.contains("v-icon")) {
         this.auth = false;
+        this.active = false;
       }
     },
   },
@@ -360,17 +364,17 @@ export default {
       text-align: center;
       z-index: 1000;
       top: 40px;
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 112px;
-        width: 0;
-        height: 0;
-        right: 320px;
-        border-style: solid;
-        border-width: 0 7px 7px 7px;
-        border-color: transparent transparent #1d262d transparent;
-      }
+      // &::after {
+      //   content: "";
+      //   position: absolute;
+      //   bottom: 105px;
+      //   width: 0;
+      //   height: 0;
+      //   right: 320px;
+      //   border-style: solid;
+      //   border-width: 0 7px 7px 7px;
+      //   border-color: transparent transparent #a5b7c6 transparent;
+      // }
       ul {
         display: grid;
         grid-template-columns: repeat(4, 150px);
@@ -383,6 +387,7 @@ export default {
           font-size: 1rem;
           text-transform: capitalize;
           cursor: pointer;
+          margin-top: 0.5rem;
           &:hover {
             color: #a5b7c6;
           }

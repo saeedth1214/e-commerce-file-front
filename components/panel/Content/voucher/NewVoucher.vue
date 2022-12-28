@@ -143,7 +143,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- <TheOverlay :overlay="overlay"/> -->
   </div>
 </template>
 
@@ -152,7 +151,6 @@ import showMessage from "@/mixins/showMessage.js";
 export default {
   data: () => ({
     dialog: false,
-    overlay: false,
     dialogDelete: false,
     activeText: "غیر فعال",
     rebateRules: "",
@@ -228,7 +226,6 @@ export default {
   mixins: [showMessage],
   methods: {
     async save() {
-      // this.overlay = true;
       if (this.item.id) {
         let params = {};
         params["filters[unique][code]"] = this.item.code;
@@ -279,7 +276,6 @@ export default {
     },
     close() {
       this.dialog = false;
-      // this.overlay = false;
       this.localConfigs.fa.input = "";
       this.localConfigs.fa.displayValue = null;
       this.$nextTick(() => {

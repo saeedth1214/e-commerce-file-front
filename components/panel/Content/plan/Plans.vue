@@ -199,8 +199,6 @@
         </v-sheet>
       </v-col>
     </v-row>
-
-    <TheOverlay :overlay="overlay" />
   </v-app>
 </template>
 
@@ -209,7 +207,6 @@ export default {
   data() {
     return {
       filter: null,
-      overlay: false,
       drawer: false,
       dialog: false,
       plans: [],

@@ -30,7 +30,7 @@ export default {
     "quill/dist/quill.snow.css",
     "quill/dist/quill.bubble.css",
     "quill/dist/quill.core.css",
-    // "@material-design-icons-iconfont/dist/material-design-icons.css"
+    "@mdi/font/css/materialdesignicons.css",
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -73,7 +73,6 @@ export default {
     { path: "~/components/notify", extensions: ["vue"] },
     { path: "~/components/pagination", extensions: ["vue"] },
     { path: "~/components/scroll", extensions: ["vue"] },
-    { path: "~/components/overlay", extensions: ["vue"] },
     { path: "~/components/timer", extensions: ["vue"] },
     { path: "~/components/filter", extensions: ["vue"] },
     { path: "~/components/quillEditor", extensions: ["vue"] },

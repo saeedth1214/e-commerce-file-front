@@ -2,26 +2,19 @@
   <div>
     <ThePlansBanner />
     <ThePlansList :plans="plans" />
-    <TheOverlay :overlay="overlay" />
   </div>
 </template>
 <script>
 export default {
   data: () => ({
-    overlay: false,
     plans: [],
   }),
   async fetch() {
-    let params = {};
-    this.overlay = true;
+    let params = {},
     params["includes"] = "users";
-    this.plans = await this.$axios.get("frontend/plans").then((res) => {
-      return res.data.data;
-    });
-    this.overlay = false;
-
-    console.log(this.plans);
-    // return { plans };
+    await this.$axios.get("frontend/plans").then((res) => {
+       this.plans = res.data.data;
+    }),
   },
 };
 </script>

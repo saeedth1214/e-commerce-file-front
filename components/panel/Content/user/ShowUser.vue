@@ -1,8 +1,8 @@
 <template>
   <div>
     <UserView />
-    <PurchaseFiles :files="user.files.data" />
-    <PurchasePlans :plans="user.plans.data" />
+    <!-- <PurchaseFiles :files="user.files.data" />
+    <PurchasePlans :plans="user.plans.data" /> -->
   </div>
 </template>
 

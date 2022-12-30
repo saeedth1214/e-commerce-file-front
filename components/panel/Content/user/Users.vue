@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-sheet color="grey lighten-4" class="pa-3" v-if="loading">
-      <v-skeleton-loader class="mx-auto" width="100%" type="card"></v-skeleton-loader>
+      <v-skeleton-loader
+        class="mx-auto"
+        width="100%"
+        type="card"
+      ></v-skeleton-loader>
     </v-sheet>
     <v-data-table
       v-else
@@ -16,7 +20,11 @@
     >
       <template v-slot:footer>
         <div class="text-center pt-2">
-          <v-pagination v-model="page" :length="pageCount" @input="handlePageChange"></v-pagination>
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            @input="handlePageChange"
+          ></v-pagination>
         </div>
       </template>
       <template v-slot:top>
@@ -47,7 +55,7 @@
                 <v-icon dark>mdi-plus</v-icon>
               </v-btn>
             </template>
-            <v-card>
+            <v-card color="#fff">
               <v-card-title>
                 <span class="text-h5">افزودن کاربر جدید</span>
               </v-card-title>
@@ -59,7 +67,7 @@
                       <v-row>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="firstName"
                             rules="required|min:3|max:64"
                           >
@@ -72,7 +80,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="lastName"
                             rules="required|min:3|max:64"
                           >
@@ -85,7 +93,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="mobile"
                             rules="required|mobile"
                           >
@@ -98,7 +106,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="email"
                             rules="required|email"
                           >
@@ -111,12 +119,12 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="password"
                             rules="required|min:6|max:64"
                           >
                             <v-text-field
-                              :append-icon="show? 'mdi-eye' : 'mdi-eye-off'"
+                              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                               :type="show ? 'text' : 'password'"
                               label="رمز عبور"
                               v-model="user.password"
@@ -127,12 +135,12 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="12">
                           <validation-provider
-                            v-slot="{errors}"
+                            v-slot="{ errors }"
                             name="password_confirmation"
                             :rules="`required|min:6|max:64|confirm:${user.password}`"
                           >
                             <v-text-field
-                              :append-icon="show? 'mdi-eye' : 'mdi-eye-off'"
+                              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                               :type="show ? 'text' : 'password'"
                               label="تکرار رمزعبور"
                               v-model="user.password_confirmation"
@@ -142,13 +150,20 @@
                           </validation-provider>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <p class="text-body-2 font-weight-bold">نقش کاربری :</p>
-                          <v-switch v-model="user.role_id" :label="roleText"></v-switch>
+                          <p class="text-body-2 font-weight-bold">
+                            نقش کاربری :
+                          </p>
+                          <v-switch
+                            v-model="user.role_id"
+                            :label="roleText"
+                          ></v-switch>
                         </v-col>
                       </v-row>
                       <v-row dense>
                         <div class="mt-5">
-                          <v-btn class="mr-4" type="submit" :disabled="invalid">ایجاد</v-btn>
+                          <v-btn class="mr-4" type="submit" :disabled="invalid"
+                            >ایجاد</v-btn
+                          >
                           <v-btn class="mr-4" @click="close">انصراف</v-btn>
                         </div>
                       </v-row>
@@ -162,35 +177,41 @@
       </template>
       <template v-slot:item.fullname="{ item }">
         <v-row dense>
-          <v-col cols="12" sm="6" md="6" class="d-flex justify-center align-center">
+          <v-col
+            cols="12"
+            sm="6"
+            md="6"
+            class="d-flex justify-center align-center"
+          >
             <v-btn fab nuxt :to="`/panel/users/${item.id}`">
               <v-avatar v-if="item.media_url">
-                <img :src="item.media_url">
+                <img :src="item.media_url" />
               </v-avatar>
               <v-avatar v-else>
                 <v-icon dark>mdi-account-circle</v-icon>
               </v-avatar>
             </v-btn>
           </v-col>
-          <v-col cols="12" sm="6" md="6" style="margin-top:1rem;">
-            <p class="text-body-2 font-weight-medium">{{item.first_name}}</p>
-            <p class="text-body-2 font-weight-medium">{{item.last_name}}</p>
+          <v-col cols="12" sm="6" md="6" style="margin-top: 1rem">
+            <p class="text-body-2 font-weight-medium">{{ item.first_name }}</p>
+            <p class="text-body-2 font-weight-medium">{{ item.last_name }}</p>
           </v-col>
         </v-row>
       </template>
-      <template
-        v-slot:item.email_verified_at="{item}"
-      >{{item.email_verified_at ? item.email_verified_at :'-' }}</template>
-      <template
-        v-slot:item.mobile_verified_at="{item}"
-      >{{item.mobile_verified_at ? item.mobile_verified_at :'-' }}</template>
+      <template v-slot:item.email_verified_at="{ item }">{{
+        item.email_verified_at ? item.email_verified_at : "-"
+      }}</template>
+      <template v-slot:item.mobile_verified_at="{ item }">{{
+        item.mobile_verified_at ? item.mobile_verified_at : "-"
+      }}</template>
       <template v-slot:no-data>
-        <p color="primary" class="text-body-2 font-weight-bold text-center">موردی یافت نشد</p>
+        <p color="primary" class="text-body-2 font-weight-bold text-center">
+          موردی یافت نشد
+        </p>
       </template>
     </v-data-table>
   </div>
 </template>
-
 
 <script>
 import showMessage from "@/mixins/showMessage";
@@ -213,39 +234,39 @@ export default {
       email: null,
       role_id: false,
       password: null,
-      password_confirmation: null
+      password_confirmation: null,
     },
     show: false,
     rules: {
-      required: value => !!value || "مقدار این فیلد الزامی است",
-      min: v => {
+      required: (value) => !!value || "مقدار این فیلد الزامی است",
+      min: (v) => {
         if (v && v.length >= 6) {
           return true;
         } else {
           return "حداقل 6 کاراکتر";
         }
       },
-      max: v => {
+      max: (v) => {
         if (v && v.length >= 6) {
           return true;
         } else {
           return "حداکثر 64 کاراکتر";
         }
       },
-      passwordMatch: v => {
+      passwordMatch: (v) => {
         if (v && v == user.password) {
           return true;
         } else {
           return "رمز عبور و تکرار رمز عبور یکسان نیست";
         }
-      }
-    }
+      },
+    },
   }),
   mixins: [showMessage],
   computed: {
     headers() {
       return this.$store.state.option.user.headers;
-    }
+    },
   },
 
   watch: {
@@ -256,8 +277,8 @@ export default {
       handler(newVal) {
         this.roleText = newVal.role_id ? " ادمین" : "کاربر عادی";
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   created() {
@@ -281,7 +302,7 @@ export default {
         email: null,
         role_id: false,
         password: null,
-        password_confirmation: null
+        password_confirmation: null,
       };
     },
     async initialize() {
@@ -290,11 +311,11 @@ export default {
       this.page && (params["page"] = this.page);
       await this.$axios
         .$get("panel/users", { params })
-        .then(res => {
+        .then((res) => {
           this.items = res.data;
           this.setPagination(res.meta.pagination);
         })
-        .catch(err => {
+        .catch((err) => {
           this.showMessage("error", err);
         });
       this.loading = false;
@@ -309,13 +330,13 @@ export default {
       params["filters[unique][email]"] = this.user.email;
       let newUser = {
         ...this.user,
-        role_id: this.user.role_id ? 1 : 0
+        role_id: this.user.role_id ? 1 : 0,
       };
       await this.$axios
         .get("panel/users", { params })
-        .then(async res => {
+        .then(async (res) => {
           if (!res.data.data.length) {
-            await this.$axios.post("panel/users", newUser).then(async res => {
+            await this.$axios.post("panel/users", newUser).then(async (res) => {
               await this.initialize();
               await this.showMessage("success", "کاربر جدید اضافه شد");
               this.dialog = await !this.dialog;
@@ -328,11 +349,10 @@ export default {
             );
           }
         })
-        .catch(err => console.log(err));
-    }
-  }
+        .catch((err) => console.log(err));
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

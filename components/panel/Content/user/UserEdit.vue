@@ -8,12 +8,12 @@
       ></v-skeleton-loader>
     </v-sheet>
     <v-card v-else>
-      <v-toolbar flat color="primary" dark>
-        <v-toolbar-title>اطلاعات کاربر</v-toolbar-title>
-      </v-toolbar>
-      <v-tabs vertical>
+      <v-tabs>
         <v-tab class="text-body-1 font-weight-bold">
           <v-icon right>mdi-account</v-icon>ویرایش اطلاعات
+        </v-tab>
+        <v-tab class="text-body-1 font-weight-bold">
+          <v-icon right>mdi-basket</v-icon>طرح فعال
         </v-tab>
         <v-tab class="text-body-1 font-weight-bold">
           <v-icon right>mdi-lock</v-icon>تغییر رمز عبور
@@ -86,15 +86,6 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <InfiniteScroll
-                        url="panel/plans"
-                        label="title"
-                        @selectedValue="setPlanIds"
-                        :itemId="planId"
-                        title="plan"
-                      />
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <InfiniteScroll
                         :url="fileUrl"
                         label="title"
                         @selectedValue="setFileIds"
@@ -123,6 +114,13 @@
               </validation-observer>
             </v-row>
           </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-row style="padding: 1rem">
+            <v-col cols="12">
+              <user-active-plan :userId="user.id" />
+            </v-col>
+          </v-row>
         </v-tab-item>
         <v-tab-item>
           <v-card flat max-width="400px" class="mx-auto pa-4">
@@ -192,7 +190,6 @@
 import showMessage from "@/mixins/showMessage";
 export default {
   data: () => ({
-    planId: null,
     files: [],
     fileUrl: null,
     voucherUrl: null,
@@ -238,8 +235,7 @@ export default {
             this.showMessage("success", "رمز عبور ویرایش شد");
             this.$router.push("/panel/users");
           }
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
 
@@ -259,8 +255,7 @@ export default {
             this.showMessage("success", "کاربر انتخابی ویرایش شد");
             this.$router.push("/panel/users");
           }
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
   },
@@ -287,10 +282,6 @@ export default {
         await this.user.files.data.map((file) => {
           this.files.push(file.id);
         });
-      }
-
-      if (Object.keys(this.user.activePlan.data).length) {
-        this.planId = this.user.activePlan.data.id;
       }
     }
     if (this.user.role_id) {

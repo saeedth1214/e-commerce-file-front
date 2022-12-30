@@ -25,15 +25,14 @@ export default {
   layout: "panel",
   async asyncData(context) {
     let params = {};
-    params["include"] = "activePlan,plans,files,vouchers";
+    params["include"] = "plans,files,vouchers";
     await context.$axios
       .get(`panel/users/${context.params.id}`, { params })
       .then((res) => {
         if (res.status === 200) {
           context.store.commit("user/setUser", res.data.data);
         }
-      })
-      .catch((err) => console.log(err.message));
+      });
   },
   data: () => ({
     items: [

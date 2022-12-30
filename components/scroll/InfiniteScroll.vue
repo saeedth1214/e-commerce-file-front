@@ -148,9 +148,7 @@ export default {
           }
           this.items.push(...responseData);
           this.pagination = res.data.meta.pagination;
-          console.log(this.items, "items");
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
     async checkIdisExists(items) {

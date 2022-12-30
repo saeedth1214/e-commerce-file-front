@@ -48,8 +48,7 @@
             :class="{ 'mx-auto': $vuetify.breakpoint.smAndDown }"
             nuxt
             :to="{
-              path: `/panel/files/${file.title}`,
-              params: { id: file.id },
+              path: `/panel/files/${file.id}`,
             }"
           >
             <v-img
@@ -252,7 +251,7 @@ export default {
     async filterFiles(filters) {
       this.loading = true;
       let params = {};
-      params = {...filters};
+      params = { ...filters };
       await this.$axios
         .get("panel/files", { params })
         .then((res) => {

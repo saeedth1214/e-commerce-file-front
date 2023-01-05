@@ -428,6 +428,7 @@ export default {
   border-radius: 10px;
   margin-top: 1rem;
   display: none;
+  direction:rtl;
 
   .login-box-header {
     width: 100%;

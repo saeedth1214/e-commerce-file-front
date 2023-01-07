@@ -214,9 +214,14 @@
 <script>
 import showMessage from "@/mixins/showMessage";
 export default {
+  middleware(context) {
+    if (!context.$auth.loggedIn) {
+      context.redirect("/authenticate?login");
+    }
+  },
   data: () => ({
     cartItems: [],
-    rebate_code: null,
+    rebate_code: "***",
     loading: false,
     finalBtnLoading: false,
     voucher: {},
@@ -289,7 +294,6 @@ export default {
             this.showMessage("warning", ".لطفا کد تایید معتبری را وارد کنید");
           }
         });
-      this.rebate_code = null;
       this.loading = false;
     },
     async removeFromBasket(type, pId) {
@@ -307,10 +311,6 @@ export default {
             return item.type === type && item.id === pId;
           });
           this.cartItems.splice(productIndex, 1);
-          // if (productIndex > 0) {
-          // } else {
-          //   this.cartItems.shift();
-          // }
           await this.$cookies.set("cart", JSON.stringify(this.cartItems), {
             path: "/",
             maxAge: process.env.CART_MAX_AGE,

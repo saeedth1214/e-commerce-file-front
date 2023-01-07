@@ -35,7 +35,7 @@
                     <span
                       v-if="plan.rebate > 0"
                       class="d-block text-body-2 font-weight-bold red--text darken-2"
-                      >{{ $formatMoney(plan.amount) }} تومان</span
+                      >{{ $formatMoney(plan.amount_after_rebate) }} تومان</span
                     >
                   </p>
                 </v-col>
@@ -60,7 +60,23 @@
                     width="250"
                     height="135"
                     class="mx-auto"
-                  ></v-img>
+                  >
+                    <template #placeholder>
+                      <v-row
+                        class="fill-height"
+                        justify="center"
+                        align="center"
+                      >
+                        <v-progress-circular
+                          width="2"
+                          size="80"
+                          color="primary"
+                          indeterminate
+                          style="top: 0px; left: 0px"
+                        ></v-progress-circular>
+                      </v-row>
+                    </template>
+                  </v-img>
                 </v-col>
               </v-row>
               <v-row dense>

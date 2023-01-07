@@ -6,18 +6,7 @@
           <v-col cols="6" md="9" sm="9" lg="9">
             <div class="ma-4 d-flex">
               <p>
-                <v-menu offset-y :close-on-content-click="false" v-model="menu">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      color="green"
-                      dark
-                      v-bind="attrs"
-                      v-on="on"
-                      @click="download"
-                      >دانلود</v-btn
-                    >
-                  </template>
-                </v-menu>
+                <v-btn color="green" dark @click="download">دانلود</v-btn>
               </p>
               <p class="mr-3">
                 <v-tooltip bottom v-if="!$auth.loggedIn">
@@ -133,7 +122,7 @@
                   class="text-capitalize white--text text-body-2 font-weight-bold"
                   color="primary"
                   @click="$router.push('/front/plans')"
-                  v-else
+                  v-else-if="!userHasActivePlan"
                 >
                   خرید اشتراک
                 </v-btn>
@@ -310,6 +299,7 @@ export default {
       radioGroup: 1,
       is_reacted: false,
       loading: false,
+      userHasActivePlan: false,
       reactionSummary: {
         like: 0,
       },
@@ -323,9 +313,21 @@ export default {
   },
 
   async created() {
+    let user = this.$auth.user;
     this.file.is_reacted && (this.is_reacted = this.file.is_reacted);
     Object.keys(this.file.reaction_summary).length &&
       (this.reactionSummary = this.file.reaction_summary);
+
+    if (this.$auth.loggedIn) {
+      await this.$axios
+        .get(`frontend/users/${user.id}/active-plan`)
+        .then((res) => {
+          if (!res.data) {
+            this.userHasActivePlan = true;
+          }
+        });
+    }
+
     await this.$store.commit("option/changeSnackbarMood", false);
   },
   methods: {
@@ -337,18 +339,21 @@ export default {
           window.open(res.data.data.url, "_blank");
         })
         .catch(async (err) => {
-          let message = "";
-          if (err.response.status === 400) {
-            message = "لینک دانلود فایل وجود ندارد.";
-          } else if (err.response.status === 403) {
-            message = "برای دانلود فایل ابتدا آن را خریداری کنید .";
+          if (err.response) {
+            let message = "";
+            if (err.response.status === 400) {
+              message = "لینک دانلود فایل وجود ندارد.";
+            }
+            if (err.response && err.response.status === 403) {
+              message = "برای دانلود فایل ابتدا آن را خریداری کنید .";
+            }
+            await this.$store.commit("option/changeSnackbarMood", true);
+            await this.$store.commit(
+              "option/changeSnackbarColor",
+              "orange darken-2"
+            );
+            await this.$store.commit("option/changeSnackbarText", message);
           }
-          await this.$store.commit("option/changeSnackbarMood", true);
-          await this.$store.commit(
-            "option/changeSnackbarColor",
-            "orange darken-2"
-          );
-          await this.$store.commit("option/changeSnackbarText", message);
         });
       this.loading = false;
     },

@@ -32,7 +32,7 @@ export default {
   methods: {
     onEditorChange({ editor, html, text }) {
       this.content = html;
-      this.$emit("applyComment", this.content);
+      this.$emit("applyComment", this.content,text);
     },
   },
 };

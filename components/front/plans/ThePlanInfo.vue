@@ -21,9 +21,10 @@
                   <v-row class="fill-height" justify="center" align="center">
                     <v-progress-circular
                       width="2"
-                      size="100"
+                      size="80"
                       color="primary"
                       indeterminate
+                      style="top: 0px; left: 0px"
                     ></v-progress-circular>
                   </v-row>
                 </template>

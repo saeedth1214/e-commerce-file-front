@@ -111,7 +111,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-sheet color="grey lighten-3" class="pa-3">
+    <v-sheet color="grey lighten-3" class="pa-3" v-else>
       <v-skeleton-loader
         class="mx-auto"
         width="100%"

@@ -63,7 +63,7 @@
               <v-btn
                 class="ml-2"
                 small
-                color="primary"
+                color="#253039"
                 dark
                 nuxt
                 to="/front/profile/?tab=information"
@@ -208,6 +208,7 @@ export default {
   border-radius: 10px;
   margin-top: 1rem;
   display: none;
+  direction: rtl;
 
   .login-box-header {
     width: 100%;

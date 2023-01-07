@@ -120,6 +120,7 @@ export default {
       loader: null,
       loading: false,
       overlay: false,
+      text: "",
     };
   },
   props: {
@@ -149,6 +150,19 @@ export default {
       let comment = {
         content: this.editorInput,
       };
+      if (this.text.trim() === "") {
+        await this.$store.commit("option/changeSnackbarMood", true);
+        await this.$store.commit(
+          "option/changeSnackbarColor",
+          "green ligthen-1"
+        );
+        await this.$store.commit(
+          "option/changeSnackbarText",
+          "متنی را جهت ارسال پیام وارد کنید."
+        );
+
+        return;
+      }
       await this.$axios
         .post(`panel/plans/${this.planId}/comments`, comment)
         .then(async (res) => {
@@ -167,8 +181,9 @@ export default {
       this.page = value;
       this.fetchComments();
     },
-    applyComment(value) {
+    applyComment(value, text) {
       this.editorInput = value;
+      this.text = text;
     },
 
     async fetchComments() {

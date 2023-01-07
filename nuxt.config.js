@@ -223,7 +223,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api.filymo.ir",
+      target: "https://api.filymo.ir/",
     },
   },
   sweetalert: {

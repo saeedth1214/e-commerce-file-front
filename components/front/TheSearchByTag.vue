@@ -45,8 +45,8 @@ export default {
     border: 1px solid #fff;
     border-radius: 5px;
     margin-left: 5px;
-    font-size: 16px;
-    line-height: 1.66;
+    font-size: 12px;
+    line-height: 1.2;
     background: rgba(255, 255, 255, 0.2);
     text-align: center;
     cursor: pointer;

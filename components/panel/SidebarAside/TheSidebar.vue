@@ -8,7 +8,7 @@
       class="grey darken-3 py-0"
     >
       <v-container>
-        <p class="brand" v-if="$vuetify.breakpoint.mdAndUp">
+        <p class="brand">
           <a href="/">Free picks</a>
         </p>
       </v-container>

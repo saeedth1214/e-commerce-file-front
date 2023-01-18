@@ -101,7 +101,7 @@ export default {
         .get("panel/orders")
         .then((res) => {
           this.orders = res.data.data;
-          this.setPagination(res.meta.pagination);
+          this.setPagination(res.data.meta.pagination);
         })
         .catch((err) => console.log(err));
       this.loading = false;

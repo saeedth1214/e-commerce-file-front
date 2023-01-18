@@ -11,7 +11,7 @@
         <v-container fluid mt-3>
           <v-layout row>
             <v-col cols="12">
-              <Orders />
+              <TheOrders />
             </v-col>
           </v-layout>
         </v-container>

@@ -59,6 +59,7 @@ export default {
     { path: "~/components/panel/Content/user", extensions: ["vue"] },
     { path: "~/components/panel/Content/voucher", extensions: ["vue"] },
     { path: "~/components/panel/Content/comment", extensions: ["vue"] },
+    { path: "~/components/panel/Content/orders", extensions: ["vue"] },
 
     // front
     { path: "~/components/front", extensions: ["vue"] },

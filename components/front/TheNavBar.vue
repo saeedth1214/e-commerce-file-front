@@ -74,8 +74,12 @@
                 </v-avatar>
               </div>
               <div class="user-info">
-                <p class="userName">saeed</p>
-                <p class="email">09302474269</p>
+                <p class="userName">
+                  {{ $auth.user.first_name +' '+$auth.user.last_name }}
+                </p>
+                <p class="email">
+                  {{ $auth.user.mobile ? $auth.user.mobile : "-" }}
+                </p>
                 <v-btn
                   class="ml-2"
                   small

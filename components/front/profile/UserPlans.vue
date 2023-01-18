@@ -97,6 +97,7 @@ export default {
       params["page"] = this.page;
       params["filters[user_id]"] = this.userId;
       await this.$axios.get("frontend/plans", { params }).then((res) => {
+        console.log(res.data.data, "plan");
         this.plans = res.data.data;
         this.setPagination(res.data.meta.pagination);
       });

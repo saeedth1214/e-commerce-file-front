@@ -243,7 +243,7 @@ export default {
     async fetchData() {
       this.page++;
       if (this.page <= this.pagination.total_pages) {
-        this.initialize();
+        this.moreFiles();
       } else {
         this.page = 1;
       }
@@ -262,6 +262,19 @@ export default {
       this.loading = false;
     },
     async initialize() {
+      let params = {};
+      this.loading = true;
+      params["page"] = this.page;
+      await this.$axios
+        .get("panel/files", { params })
+        .then((res) => {
+          this.files = res.data.data;
+          this.pagination = res.data.meta.pagination;
+        })
+        .catch((err) => console.log(err));
+      this.loading = false;
+    },
+    async moreFiles() {
       let params = {};
       this.loading = true;
       params["page"] = this.page;

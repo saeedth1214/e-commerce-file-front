@@ -162,27 +162,20 @@ export default {
               id: data.data.id,
               name: data.data.name,
             });
-            this.setInitialItem = true;
-          } else {
-            this.setInitialItem = true;
           }
         }
         if (Object.keys(this.itemId).length) {
           for (const id of this.itemId) {
             if (items.findIndex((item) => item.id == id) == -1) {
-              const { data } = await this.$axios.get(
-                `${this.url.substr(0, this.url.indexOf("?"))}/${id}`
-              );
+              const { data } = await this.$axios.get(`${this.url}/${id}`);
               this.items.push({
                 id: data.data.id,
                 name: data.data.name,
               });
             }
           }
-          this.setInitialItem = true;
-        } else {
-          this.setInitialItem = true;
         }
+        this.setInitialItem = true;
       } catch (error) {
         console.log(error, "check");
       }

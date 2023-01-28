@@ -185,11 +185,9 @@ export default {
         .get("panel/tags", { params })
         .then((res) => {
           this.items = res.data.data;
+          console.log(this.items,'items');
           this.setPagination(res.data.meta.pagination);
         })
-        .catch((err) => {
-          this.loading = false;
-        });
       this.loading = false;
     },
     async deleteItemConfirm() {

@@ -12,6 +12,7 @@
       :headers="headers"
       :items="items"
       class="elevation-1"
+      :items-per-page="itemsPerPage"
       hide-default-footer
       :page.sync="page"
       :search="search"
@@ -72,7 +73,7 @@ export default {
     page: 1,
     search: null,
     pageCount: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 0,
     items: [],
     vouchers: [],
     loading: false,
@@ -100,6 +101,7 @@ export default {
 
   created() {
     this.initialize();
+    this.itemsPerPage = process.env.items_per_page;
   },
 
   methods: {

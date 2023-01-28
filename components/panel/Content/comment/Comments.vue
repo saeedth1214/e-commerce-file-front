@@ -5,6 +5,7 @@
       :items="data.data"
       class="elevation-1"
       hide-default-footer
+      :items-per-page="itemsPerPage"
       :page.sync="page"
       :search="search"
       :loading="loading"
@@ -200,6 +201,7 @@ export default {
   },
   async created() {
     this.setPagination(this.data.meta.pagination);
+    this.itemsPerPage = process.env.items_per_page;
   },
   methods: {
     async filterCommentByStatus(val) {

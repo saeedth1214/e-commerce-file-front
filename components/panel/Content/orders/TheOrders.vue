@@ -8,11 +8,12 @@
       ></v-skeleton-loader>
     </v-sheet>
     <v-data-table
-    v-else
+      v-else
       :headers="headers"
       :items="orders"
       class="elevation-1"
       hide-default-footer
+      :items-per-page="itemsPerPage"
       :search="search"
       loading-text="لطفا منتظر بمانید"
     >
@@ -90,6 +91,7 @@ export default {
 
   created() {
     this.initialize();
+    this.itemsPerPage = process.env.items_per_page;
   },
 
   methods: {

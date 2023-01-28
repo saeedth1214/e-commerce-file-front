@@ -6,6 +6,7 @@
       class="elevation-1"
       hide-default-footer
       :page.sync="page"
+      :items-per-page="itemsPerPage"
       :search="search"
       :loading="loading"
       loading-text="لطفا منتظر بمانید"
@@ -137,7 +138,7 @@ export default {
     page: 1,
     search: null,
     pageCount: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 0,
     items: [],
     loading: false,
     editedItem: {
@@ -166,6 +167,7 @@ export default {
 
   created() {
     this.initialize();
+    this.itemsPerPage = process.env.items_per_page;
   },
 
   methods: {
@@ -181,13 +183,10 @@ export default {
       this.loading = true;
       let params = {};
       this.page && (params["page"] = this.page);
-      await this.$axios
-        .get("panel/tags", { params })
-        .then((res) => {
-          this.items = res.data.data;
-          console.log(this.items,'items');
-          this.setPagination(res.data.meta.pagination);
-        })
+      await this.$axios.get("panel/tags", { params }).then((res) => {
+        this.items = res.data.data;
+        this.setPagination(res.data.meta.pagination);
+      });
       this.loading = false;
     },
     async deleteItemConfirm() {

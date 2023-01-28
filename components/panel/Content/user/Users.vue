@@ -14,6 +14,7 @@
       class="elevation-1"
       hide-default-footer
       :page.sync="page"
+      :items-per-page="itemsPerPage"
       :search="search"
       :loading="loading"
       loading-text="لطفا منتظر بمانید"
@@ -222,7 +223,7 @@ export default {
     search: null,
     page: 1,
     pageCount: 0,
-    itemsPerPage: 15,
+    itemsPerPage: 0,
     items: [],
     loading: false,
     unique: false,
@@ -283,6 +284,7 @@ export default {
 
   created() {
     this.initialize();
+    this.itemsPerPage = process.env.items_per_page;
   },
 
   methods: {

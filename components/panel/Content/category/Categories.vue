@@ -4,6 +4,7 @@
     :items="items"
     class="elevation-1"
     hide-default-footer
+    :items-per-page="itemsPerPage"
     :page.sync="page"
     :search="search"
     :loading="loading"
@@ -151,7 +152,7 @@ export default {
     page: 1,
     search: null,
     pageCount: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 0,
     items: [],
     loading: false,
     editedIndex: -1,
@@ -184,6 +185,7 @@ export default {
 
   created() {
     this.initialize();
+    this.itemsPerPage = process.env.items_per_page;
   },
 
   methods: {

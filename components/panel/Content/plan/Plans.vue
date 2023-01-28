@@ -174,18 +174,6 @@
           >مورد خاصی یافت نشد</v-alert
         >
       </v-row>
-      <v-row class="justify-center">
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
-          color="blue-grey"
-          class="ma-2 white--text"
-          fab
-          @click="fetchData"
-        >
-          <v-icon dark>mdi-cloud-upload</v-icon>
-        </v-btn>
-      </v-row>
     </v-container>
     <v-row dense v-else>
       <v-col cols="12">
@@ -219,14 +207,6 @@ export default {
     this.initialize();
   },
   methods: {
-    async fetchData() {
-      this.page++;
-      if (this.page <= this.pagination.total_pages) {
-        this.initialize();
-      } else {
-        this.page = 1;
-      }
-    },
     async initialize() {
       let params = {};
       this.loading = true;
@@ -235,7 +215,7 @@ export default {
       await this.$axios
         .get("panel/plans", { params })
         .then((res) => {
-          this.plans.push(...res.data.data);
+          this.plans = res.data.data;
           this.pagination = res.data.meta.pagination;
         })
         .catch((err) => console.log(err));

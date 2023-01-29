@@ -240,7 +240,7 @@ export default {
     dropzoneUrlFront: "http://filymo.ir/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
-    PER_PAGE: 15,
+//     PER_PAGE: 15,
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

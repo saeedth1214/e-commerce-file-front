@@ -7,12 +7,12 @@
           @showFilterBox="showFilter = !showFilter"
         />
       </v-row>
-     
+
       <v-row class="sticky sticky-tag">
         <v-col cols="12" md="9" lg="9">
           <FileSeachbyTags @searchByTag="filterByTag" :tags="tags" />
         </v-col>
-         <v-col
+        <v-col
           cols="12"
           md="3"
           lg="3"
@@ -47,7 +47,7 @@
           </div>
         </v-col>
       </v-row>
-     
+
       <v-row style="border-bottom: 1px solid #d7d7d7">
         <v-col
           cols="12"
@@ -103,7 +103,7 @@ export default {
   watch: {
     "$route.query": "$fetch",
     innerWidth(width) {
-      if (width <= 1096) {
+      if (width <= 1196) {
         this.showFilter = false;
       } else {
         this.showFilter = true;

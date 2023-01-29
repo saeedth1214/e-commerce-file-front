@@ -1,12 +1,15 @@
 <template>
   <div
     class="filter-wrapper"
-    :style="[showFilter ? { transform: 'translateX(0px)' } : '']"
+    :style="[
+      showFilter ? { transform: 'translateX(0px)' } : '',
+      $vuetify.breakpoint.smAndDown ? { transform: 'translateY(-345px)' } : '',
+    ]"
   >
     <div class="filter">
       <div
         class="text-body-2 font-weight-bold d-flex justify-space-between align-center mt-4"
-        style="color: #e37043; width: 100%"
+        style="color: #e37043"
       >
         دسته بندی
       </div>
@@ -83,7 +86,7 @@
 <script>
 import createFilter from "@/mixins/createFilter";
 export default {
-  ssr:false,
+  ssr: false,
   data() {
     return {
       category: null,
@@ -157,9 +160,10 @@ a:hover {
 
 .filter {
   position: relative;
-  height: 450px;
-  padding: 1rem;
+  height: 500px;
   overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -187,7 +191,7 @@ a:hover {
   transition: all 0.3s linear;
   z-index: 0;
   position: sticky;
-  top: 128px;
+  width: 300px;
 }
 .categories {
   display: flex;

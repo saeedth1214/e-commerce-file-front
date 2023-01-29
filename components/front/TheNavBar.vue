@@ -371,7 +371,7 @@ export default {
       &::after {
         content: "";
         position: absolute;
-        bottom: 78px;
+        bottom: 110px;
         width: 0;
         height: 0;
         right: 320px;
@@ -391,6 +391,7 @@ export default {
           font-size: 1rem;
           text-transform: capitalize;
           cursor: pointer;
+          margin-bottom: 1rem;
           &:hover {
             color: #a5b7c6;
           }

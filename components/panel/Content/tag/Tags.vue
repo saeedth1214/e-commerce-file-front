@@ -167,7 +167,7 @@ export default {
 
   created() {
     this.initialize();
-    this.itemsPerPage = process.env.items_per_page;
+    this.itemsPerPage = process.env.PER_PAGE;
   },
 
   methods: {

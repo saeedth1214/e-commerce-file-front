@@ -201,7 +201,7 @@ export default {
   },
   async created() {
     this.setPagination(this.data.meta.pagination);
-    this.itemsPerPage = process.env.items_per_page;
+    this.itemsPerPage = process.env.PER_PAGE;
   },
   methods: {
     async filterCommentByStatus(val) {

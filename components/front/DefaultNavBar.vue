@@ -368,17 +368,6 @@ export default {
       text-align: center;
       z-index: 1000;
       top: 40px;
-      // &::after {
-      //   content: "";
-      //   position: absolute;
-      //   bottom: 105px;
-      //   width: 0;
-      //   height: 0;
-      //   right: 320px;
-      //   border-style: solid;
-      //   border-width: 0 7px 7px 7px;
-      //   border-color: transparent transparent #a5b7c6 transparent;
-      // }
       ul {
         display: grid;
         grid-template-columns: repeat(4, 150px);
@@ -391,7 +380,8 @@ export default {
           font-size: 1rem;
           text-transform: capitalize;
           cursor: pointer;
-          margin-top: 0.5rem;
+          margin-bottom: 1rem;
+          
           &:hover {
             color: #a5b7c6;
           }

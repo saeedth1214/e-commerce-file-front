@@ -7,9 +7,12 @@
           @showFilterBox="showFilter = !showFilter"
         />
       </v-row>
-
       <v-row class="sticky sticky-tag">
-        <v-col cols="12" md="9" lg="9">
+        <v-col
+          cols="12"
+          :md="showFilter ? '9' : '12'"
+          :lg="showFilter ? '9' : '12'"
+        >
           <FileSeachbyTags @searchByTag="filterByTag" :tags="tags" />
         </v-col>
         <v-col
@@ -18,18 +21,10 @@
           lg="3"
           :style="[showFilter ? { 'border-right': '1px solid #e1e1e1' } : '']"
         >
-          <div class="text-center filterButton" v-if="!showFilter">
-            <v-btn
-              color="#eff3f6"
-              @click="showFilter = true"
-              style="font-size: 1rem; font-weight: 600"
-            >
-              فیلتر
-              <v-icon color="#374957">mdi-tune</v-icon>
-            </v-btn>
-          </div>
-
-          <div class="d-flex flex-column showfilterbox" v-else>
+          <div
+            class="d-flex flex-column showfilterbox"
+            v-if="showFilter && $vuetify.breakpoint.lgAndUp"
+          >
             <div class="d-flex justify-space-between pr-4 pl-4">
               <v-btn>
                 <v-icon
@@ -62,9 +57,9 @@
         </v-col>
         <v-col
           cols="12"
+          md="3"
           sm="3"
           lg="3"
-          md="3"
           v-if="showFilter"
           style="border-right: 1px solid #d7d7d7"
         >
@@ -103,7 +98,8 @@ export default {
   watch: {
     "$route.query": "$fetch",
     innerWidth(width) {
-      if (width <= 1196) {
+      if (width <= 1296) {
+        // console.log(width);
         this.showFilter = false;
       } else {
         this.showFilter = true;

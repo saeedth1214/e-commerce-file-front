@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%" class="box">
-    <v-row>
+    <v-row dense>
       <v-col cols="2" v-if="$vuetify.breakpoint.lgAndUp">
         <div class="brand">
           <span>Free</span>
@@ -8,8 +8,9 @@
         </div>
       </v-col>
       <v-col :cols="$vuetify.breakpoint.lgAndUp ? '10' : '12'">
-        <v-row>
-          <v-col cols="11" class="d-flex">
+        <v-row dense>
+          <v-col offset-cols="1"></v-col>
+          <v-col cols="10" class="d-flex">
             <div class="searchbox">
               <input
                 type="text"
@@ -116,19 +117,22 @@ export default {
 }
 
 .filter {
-  display: none;
+  display: flex;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 1.5rem;
 }
 
 @media screen and (max-width: 1096px) {
-  .filter {
-    display: flex;
-    height: 100%;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
   .brand {
     display: none;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .filter {
+    margin-left: 0.3rem;
   }
 }
 </style>

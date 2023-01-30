@@ -318,9 +318,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .auth {
-  padding-left: 2rem;
   text-align: left;
-
   & > span a {
     margin-right: 0.5rem;
     cursor: pointer;

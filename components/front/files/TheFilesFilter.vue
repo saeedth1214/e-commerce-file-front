@@ -191,7 +191,7 @@ a:hover {
   transition: all 0.3s linear;
   z-index: 0;
   position: sticky;
-  width: 300px;
+  width: 325px;
 }
 .categories {
   display: flex;

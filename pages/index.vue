@@ -10,7 +10,7 @@ export default {
 
   async fetch() {
     let params = {};
-    params["per_page"] = 10;
+    params["per_page"] = 6;
     params["sort"] = "-created_at";
     await this.$axios.get("frontend/files", { params }).then((res) => {
       this.files = res.data.data;

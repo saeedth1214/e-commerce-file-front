@@ -319,6 +319,7 @@ export default {
 <style lang="scss" scoped>
 .auth {
   text-align: left;
+  margin-left: 0.5rem;
   & > span a {
     margin-right: 0.5rem;
     cursor: pointer;

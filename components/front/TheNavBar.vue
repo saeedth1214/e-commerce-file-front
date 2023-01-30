@@ -75,7 +75,7 @@
               </div>
               <div class="user-info">
                 <p class="userName">
-                  {{ $auth.user.first_name +' '+$auth.user.last_name }}
+                  {{ $auth.user.first_name + " " + $auth.user.last_name }}
                 </p>
                 <p class="email">
                   {{ $auth.user.mobile ? $auth.user.mobile : "-" }}
@@ -319,6 +319,8 @@ export default {
 <style lang="scss" scoped>
 .auth {
   text-align: left;
+  margin-left: 0.5rem;
+
   & > span a {
     margin-right: 0.5rem;
     cursor: pointer;

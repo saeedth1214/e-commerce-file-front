@@ -16,7 +16,6 @@
 export default {
   data() {
     return {
-      loading: false,
       attrs: {
         class: "mb-6",
         boilerplate: true,

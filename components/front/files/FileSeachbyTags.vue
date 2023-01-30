@@ -1,6 +1,9 @@
 <template lang="">
   <div style="width: 100%" class="wrapper d-flex justify-center border-none">
-    <v-chip-group active-class="primary--text" v-model="tag">
+    <v-chip-group
+      active-class="primary--text"
+      v-model="tag"
+    >
       <v-chip v-for="tag in tags" :key="tag.id" :value="tag">
         <span>
           {{ tag.name }}
@@ -15,18 +18,14 @@ export default {
   data() {
     return {
       tag: null,
+      tags: [],
+      pagination: {},
       attrs: {
         class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
     };
-  },
-  props: {
-    tags: {
-      type: Array,
-      required: true,
-    },
   },
   watch: {
     tag(tag) {
@@ -37,6 +36,21 @@ export default {
           path: "/front/files",
         });
       }
+    },
+  },
+
+  async created() {
+    this.fetchTags();
+  },
+
+  methods: {
+    async fetchTags() {
+      let params = {};
+      params["per_page"] = 30;
+      await this.$axios.get("frontend/tags", { params }).then((res) => {
+        this.tags = res.data.data;
+        this.pagination = res.data.meta.pagination;
+      });
     },
   },
 };

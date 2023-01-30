@@ -13,7 +13,7 @@
           :md="showFilter ? '9' : '12'"
           :lg="showFilter ? '9' : '12'"
         >
-          <FileSeachbyTags @searchByTag="filterByTag" :tags="tags" />
+          <FileSeachbyTags @searchByTag="filterByTag" />
         </v-col>
         <v-col
           cols="12"
@@ -104,11 +104,6 @@ export default {
       } else {
         this.showFilter = true;
       }
-    },
-  },
-  computed: {
-    tags() {
-      return this.$store.state.tag.tags;
     },
   },
   mounted() {

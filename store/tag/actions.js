@@ -1,7 +1,7 @@
 export default {
-  async fetchTags({ commit, state }) {
+  async fetchTagsInLandingPage({ commit, state }) {
     let params = {};
-    params["per_page"] = 5;
+    params["per_page"] = 15;
     let tags = await this.$axios
       .get("frontend/tags", { params })
       .then((res) => {

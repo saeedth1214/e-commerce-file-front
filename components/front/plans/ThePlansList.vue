@@ -3,10 +3,10 @@
     <v-container class="plan-list" fluid>
       <v-row dense>
         <p
-          class="text-center text-h6 blue--text accent-1 font-weight-bold"
+          class="text-center text-h6 indigo--text mt-4 accent-1 font-weight-bold"
           style="width: 100%"
         >
-          طرح های فعال
+      مناسب ترین طرح ها برای شما
         </p>
       </v-row>
       <v-row dense v-if="plans.length">
@@ -168,9 +168,6 @@ export default {
 </script>
 
 <style scoped>
-.plan-list {
-  background-color: aliceblue;
-}
 .plan-details {
   width: 100%;
   height: 100%;

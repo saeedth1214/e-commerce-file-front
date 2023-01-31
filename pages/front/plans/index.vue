@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <ThePlansBanner />
+  <div class="main">
     <ThePlansList :plans="plans" />
   </div>
 </template>

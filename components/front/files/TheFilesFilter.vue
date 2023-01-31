@@ -76,7 +76,7 @@
           </v-chip-group>
         </v-col>
         <v-col cols="12">
-          <v-btn color="primary" @click="setMyFilter">اعمال فیلتر</v-btn>
+          <v-btn color="blue-grey darken-1" class="white--text font-weight-bold " @click="setMyFilter">اعمال فیلتر</v-btn>
         </v-col>
       </v-row>
     </div>

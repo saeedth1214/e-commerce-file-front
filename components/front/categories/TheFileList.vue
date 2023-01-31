@@ -9,9 +9,10 @@
           :class="{
             'text-body-2 font-weight-bold': $vuetify.breakpoint.xsOnly,
           }"
+          class="blue-grey--text darken-3"
           >نوع دسته بندی :</span
         >
-        <span class="text-body-2 font-weight-bold blue--text accent-4 mr-4">{{
+        <span class="font-weight-bold blue-grey--text lighten-3 accent-4 mr-4">{{
           Object.keys($route.query).length &&
           $route.query.category !== undefined
             ? $route.query.category
@@ -33,6 +34,8 @@
           width="300"
           height="200"
           :class="{ 'mx-auto': $vuetify.breakpoint.smAndDown }"
+          nuxt
+          :to="{ path: `/front/files/${file.title}`, params: { id: file.id } }"
         >
           <v-img
             :src="file.media_url"
@@ -64,7 +67,13 @@
                               style="font-size: 15px !important"
                               >mdi-heart</v-icon
                             >
-                            <span class="like-count"> 1024 </span>
+                            <span class="like-count">
+                              {{
+                                Object.keys(file.reaction_summary).length
+                                  ? file.reaction_summary.like
+                                  : 0
+                              }}
+                            </span>
                           </span>
                           <span class="d-block"></span>
                           <span class="d-block"></span>
@@ -85,7 +94,9 @@
                               style="font-size: 15px !important"
                               >mdi-download</v-icon
                             >
-                            <span class="like-count"> 200 </span>
+                            <span class="like-count">
+                              {{ file.download_count }}
+                            </span>
                           </span>
                           <span class="d-block"></span>
                           <span class="d-block"></span>
@@ -97,25 +108,29 @@
                         >
                       </v-tooltip>
                     </p>
-                    <p style="width: 40%">
+                    <p style="width: 40%" v-if="file.rebate > 0">
                       <v-tooltip left color="white">
                         <template v-slot:activator="{ on, attrs }">
                           <span class="d-block like" v-bind="attrs" v-on="on">
                             <v-icon
                               class="grey--text accent-1"
                               style="font-size: 15px !important"
-                              >mdi-percent
+                            >
+                              {{
+                                file.percentage
+                                  ? "mdi-percent"
+                                  : "mdi-currency-usd "
+                              }}
                             </v-icon>
-                            <span class="like-count"> 5 </span>
+                            <span class="like-count"> {{ file.rebate }} </span>
                           </span>
-                          <span class="d-block"></span>
-                          <span class="d-block"></span>
                         </template>
                         <span
                           class="grey--text white"
                           style="font-size: 10px !important ; font-weight: bold"
-                          >درصد تخفیف</span
                         >
+                          {{ file.percentage ? "درصد تخفیف" : "تومان" }}
+                        </span>
                       </v-tooltip>
                     </p>
                   </div>
@@ -154,8 +169,12 @@
       </v-col>
     </v-row>
     <v-row v-else>
-      <v-col cols="12">
-        <v-alert width="70%" type="info" class="text-center mx-auto"
+      <v-col cols="12" class="mt-9">
+        <v-alert width="70%" type="error" class="text-center mx-auto" 
+        dense 
+        colored-border
+      color="deep-purple accent-4"
+      elevation="2"
           >مورد خاصی یافت نشد</v-alert
         >
       </v-col>

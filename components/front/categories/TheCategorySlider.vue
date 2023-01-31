@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pt-4">
     <v-slide-group
       v-model="selectedCategory"
       max="4"
@@ -39,7 +39,6 @@
         </v-hover>
       </v-slide-item>
     </v-slide-group>
-    <v-divider></v-divider>
   </v-container>
 </template>
 
@@ -81,6 +80,9 @@ export default {
   background: #046ead;
   color: #888;
   border-radius: 50%;
+}
+.v-application {
+    border: 1px solid #e8e8e88c;
 }
 
 >>> .v-slide-group__prev i {

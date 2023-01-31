@@ -7,14 +7,14 @@
     ></v-skeleton-loader>
   </div>
   <div class="mt-8" v-else>
-    <v-row v-if="fileData.files.length">
+    <!-- <v-row v-if="fileData.files.length">
       <p
         class="text-center text-h6 blue--text accent-1 font-weight-bold"
         style="width: 100%"
       >
         فایل های در دسترس
       </p>
-    </v-row>
+    </v-row> -->
     <v-row v-if="fileData.files.length">
       <v-col
         cols="12"
@@ -160,7 +160,9 @@
     </v-row>
     <v-row dense v-else>
       <v-col cols="12">
-        <v-alert width="70%" type="info" class="text-center mx-auto"
+        <v-alert width="70%" type="error" class="text-center mx-auto" dense colored-border
+      color="deep-purple accent-4"
+      elevation="2"
           >مورد خاصی پیدا نشد</v-alert
         >
       </v-col>
@@ -171,7 +173,7 @@
           <v-btn
             nuxt
             to
-            color="#00bdfe"
+            color="blue-grey darken-1"
             width="180px"
             class="pa-4 white--text font-weight-bold text-center"
             :class="{ 'on-hover': hover }"

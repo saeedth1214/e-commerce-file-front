@@ -179,7 +179,10 @@
               <li>
                 <a href="/front/plans">طرح ها</a>
               </li>
-              <li @click="active = !active">
+              <li
+                @click="active = !active"
+                v-click-outside="onClickOutsideCategory"
+              >
                 <span>
                   <v-icon color="#a5b7c6">{{
                     active ? "mdi-chevron-up" : "mdi-chevron-down"
@@ -309,6 +312,9 @@ export default {
       if (!e.target.classList.contains("v-icon")) {
         this.auth = false;
       }
+    },
+    onClickOutsideCategory() {
+      this.active = false;
     },
   },
   mounted() {

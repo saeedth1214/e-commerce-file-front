@@ -174,9 +174,12 @@
               <li>
                 <a href="/front/plans">طرح ها</a>
               </li>
-              <li>
+              <li
+                @click="active = !active"
+                v-click-outside="onClickOutsideCategory"
+              >
                 <span>
-                  <v-icon color="#a5b7c6" @click="active = !active">{{
+                  <v-icon color="#a5b7c6">{{
                     active ? "mdi-chevron-up" : "mdi-chevron-down"
                   }}</v-icon>
                   دسته بندی
@@ -313,6 +316,10 @@ export default {
         this.active = false;
       }
     },
+
+    onClickOutsideCategory() {
+      this.active = false;
+    },
   },
 };
 </script>
@@ -380,7 +387,7 @@ export default {
           text-transform: capitalize;
           cursor: pointer;
           margin-bottom: 1rem;
-          
+
           &:hover {
             color: #a5b7c6;
           }

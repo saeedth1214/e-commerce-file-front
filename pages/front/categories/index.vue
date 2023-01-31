@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="banner">banner</div>
     <TheCategorySlider
       @filterByCategory="filterByCategory"
       :categories="categories"

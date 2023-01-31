@@ -7,14 +7,6 @@
     ></v-skeleton-loader>
   </div>
   <div class="mt-8" v-else>
-    <!-- <v-row v-if="fileData.files.length">
-      <p
-        class="text-center text-h6 blue--text accent-1 font-weight-bold"
-        style="width: 100%"
-      >
-        فایل های در دسترس
-      </p>
-    </v-row> -->
     <v-row v-if="fileData.files.length">
       <v-col
         cols="12"

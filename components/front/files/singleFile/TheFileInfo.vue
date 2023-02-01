@@ -105,27 +105,45 @@
                 </v-card-text>
               </v-card>
               <v-row dense justify="center" class="mt-6">
-                <v-btn
-                  min-height="45"
-                  min-width="170"
-                  class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
-                  color="primary"
-                  @click="addToCart(file)"
-                  v-if="file.sale_as_single"
-                >
-                  افزودن به سبد خرید
-                  <v-icon color="#fff">mdi-cart</v-icon>
-                </v-btn>
-                <v-btn
-                  min-height="45"
-                  min-width="170"
-                  class="text-capitalize white--text text-body-2 font-weight-bold"
-                  color="primary"
-                  @click="$router.push('/front/plans')"
-                  v-else-if="!userHasActivePlan"
-                >
-                  خرید اشتراک
-                </v-btn>
+                <p v-if="!$auth.loggedIn">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        min-height="45"
+                        min-width="170"
+                        class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
+                        color="primary"
+                      >
+                        افزودن به سبد خرید
+                        <v-icon color="#fff">mdi-cart</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>لطفا لاگین کنید</span>
+                  </v-tooltip>
+                </p>
+                <p v-else-if="!userHasThisFile">
+                  <v-btn
+                    min-height="45"
+                    min-width="170"
+                    class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
+                    color="primary"
+                    @click="addToCart(file)"
+                    v-if="file.sale_as_single"
+                  >
+                    افزودن به سبد خرید
+                    <v-icon color="#fff">mdi-cart</v-icon>
+                  </v-btn>
+                  <v-btn
+                    min-height="45"
+                    min-width="170"
+                    class="text-capitalize white--text text-body-2 font-weight-bold"
+                    color="primary"
+                    @click="$router.push('/front/plans')"
+                    v-else-if="!userHasActivePlan"
+                  >
+                    خرید اشتراک
+                  </v-btn>
+                </p>
               </v-row>
             </v-col>
             <v-col cols="12" md="8">
@@ -300,6 +318,7 @@ export default {
       is_reacted: false,
       loading: false,
       userHasActivePlan: false,
+      userHasThisFile:false,
       reactionSummary: {
         like: 0,
       },
@@ -318,7 +337,8 @@ export default {
     Object.keys(this.file.reaction_summary).length &&
       (this.reactionSummary = this.file.reaction_summary);
 
-    if (this.$auth.loggedIn) {
+    if (this.$auth.loggedIn) 
+    {
       await this.$axios
         .get(`frontend/users/${user.id}/active-plan`)
         .then((res) => {
@@ -326,8 +346,15 @@ export default {
             this.userHasActivePlan = true;
           }
         });
-    }
 
+        await this.$axios
+        .get(`frontend/users/${user.id}/files/${this.file.id}`)
+        .then((res) => {
+          if (res.data.data.count) {
+            this.userHasThisFile = true;
+          }
+        });   
+    }
     await this.$store.commit("option/changeSnackbarMood", false);
   },
   methods: {

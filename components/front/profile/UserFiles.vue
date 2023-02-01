@@ -58,6 +58,13 @@
         >
       </template>
 
+      <template v-slot:item.rebate="{ item }">
+        <span v-if="item.rebate < 0"> - </span>
+        <span v-else>
+          {{ item.percentage ? item.rebate : $formatMoney(item.rebate) }}
+        </span>
+      </template>
+
       <template v-slot:item.percentage="{ item }">
         <span>
           {{ item.percentage ? "درصدی" : "عددی" }}

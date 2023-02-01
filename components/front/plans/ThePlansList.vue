@@ -6,7 +6,7 @@
           class="text-center text-h6 indigo--text mt-4 accent-1 font-weight-bold"
           style="width: 100%"
         >
-      مناسب ترین طرح ها برای شما
+          مناسب ترین طرح ها برای شما
         </p>
       </v-row>
       <v-row dense v-if="plans.length">
@@ -144,9 +144,18 @@
       </v-row>
       <v-row dense v-else>
         <v-col cols="12">
-          <v-alert width="70%" type="info" class="text-center mx-auto"
+          <v-alert
+            width="70%"
+            type="error"
+            class="text-center mx-auto"
+            dense
+            colored-border
+            color="deep-purple accent-4"
+            elevation="2"
             >مورد خاصی پیدا نشد</v-alert
           >
+      <div style="height: 300px; width: 100%"></div>
+
         </v-col>
       </v-row>
     </v-container>

@@ -33,7 +33,10 @@
       </v-toolbar>
     </template>
     <template v-slot:item.rebate="{ item }">
-      <div>
+      <div v-if="item.rebate === null">
+        <span>-</span>
+      </div>
+      <div v-else>
         <span>{{
           item.percentage ? item.rebate : $formatMoney(item.rebate)
         }}</span>
@@ -42,7 +45,16 @@
         </span>
       </div>
     </template>
-
+    <template v-slot:item.total_amuont_after_rebate_code="{ item }">
+      <div>
+        <span>{{ $formatMoney(item.total_amuont_after_rebate_code) }}</span>
+      </div>
+    </template>
+    <template v-slot:item.total_amuont="{ item }">
+      <div>
+        <span>{{ $formatMoney(item.total_amount) }}</span>
+      </div>
+    </template>
     <template v-slot:item.status="{ item }">
       <span
         class="pa-2 white--text rounded"
@@ -90,8 +102,7 @@ export default {
       let params = {};
       this.loading = true;
       params["page"] = this.page;
-      params["filters[user_id]"] = this.userId;
-      await this.$axios.get("frontend/files", { params }).then((res) => {
+      await this.$axios.get("user/profile/orders").then((res) => {
         this.orders = res.data.data;
         this.setPagination(res.data.meta.pagination);
       });

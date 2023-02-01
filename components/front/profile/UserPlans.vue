@@ -43,6 +43,17 @@
         <span class="pa-2 red white--text rounded" v-else> منقضی شده </span>
       </template>
 
+      <template v-slot:item.percentage="{ item }">
+        <span>
+          {{ item.percentage ? "درصدی" : "عددی" }}
+        </span>
+      </template>
+      <template v-slot:item.amount="{ item }">
+        <span>
+          {{ $formatMoney(item.amount) }}
+        </span>
+      </template>
+
       <template v-slot:no-data>
         <p color="primary" class="text-body-2 font-weight-bold text-center">
           موردی یافت نشد
@@ -95,9 +106,7 @@ export default {
       let params = {};
       this.loading = true;
       params["page"] = this.page;
-      params["filters[user_id]"] = this.userId;
-      await this.$axios.get("frontend/plans", { params }).then((res) => {
-        console.log(res.data.data, "plan");
+      await this.$axios.get("user/profile/plans").then((res) => {
         this.plans = res.data.data;
         this.setPagination(res.data.meta.pagination);
       });

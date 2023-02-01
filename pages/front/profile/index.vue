@@ -63,10 +63,10 @@ export default {
         slug: "orders",
         text: "سفارش ها",
       },
-      {
-        slug: "transactions",
-        text: "تراکنش ها",
-      },
+      // {
+      //   slug: "transactions",
+      //   text: "تراکنش ها",
+      // },
       {
         slug: "change-password",
         text: "تغییر رمزعبور",

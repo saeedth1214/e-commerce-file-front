@@ -13,9 +13,9 @@
       <v-tab-item>
         <UserOrders :userId="user.id" />
       </v-tab-item>
-      <v-tab-item>
+      <!-- <v-tab-item> -->
         <!-- <Transactions :transactions="data.transactions.data" /> -->
-      </v-tab-item>
+      <!-- </v-tab-item> -->
       <v-tab-item>
         <ChangePassword />
       </v-tab-item>

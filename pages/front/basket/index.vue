@@ -203,9 +203,19 @@
           </v-row>
         </v-card>
       </v-row>
-      <v-card v-if="!cartItems.length" class="pa-4">
-        <p class="text-center">سبد خرید شما خالیست</p>
-      </v-card>
+      <!-- <v-card v-if="!cartItems.length" class="pa-4"> -->
+        <v-alert
+        v-if="!cartItems.length"
+          width="70%"
+          type="error"
+          class="text-center mx-auto"
+          dense
+          colored-border
+          color="deep-purple accent-4"
+          elevation="2"
+          >سبد خرید شما خالیست</v-alert
+        >
+      <!-- </v-card> -->
       <div style="height: 300px; width: 100%"></div>
       <SnackBar />
     </v-container>
@@ -267,6 +277,7 @@ export default {
         .then((res) => {
           if (res.status === 204) {
             this.showMessage("success", "سفارش شما ثبت شد");
+            this.$cookies.set("cart", []);
             this.$router.push("/front/profile");
           }
         })

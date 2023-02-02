@@ -114,7 +114,7 @@
                         class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
                         color="primary"
                         v-bind="attrs"
-                      v-on="on"
+                        v-on="on"
                       >
                         افزودن به سبد خرید
                         <v-icon color="#fff">mdi-cart</v-icon>
@@ -123,13 +123,13 @@
                     <span>لطفا لاگین کنید</span>
                   </v-tooltip>
                 </p>
-                <p v-else-if="!userHasThisFile">
+                <p v-else>
                   <v-btn
                     min-height="45"
                     min-width="170"
                     class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
                     color="primary"
-                    @click="addToCart(file)"
+                    @click="AddtoCart(file)"
                     v-if="file.sale_as_single"
                   >
                     افزودن به سبد خرید
@@ -310,7 +310,26 @@
   </v-row>
 </template>
 <script>
+import toCart from "@/mixins/toCart.js";
+
 export default {
+  mixins: [toCart],
+
+  mounted() {
+    this.shoppingCart = this.$cookies.get("cart", { parseJSON: true }) || [];
+  },
+  watch: {
+    shoppingCart: {
+      async handler(newVal) {
+        await this.$cookies.set("cart", JSON.stringify(newVal), {
+          path: "/",
+          maxAge: process.env.CART_MAX_AGE,
+        });
+        await this.$store.commit("option/setBasketItems");
+      },
+      deep: true,
+    },
+  },
   data() {
     return {
       dialog: true,
@@ -320,7 +339,7 @@ export default {
       is_reacted: false,
       loading: false,
       userHasActivePlan: false,
-      userHasThisFile:false,
+      shoppingCart: [],
       reactionSummary: {
         like: 0,
       },
@@ -339,8 +358,7 @@ export default {
     Object.keys(this.file.reaction_summary).length &&
       (this.reactionSummary = this.file.reaction_summary);
 
-    if (this.$auth.loggedIn) 
-    {
+    if (this.$auth.loggedIn) {
       await this.$axios
         .get(`frontend/users/${user.id}/active-plan`)
         .then((res) => {
@@ -348,14 +366,6 @@ export default {
             this.userHasActivePlan = true;
           }
         });
-
-        await this.$axios
-        .get(`frontend/users/${user.id}/files/${this.file.id}`)
-        .then((res) => {
-          if (res.data.data.count) {
-            this.userHasThisFile = true;
-          }
-        });   
     }
     await this.$store.commit("option/changeSnackbarMood", false);
   },
@@ -400,8 +410,26 @@ export default {
         });
       this.loading = false;
     },
-    async addToCart(file) {
-      this.$emit("addToCart", file);
+
+    async AddtoCart(file) {
+      let user = this.$auth.user;
+      await this.$axios
+        .get(`frontend/users/${user.id}/files/${this.file.id}`)
+        .then(async (res) => {
+          if (res.data.data.count) {
+            await this.$store.commit("option/changeSnackbarMood", true);
+            await this.$store.commit(
+              "option/changeSnackbarColor",
+              "orange darken-2"
+            );
+            await this.$store.commit(
+              "option/changeSnackbarText",
+              "این فایل قبلا خریداری شده است ."
+            );
+          } else {
+            await this.toCart(file, "file");
+          }
+        });
     },
   },
 };

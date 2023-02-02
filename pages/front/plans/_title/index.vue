@@ -11,12 +11,9 @@ export default {
   async asyncData(context) {
     let newTitle = context.params.title.replace(/_/g, " ");
     let uri = encodeURI(`frontend/plans/${newTitle}`);
-    let plan = await context.$axios
-      .get(uri)
-      .then((res) => {
-        return res.data.data;
-      })
-      .catch(err=>{});
+    let plan = await context.$axios.get(uri).then((res) => {
+      return res.data.data;
+    });
     return { plan };
   },
 };

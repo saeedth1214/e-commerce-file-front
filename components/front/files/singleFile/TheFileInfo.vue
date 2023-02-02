@@ -113,6 +113,8 @@
                         min-width="170"
                         class="text-capitalize white--text text-body-2 font-weight-bold custom-btn-loader"
                         color="primary"
+                        v-bind="attrs"
+                      v-on="on"
                       >
                         افزودن به سبد خرید
                         <v-icon color="#fff">mdi-cart</v-icon>

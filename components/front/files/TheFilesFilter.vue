@@ -2,8 +2,8 @@
   <div
     class="filter-wrapper"
     :style="[
-      showFilter ? { transform: 'translateX(0px)' } : '',
-      $vuetify.breakpoint.smAndDown ? { transform: 'translateY(-345px)' } : '',
+      showFilter ? { transform: 'translateX(4px)' } : '',
+      // $vuetify.breakpoint.smAndDown ? { transform: 'translateY(-125px)' } : '',
     ]"
   >
     <div class="filter">
@@ -76,7 +76,12 @@
           </v-chip-group>
         </v-col>
         <v-col cols="12">
-          <v-btn color="blue-grey darken-1" class="white--text font-weight-bold " @click="setMyFilter">اعمال فیلتر</v-btn>
+          <v-btn
+            color="blue-grey darken-1"
+            class="white--text font-weight-bold"
+            @click="setMyFilter"
+            >اعمال فیلتر</v-btn
+          >
         </v-col>
       </v-row>
     </div>
@@ -191,7 +196,7 @@ a:hover {
   transition: all 0.3s linear;
   z-index: 0;
   position: sticky;
-  width: 325px;
+  width: 320px;
 }
 .categories {
   display: flex;
@@ -207,6 +212,41 @@ a:hover {
       background-color: grey;
       color: #fff;
     }
+  }
+}
+
+@media screen and (min-width: 960px) and(max-width:1264px) {
+  .filter-wrapper {
+    width: 245px;
+  }
+}
+
+@media screen and (min-width: 375px) and(max-width:960px) {
+  .filter-wrapper {
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 300px;
+    overflow-x: scroll;
+  }
+  .filter {
+    width: 295px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .filter-wrapper {
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 280px;
+    overflow-x: scroll;
+  }
+  .filter {
+    width: 300px;
   }
 }
 </style>

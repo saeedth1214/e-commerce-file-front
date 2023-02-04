@@ -8,16 +8,12 @@
         />
       </v-row>
       <v-row class="sticky sticky-tag">
-        <v-col
-          cols="12"
-          :md="showFilter ? '9' : '12'"
-          :lg="showFilter ? '9' : '12'"
-        >
+        <!-- :md="showFilter ? '9' : '12'" -->
+        <v-col cols="12" :lg="showFilter ? '9' : '12'">
           <FileSeachbyTags @searchByTag="filterByTag" />
         </v-col>
         <v-col
           cols="12"
-          md="3"
           lg="3"
           :style="[showFilter ? { 'border-right': '1px solid #e1e1e1' } : '']"
         >
@@ -106,6 +102,11 @@ export default {
       }
     },
   },
+  computed: {
+    tags() {
+      return this.$store.state.tag.tags;
+    },
+  },
   mounted() {
     window.addEventListener("resize", this.handleResizeScreen);
     this.innerWidth = window.innerWidth;
@@ -191,9 +192,10 @@ export default {
         .get("frontend/files", { params })
         .then((res) => {
           this.fileData = {
-            files: [...this.fileData.files, ...res.data.data],
             pagination: res.data.meta.pagination,
           };
+
+          this.filterFiles.files.push(res.data.data);
         })
         .catch((err) => console.log(err));
       this.loading = false;

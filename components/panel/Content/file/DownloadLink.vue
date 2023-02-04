@@ -1,7 +1,18 @@
 <template>
   <div>
     <v-card elevation="4">
-      <v-card-title> ایجاد لینک دانلود</v-card-title>
+      <v-card-text>
+        <label class="label-format">فرمت فایل : </label>
+        <select
+          name="file-format"
+          class="file-format"
+          v-model="fileFormatValue"
+        >
+          <option value="0" selected>eps</option>
+          <option value="1">psd</option>
+        </select>
+      </v-card-text>
+      <label class="label-format mr-4"> ایجاد لینک دانلود</label>
       <v-card-text>
         <div class="expiration-date">
           <div class="item">
@@ -42,7 +53,11 @@
         <v-row>
           <v-col cols="12" md="6" sm="6" lg="4">
             <div style="padding: 0.5rem">
-              <label for="" class="black--text ml-4" style="font-size: 1rem">
+              <label
+                for=""
+                class="black--text ml-4 label-format"
+                style="font-size: 1rem"
+              >
                 اعتبار تا تاریخ : {{ expiration_date }}</label
               >
             </div>
@@ -67,6 +82,7 @@
 export default {
   data() {
     return {
+      fileFormatValue: 0,
       day: 0,
       hour: 0,
       minute: 0,
@@ -139,6 +155,7 @@ export default {
       await this.$axios
         .patch(`panel/files/${this.fileId}/generate-download-link`, {
           expiration_time: this.expiration_seconds,
+          format: this.fileFormatValue,
         })
         .then(async (res) => {
           await this.$store.commit("option/changeSnackbarMood", true);
@@ -171,14 +188,29 @@ export default {
 <style lang="scss">
 .expiration-date {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   column-gap: 20px;
 
   .item {
     display: flex;
     label {
-      width: 60px;
+      width: 70px;
+      color: #443f3f;
+      font-size: 1rem;
+      font-weight: 700;
     }
   }
+}
+
+.file-format {
+  width: 150px;
+  padding: 0.5rem;
+  border: 1px solid #443f3f;
+  border-radius: 5px;
+}
+.label-format {
+  color: #443f3f;
+  font-size: 1rem;
+  font-weight: 700;
 }
 </style>

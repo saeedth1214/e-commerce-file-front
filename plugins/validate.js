@@ -93,6 +93,17 @@ localize({
         max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,
         min: (_, { length }) => `مقدار ورودی کمتر از ${length}  کاراکتر است`,
       },
+
+      "attribute-name": {
+        required: " عنوان دسته بندی الزامی است",
+        max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,
+        min: (_, { length }) => `مقدار ورودی کمتر از ${length}  کاراکتر است`,
+      },
+      "attribute-slug": {
+        required: " نامک دسته بندی الزامی است",
+        max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,
+        min: (_, { length }) => `مقدار ورودی کمتر از ${length}  کاراکتر است`,
+      },
       "voucher-code": {
         required: " وارد کردن این فیلد الزامی است",
         max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,
@@ -172,6 +183,9 @@ localize({
         email: "لطفایک ایمیل معتبر وارد کنید",
       },
       category: {
+        required: "مقدار این فیلد الزامیست",
+      },
+      attribute: {
         required: "مقدار این فیلد الزامیست",
       },
       password: {

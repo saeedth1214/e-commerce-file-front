@@ -29,6 +29,14 @@
             <v-list-item-title>{{ $t("category.link") }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item router to="/panel/attributes">
+          <v-list-item-action>
+            <v-icon small>mdi-layers</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t("attribute.link") }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item router to="/panel/users">
           <v-list-item-action>
             <v-icon small>mdi-account-multiple</v-icon>

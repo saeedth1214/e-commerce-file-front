@@ -196,7 +196,7 @@ export default {
   text-align: center;
 
   p {
-    width: 10%;
+    width: 100%;
     border-bottom: 2px solid #d7d7d7;
     margin: 0px auto;
   }

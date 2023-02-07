@@ -8,6 +8,14 @@ export default () => ({
       { text: "عملیات", value: "actions", sortable: false },
     ],
   },
+  attribute: {
+    headers: [
+      { text: "#", value: "id", sortable: false },
+      { text: "نامک", value: "slug", sortable: false },
+      { text: "عنوان", value: "name", sortable: false },
+      { text: "عملیات", value: "actions", sortable: false },
+    ],
+  },
   tag: {
     headers: [
       { text: "#", value: "id", sortable: false },

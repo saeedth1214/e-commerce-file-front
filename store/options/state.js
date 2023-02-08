@@ -3,6 +3,7 @@ export default () => ({
     headers: [
       { text: "#", value: "id", sortable: false },
       { text: "تصویر", value: "media", sortable: false },
+      { text: "دسته بندی پدر", value: "parent_name", sortable: false },
       { text: "نامک", value: "slug", sortable: false },
       { text: "عنوان", value: "name", sortable: false },
       { text: "عملیات", value: "actions", sortable: false },

@@ -1,38 +1,14 @@
 <template>
   <v-app id="inspire">
     <v-container v-if="!loading">
-      <TheAdvanceFilter
+      <!-- <TheAdvanceFilter
         @orderBy="orderByFiles"
         @searchByTitle="searchByTitle"
-      />
-      <v-toolbar flat>
-        <v-row style="text-align: end">
-          <v-col cols="12" sm="4" offset-md="8">
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  small
-                  fab
-                  dark
-                  color="indigo"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click.stop="dialog = true"
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
-              </template>
-              <span>افزودن</span>
-            </v-tooltip>
-            <NewFile
-              :isActive="dialog"
-              @close="dialog = false"
-              @initializeEmit="initialize"
-            />
-          </v-col>
-        </v-row>
-      </v-toolbar>
-      <v-row col="mt-n6" v-if="files.length">
+      /> -->
+      <NewFile />
+      <FileList />
+
+      <!-- <v-row col="mt-n6" v-if="!files.length">
         <v-col
           cols="12"
           md="3"
@@ -187,26 +163,21 @@
             </v-img>
           </v-card>
         </v-col>
-      </v-row>
-      <v-row dense v-else>
-        <v-alert width="100%" dense type="info" class="text-center"
+      </v-row> -->
+      <!-- <v-row dense v-else>
+        <v-alert
+          width="100%"
+          type="error"
+          class="text-center mx-auto"
+          dense
+          colored-border
+          color="deep-purple accent-4"
+          elevation="2"
           >مورد خاصی یافت نشد</v-alert
         >
-      </v-row>
-      <v-row class="justify-center" v-if="files.length">
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
-          color="blue-grey"
-          class="ma-2 white--text"
-          fab
-          @click="fetchData"
-        >
-          <v-icon dark>mdi-cloud-upload</v-icon>
-        </v-btn>
-      </v-row>
+      </v-row> -->
     </v-container>
-    <v-row dense v-else>
+    <!-- <v-row dense v-else>
       <v-col cols="12">
         <v-sheet color="grey lighten-3" class="pa-3">
           <v-skeleton-loader
@@ -217,11 +188,13 @@
           ></v-skeleton-loader>
         </v-sheet>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-app>
 </template>
 
 <script>
+import NewFile from "./NewFile.vue";
+import FileList from "./FileList.vue";
 export default {
   data() {
     return {
@@ -296,6 +269,11 @@ export default {
     async searchByTitle(title) {
       this.filterFiles({ "filters[title]": title });
     },
+  },
+
+  components: {
+    NewFile,
+    FileList,
   },
 };
 </script>

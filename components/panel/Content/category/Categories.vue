@@ -1,5 +1,6 @@
 <template>
   <v-data-table
+    calculate-widths
     :headers="headers"
     :items="items"
     class="elevation-1"
@@ -18,6 +19,9 @@
           @input="handlePageChange"
         ></v-pagination>
       </div>
+    </template>
+    <template v-slot:item.parent_name="{ item }">
+      <span>{{ item.parent_name ? item.parent_name : "-" }}</span>
     </template>
     <template v-slot:top>
       <v-toolbar flat>
@@ -56,6 +60,15 @@
                 <validation-observer v-slot="{ invalid }">
                   <form @submit.prevent="save">
                     <v-row>
+                      <v-col cols="12" sm="6" md="12">
+                        <InfiniteScroll
+                          url="panel/categories?filters[parent_id]=null"
+                          @selectedValue="setParentId"
+                          :itemId="editedItem.parent_id"
+                          label="name"
+                          title="category"
+                        />
+                      </v-col>
                       <v-col cols="12" sm="6" md="12">
                         <validation-provider
                           v-slot="{ errors }"
@@ -157,12 +170,9 @@ export default {
     loading: false,
     editedIndex: -1,
     editedItem: {
-      name: "",
-      slug: "",
-    },
-    defaultItem: {
-      name: "",
-      slug: "",
+      name: null,
+      slug: null,
+      parent_id: null,
     },
   }),
   computed: {
@@ -189,6 +199,9 @@ export default {
   },
 
   methods: {
+    setParentId(id) {
+      this.editedItem.parent_id = id;
+    },
     async uploadMedia(categoryId) {
       this.uploadMediaShow = true;
       this.dropZoneUrl =
@@ -238,7 +251,11 @@ export default {
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = {};
+        this.editedItem = {
+          name: null,
+          slug: null,
+          parent_id: null,
+        };
         this.editedIndex = -1;
       });
     },

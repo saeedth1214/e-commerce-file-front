@@ -11,7 +11,14 @@ Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
 });
 
-extend("percentageRule", (value) => {
+extend("percentageRule", (value, from) => {
+  if (
+    parseInt(from[0]) === 0 &&
+    parseInt(value) > 0 &&
+    parseInt(value) <= 100
+  ) {
+    return " تخفیف قرار داده شده برای فایل با هزینه 0 است .";
+  }
   if (
     Number.isInteger(parseInt(value)) &&
     parseInt(value) >= 0 &&

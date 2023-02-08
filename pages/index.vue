@@ -7,7 +7,6 @@
 <script>
 export default {
   layout: "landingPage",
-
   async fetch() {
     let params = {};
     params["per_page"] = 6;

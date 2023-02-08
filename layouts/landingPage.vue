@@ -7,6 +7,12 @@
     </FrontHeader>
   </div>
 </template>
-<script></script>
+<script>
+import TheLoader from "../components/TheLoader.vue";
 
-<style></style>
+export default {
+  components: { TheLoader },
+};
+</script>
+
+<style scoped></style>

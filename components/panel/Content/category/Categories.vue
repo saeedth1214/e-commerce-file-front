@@ -62,7 +62,7 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="12">
                         <InfiniteScroll
-                          url="panel/categories?filters[parent_id]=null"
+                          url="panel/categories?filters[parentIs]=null"
                           @selectedValue="setParentId"
                           :itemId="editedItem.parent_id"
                           label="name"

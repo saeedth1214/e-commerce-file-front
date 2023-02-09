@@ -1,6 +1,6 @@
 #dropzone {
   text-align: center !important;
-  border: 2px dotted green !important;
+  border: 2px dotted #bebebe !important;
 }
 .dropzone .dz-preview.dz-error .dz-error-message {
   display: none !important;

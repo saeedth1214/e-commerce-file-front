@@ -203,7 +203,6 @@
           </v-row>
         </v-card>
       </v-row>
-      <!-- <v-card v-if="!cartItems.length" class="pa-4"> -->
         <v-alert
         v-if="!cartItems.length"
           width="70%"
@@ -215,7 +214,6 @@
           elevation="2"
           >سبد خرید شما خالیست</v-alert
         >
-      <!-- </v-card> -->
       <div style="height: 300px; width: 100%"></div>
       <SnackBar />
     </v-container>

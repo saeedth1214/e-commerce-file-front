@@ -1,5 +1,5 @@
 <template>
-  <div class="spain">
+  <div class="spain" v-if="start">
     <div class="ring">
       <div class="lds-ripple">
         <div></div>
@@ -9,7 +9,15 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    start: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
-  <v-card elevation="4">
-    <p class="text-subtitle-2 pa-4 font-weight-bold h1">اطلاعات کلی</p>
+  <v-card :loading="loading">
     <v-card-text class="mt-3">
+      <label class="label-format"> فایل جدید</label>
       <v-row dense>
         <v-col cols="12">
           <v-container>
@@ -61,14 +61,16 @@
                     </validation-provider>
                   </v-col>
                   <v-col cols="12" lg="4" md="4" sm="6">
-                    <InfiniteScroll
-                      url="panel/categories"
-                      @selectedValue="setCategoryId"
-                      :itemId="file.category_id"
-                      label="name"
-                      title="category"
-                      rules="required"
-                    />
+                    <div>
+                      <InfiniteScroll
+                        url="panel/categories?filters[parentNot]=null"
+                        @selectedValue="setCategoryId"
+                        :itemId="file.category_id"
+                        label="name"
+                        title="category"
+                        rules="required"
+                      />
+                    </div>
                   </v-col>
                   <v-col cols="12" lg="8" md="8">
                     <validation-provider
@@ -96,14 +98,26 @@
                       :label="`تخفیف به صورت  ${rebateText}`"
                     ></v-checkbox>
                   </v-col>
-                </v-row>
-                <v-row dense>
-                  <div class="mt-5">
-                    <v-btn class="mr-4" type="submit" :disabled="invalid"
-                      >ایجاد</v-btn
-                    >
-                    <v-btn class="mr-4" @click="close">انصراف</v-btn>
-                  </div>
+                  <v-col
+                    cols="12"
+                    lg="4"
+                    md="4"
+                    offset-md="4"
+                    offset-lg="4"
+                    sm="6"
+                  >
+                    <div class="mt-5">
+                      <v-btn
+                        class="mr-4"
+                        type="submit"
+                        depressed
+                        color="primary"
+                        size="20"
+                        :disabled="invalid || loading"
+                        >ایجاد</v-btn
+                      >
+                    </div>
+                  </v-col>
                 </v-row>
               </form>
             </validation-observer>
@@ -113,54 +127,14 @@
     </v-card-text>
   </v-card>
 </template>
-
 <script>
 import showMessage from "@/mixins/showMessage";
-export default {
-  data: () => ({
-    dialog: false,
-    file: {
-      title: null,
-      description: null,
-      amount: 0,
-      percentage: null,
-      rebate: null,
-      sale_as_single: false,
-      category_id: null,
-      link: null,
-    },
-  }),
-  props: {
-    isActive: {
-      Type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-  watch: {
-    isActive(newVal) {
-      this.dialog = newVal;
-    },
 
-    file: {
-      handler(newVal) {
-        this.file["description"] =
-          newVal["description"] !== null ? newVal["description"].trim() : null;
-      },
-      deep: true,
-    },
-  },
-  mixins: [showMessage],
-  methods: {
-    close() {
-      this.$emit("close");
-      this.emptyFile();
-    },
-    setCategoryId(categoryId) {
-      this.file.category_id = categoryId;
-    },
-    emptyFile() {
-      this.file = {
+export default {
+  data() {
+    return {
+      loading: false,
+      file: {
         title: null,
         description: null,
         amount: 0,
@@ -168,16 +142,33 @@ export default {
         rebate: null,
         sale_as_single: false,
         category_id: null,
-        link: null,
-      };
+      },
+    };
+  },
+  mixins: [showMessage],
+
+  computed: {
+    rebateText() {
+      return this.file.percentage ? "درصدی" : "عددی";
     },
+    accessTypeText() {
+      return this.file.sale_as_single ? "خرید به صورت تکی" : "خرید اشتراکی";
+    },
+  },
+  methods: {
     async save() {
+      this.loading = true;
+      this.file = {
+        ...this.file,
+        amount: parseInt(this.file.amount),
+      };
+      this.file.description &&
+        (this.file.description = this.file.description.trim());
       Object.keys(this.file).map((key) => {
         if (this.file[key] === null) {
           delete this.file[key];
         }
       });
-
       let params = {};
       params["filters[unique][title]"] = this.file.title;
       await this.$axios
@@ -195,23 +186,32 @@ export default {
           }
         })
         .catch((err) => console.log(err));
-      this.dialog = false;
+      this.loading = false;
     },
-  },
-
-  computed: {
-    rebateText() {
-      return this.file.percentage ? "درصدی" : "عددی";
+    close() {
+      this.emptyFile();
     },
-    accessTypeText() {
-      return this.file.sale_as_single ? "خرید به صورت تکی" : "خرید اشتراکی";
+    emptyFile() {
+      this.file = {
+        title: null,
+        description: null,
+        amount: 0,
+        percentage: null,
+        rebate: null,
+        sale_as_single: false,
+        category_id: null,
+      };
+    },
+    setCategoryId(categoryId) {
+      this.file.category_id = categoryId;
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.bg {
-  background: #fff;
+<style lang="scss" scoped>
+.label-format {
+  color: #443f3f;
+  font-size: 1rem;
+  font-weight: 700;
 }
 </style>

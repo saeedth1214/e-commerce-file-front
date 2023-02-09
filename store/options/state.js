@@ -88,6 +88,21 @@ export default () => ({
       { text: "وضعیت", value: "hasBeenExpired", sortable: false },
     ],
   },
+  panelFile: {
+    headers: [
+      { text: "عنوان", value: "title", sortable: false },
+      { text: "دسته بندی", value: "category_name", sortable: false },
+      { text: "قیمت", value: "amount", sortable: false },
+      { text: "تخفیف", value: "rebate", sortable: false },
+      { text: "نوع تخفیف", value: "percentage", sortable: false },
+      { text: "نوع خرید", value: "sale_as_single", sortable: false },
+      { text: "قیمت نهایی", value: "amount_after_rebate", sortable: false },
+      { text: "تعداد دانلود", value: "download_count", sortable: false },
+      { text: "تعداد لایک", value: "reaction_summary", sortable: false },
+      { text: "تعداد بازدید", value: "views", sortable: false },
+      { text: "تاریخ خرید", value: "created_at", sortable: false },
+    ],
+  },
   file: {
     headers: [
       { text: "عنوان", value: "title", sortable: false },

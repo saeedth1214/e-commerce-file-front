@@ -105,8 +105,7 @@ export default {
     },
 
     async errorUploadFile(file, message, xhr) {
-      // alert(message);
-      console.log(message);
+      alert(message);
     },
   },
 

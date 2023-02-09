@@ -1,19 +1,25 @@
 <template>
   <div>
-    <v-card elevation="4">
-      <v-card-text>
-        <label class="label-format">فرمت فایل : </label>
-        <select
-          name="file-format"
-          class="file-format"
-          v-model="fileFormatValue"
-        >
-          <option value="0" selected>eps</option>
-          <option value="1">psd</option>
-        </select>
-      </v-card-text>
-      <label class="label-format mr-4"> ایجاد لینک دانلود</label>
-      <v-card-text>
+    <label class="label-format"> ایجاد لینک دانلود</label>
+    <v-row>
+      <v-col cols="12" lg="3" md="3">
+        <div class="format-file-box">
+          <label class="label-format">فرمت فایل : </label>
+          <select
+            name="file-format"
+            class="file-format"
+            v-model="fileFormatValue"
+          >
+            <option value="1">eps</option>
+            <option value="2">Al</option>
+            <option value="3">jpg</option>
+            <option value="4">png</option>
+            <option value="5">jpeg</option>
+            <option value="6">psd</option>
+          </select>
+        </div>
+      </v-col>
+      <v-col cols="12" md="9" lg="9">
         <div class="expiration-date">
           <div class="item">
             <label class="black--text ml-4" style="font-size: 1rem">
@@ -51,7 +57,7 @@
           </div>
         </div>
         <v-row>
-          <v-col cols="12" md="6" sm="6" lg="4">
+          <v-col cols="12" md="6" lg="6">
             <div style="padding: 0.5rem">
               <label
                 for=""
@@ -62,7 +68,7 @@
               >
             </div>
           </v-col>
-          <v-col cols="12" md="6" sm="6" lg="4">
+          <v-col cols="12" md="6" lg="6">
             <v-btn
               color="primary"
               size="20"
@@ -73,8 +79,8 @@
             </v-btn>
           </v-col>
         </v-row>
-      </v-card-text>
-    </v-card>
+      </v-col>
+    </v-row>
     <SnackBar />
   </div>
 </template>
@@ -82,7 +88,7 @@
 export default {
   data() {
     return {
-      fileFormatValue: 0,
+      fileFormatValue: 1,
       day: 0,
       hour: 0,
       minute: 0,
@@ -190,6 +196,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   column-gap: 20px;
+  margin-top: 1.5rem;
 
   .item {
     display: flex;
@@ -205,12 +212,44 @@ export default {
 .file-format {
   width: 150px;
   padding: 0.5rem;
-  border: 1px solid #443f3f;
+  border: 1px solid #d3d2d2;
   border-radius: 5px;
 }
 .label-format {
   color: #443f3f;
   font-size: 1rem;
   font-weight: 700;
+  display: block;
+  margin-bottom: 1.5rem;
 }
+
+.format-file-box {
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .format-file-box {
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
+  }
+
+  .file-format {
+    width: 80% !important;
+  }
+}
+
+@media screen and (min-width: 505px) and (max-width:960px) {
+ 
+  .file-format {
+    width: 75% !important;
+  }
+}
+@media screen and (max-width: 505px) {
+ 
+ .file-format {
+   width: 68% !important;
+ }
+}
+
 </style>

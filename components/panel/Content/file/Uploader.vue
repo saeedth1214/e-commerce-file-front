@@ -1,5 +1,6 @@
 <template>
   <div>
+    <label class="label-format"> آپلود فایل</label>
     <dropzone
       ref="myVueDropzone"
       id="dropzone"
@@ -42,7 +43,6 @@
         </v-btn>
       </div>
     </v-row>
-    <!-- </v-form> -->
   </div>
 </template>
 
@@ -116,6 +116,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.label-format {
+  color: #443f3f;
+  font-size: 1rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 1.5rem;
+}
 .v-card > div {
   width: 95%;
   margin: 0px auto;

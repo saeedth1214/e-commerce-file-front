@@ -14,7 +14,7 @@ export default {
   layout: "panel",
   async asyncData(context) {
     let params = {};
-    params["include"] = "users,tags";
+    params["include"] = "users,tags,attributes";
     const file = await context.$axios
       .get(`panel/files/${context.params.id}`, { params })
       .then((res) => {

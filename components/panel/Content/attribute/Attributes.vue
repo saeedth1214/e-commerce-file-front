@@ -82,6 +82,17 @@
                           ></v-text-field>
                         </validation-provider>
                       </v-col>
+                      <v-col cols="12" sm="6" md="12">
+                        <v-select
+                          :items="types"
+                          dense
+                          outlined
+                          label="نوع"
+                          itemText="key"
+                          itemValue="value"
+                          v-model="attributeType"
+                        ></v-select>
+                      </v-col>
                     </v-row>
                     <v-row dense>
                       <div class="mt-5">
@@ -114,7 +125,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
@@ -139,11 +149,9 @@ export default {
     items: [],
     loading: false,
     editedIndex: -1,
+    types: [],
+    attributeType: 1,
     editedItem: {
-      name: "",
-      slug: "",
-    },
-    defaultItem: {
       name: "",
       slug: "",
     },
@@ -188,6 +196,7 @@ export default {
         .$get("panel/attributes", { params })
         .then((res) => {
           this.items = res.data;
+          this.types = res.meta.types;
           this.setPagination(res.meta.pagination);
         })
         .catch((err) => {
@@ -243,7 +252,10 @@ export default {
     async save() {
       if (this.editedIndex > -1) {
         await this.$axios
-          .put(`panel/attributes/${this.editedItem.id}`, this.editedItem)
+          .put(`panel/attributes/${this.editedItem.id}`, {
+            ...this.editedItem,
+            type: this.attributeType,
+          })
           .then((res) => {
             this.initialize();
             this.showMessage("success", ". ویژگی ویرایش شد");
@@ -253,7 +265,10 @@ export default {
           });
       } else {
         const data = await this.$axios
-          .post("panel/attributes", this.editedItem)
+          .post("panel/attributes", {
+            ...this.editedItem,
+            type: this.attributeType,
+          })
           .then((res) => {
             this.initialize();
             this.showMessage("success", ".ویژگی جدیدی اضافه شد");

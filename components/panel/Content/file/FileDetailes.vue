@@ -155,6 +155,20 @@
       </v-timeline-item>
       <v-divider></v-divider>
       <v-timeline-item
+        icon="mdi-attachment"
+        fill-dot
+        color="red accent-4"
+        class="pt-2"
+      >
+        <v-card-text class="mt-3">
+          <AssignAttributes
+            :fileAttributes="editedFile.attributes.data"
+            :fileId="editedFile.id"
+          />
+        </v-card-text>
+      </v-timeline-item>
+      <v-divider></v-divider>
+      <v-timeline-item
         icon="mdi-link"
         fill-dot
         color="yellow accent-4"
@@ -186,6 +200,7 @@ export default {
   data: () => ({
     loading: false,
     selectedTags: [],
+    attributes: [],
     file: {
       title: null,
       description: null,
@@ -211,7 +226,6 @@ export default {
     },
   },
   mixins: [showMessage],
-
   async created() {
     this.loading = true;
     this.file = {

@@ -149,15 +149,7 @@
           <v-card-actions>
             <ul class="profile-item">
               <li style="cursor: pointer" @click="logout">
-                <span
-                  style="
-                    color: #253039;
-                    font-size: 16px;
-                    font-weight: 600;
-                    margin-right: 10px;
-                  "
-                  >خروج</span
-                >
+                <span class="btn-exit">خروج</span>
                 <span>
                   <v-icon color="#253039">mdi-logout</v-icon>
                 </span>
@@ -179,23 +171,39 @@
               <li>
                 <a href="/front/plans">طرح ها</a>
               </li>
+              <li>
+                <a href="/front/plans">وکتور</a>
+              </li>
+              <li>
+                <a href="/front/plans">فتوشاپ</a>
+              </li>
+              <li>
+                <a href="/front/plans">تصاویر</a>
+              </li>
+
               <li
                 @click="active = !active"
                 v-click-outside="onClickOutsideCategory"
               >
-                <span>
-                  <v-icon color="#a5b7c6">{{
+                <a href="#">
+                  <v-icon color="#fff">{{
                     active ? "mdi-chevron-up" : "mdi-chevron-down"
                   }}</v-icon>
                   دسته بندی
-                </span>
+                </a>
                 <div
-                  class="sub-category"
+                  class="sub_menu"
                   :style="[!active ? { display: 'none' } : '']"
                 >
-                  <ul>
-                    <li v-for="category in categories" :key="category.id">
+                  <ul class="topmenu_container">
+                    <li
+                      v-for="(category, index) in categories"
+                      :key="category.id"
+                      class="topmenu_content"
+                    >
                       <nuxt-link
+                        class="topmenu_title"
+                        :class="[!index ? 'active_topMenuTitle' : '']"
                         :to="{
                           path: '/front/categories',
                           query: {
@@ -205,6 +213,28 @@
                       >
                         {{ category.name }}
                       </nuxt-link>
+                      <ul
+                        class="topmenu_items"
+                        :class="[!index ? 'active_topmenu' : '']"
+                      >
+                        <li
+                          v-for="subCategory in category.subCategories.data"
+                          :key="subCategory.id"
+                        >
+                          <nuxt-link
+                            :to="{
+                              path: '/front/categories',
+                              query: {
+                                category: subCategory.name,
+                              },
+                            }"
+                          >
+                            <div class="content">
+                              <span>{{ subCategory.name }}</span>
+                            </div>
+                          </nuxt-link>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </div>
@@ -237,36 +267,55 @@
             <li>
               <a href="/front/files">طرح ها </a>
             </li>
-            <li @click="active = !active" style="width: 100%">
-              <span
-                style="
-                  color: #a5b7c6;
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-between;
-                "
-              >
-                <v-icon color="#a5b7c6">{{
-                  active ? "mdi-chevron-up" : "mdi-chevron-down"
-                }}</v-icon>
-                دسته بندی
-              </span>
-              <div
-                class="sub-category"
-                :style="[!active ? { display: 'none' } : '']"
-              >
-                <ul>
-                  <li v-for="category in categories" :key="category.id">
-                    <nuxt-link
-                      :to="{
-                        path: '/front/categories',
-                        query: {
-                          category: category.name,
-                        },
-                      }"
+            <li>
+              <a href="/front/plans">وکتور</a>
+            </li>
+            <li>
+              <a href="/front/plans">فتوشاپ</a>
+            </li>
+            <li>
+              <a href="/front/plans">تصاویر</a>
+            </li>
+            <li style="width: 100%">
+              <span class="category_item_mobile"> دسته بندی </span>
+              <div class="sub_menu has_mobile">
+                <ul class="topmenu_container">
+                  <li
+                    v-for="category in categories"
+                    :key="category.id"
+                    class="topmenu_content"
+                    @click="toggleInnerUl"
+                  >
+                    <v-icon
+                      color="#fff"
+                      style="position: relative; right: 170px"
+                      >{{
+                        active ? "mdi-chevron-up" : "mdi-chevron-down"
+                      }}</v-icon
                     >
-                      {{ category.name }}
-                    </nuxt-link>
+                    <span
+                      style="display: inline-block; padding-right: 2.5rem"
+                      >{{ category.name }}</span
+                    >
+                    <ul class="topmenu_items">
+                      <li
+                        v-for="subCategory in category.subCategories.data"
+                        :key="subCategory.id"
+                      >
+                        <nuxt-link
+                          :to="{
+                            path: '/front/categories',
+                            query: {
+                              category: subCategory.name,
+                            },
+                          }"
+                        >
+                          <div class="content">
+                            <span>{{ subCategory.name }}</span>
+                          </div>
+                        </nuxt-link>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -294,15 +343,41 @@ export default {
   },
   computed: {
     categories() {
-      return this.$store.state.category.categories;
+      return this.$store.state.category.menuBarCategories;
     },
     chevronIcon() {
       return this.auth ? "mdi-chevron-up" : "mdi-chevron-down";
     },
   },
+  watch: {
+    active(value) {
+      if (value) {
+        let titles = document.querySelectorAll(".topmenu_title");
+        let ulItems = document.querySelectorAll(".topmenu_items");
+        titles.forEach(function (el, titleIndex) {
+          el.addEventListener("mouseenter", function () {
+            this.classList.add("active_topMenuTitle");
+            titles.forEach((el, index) => {
+              if (index !== titleIndex) {
+                el.classList.remove("active_topMenuTitle");
+              }
+            });
+            ulItems.forEach(function (ul, ulIndex) {
+              if (titleIndex === ulIndex) {
+                ul.classList.add("active_topmenu");
+              } else {
+                ul.classList.remove("active_topmenu");
+              }
+            });
+          });
+        });
+      }
+    },
+  },
   created() {
     this.loading = true;
   },
+
   methods: {
     async logout() {
       await this.$auth.logout();
@@ -316,6 +391,10 @@ export default {
     onClickOutsideCategory() {
       this.active = false;
     },
+    toggleInnerUl(el) {
+      let ulElement = el.target.getElementsByClassName("topmenu_items")[0];
+      ulElement?.classList.toggle("active-items");
+    },
   },
   mounted() {
     this.loading = false;
@@ -323,210 +402,60 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.auth {
-  text-align: left;
-  margin-left: 0.5rem;
+@import "@/assets/scss/navBar.scss";
 
-  & > span a {
-    margin-right: 0.5rem;
-    cursor: pointer;
-    text-decoration: none;
-    color: #fff;
-
-    &:hover {
-      color: #a5b7c6;
-    }
-  }
+.active_topmenu {
+  display: grid !important;
 }
-.brand {
-  text-align: right;
-  padding-right: 2rem;
-  a {
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: bolder;
-    width: 100%;
-    text-transform: capitalize;
-    text-decoration: none;
-  }
+.active_topMenuTitle {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
 }
-.avatar {
-  width: 40px;
-  text-align: center;
-  background-color: #253039;
-  border-radius: 50%;
+.btn-exit {
+  color: #253039;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 10px;
 }
-.category {
-  display: flex;
-  flex-direction: row-reverse;
-  list-style: none;
-  justify-content: center;
-
-  li:nth-last-child(1) {
-    position: relative;
-    .sub-category {
-      background-color: #253039;
-      padding: 0.8rem;
-      position: absolute;
-      right: -250px;
-      border-radius: 10px;
-      margin-top: 10px;
-      text-align: center;
-      z-index: 1000;
-      top: 20px;
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 110px;
-        width: 0;
-        height: 0;
-        right: 320px;
-        border-style: solid;
-        border-width: 0 7px 7px 7px;
-        border-color: transparent transparent #1d262d transparent;
-      }
-      ul {
-        display: grid;
-        grid-template-columns: repeat(4, 150px);
-        white-space: normal;
-        list-style: none;
-        direction: rtl;
-
-        li {
-          display: block;
-          font-size: 1rem;
-          text-transform: capitalize;
-          cursor: pointer;
-          margin-bottom: 1rem;
-          &:hover {
-            color: #a5b7c6;
-          }
-        }
-      }
-    }
-  }
-  li {
-    color: #fff;
-    a {
-      color: #fff;
-      font-size: 1rem;
-      margin-left: 0.8rem;
-      cursor: pointer;
-      text-decoration: none;
-      &:hover {
-        color: #a5b7c6;
-      }
-    }
-
-    span:hover,
-    i:hover {
-      cursor: pointer;
-      color: #a5b7c6;
-    }
-  }
-}
-
-.user-box-profile {
-  width: 200px;
-  text-align: center;
-  padding: 0.5rem;
-  position: absolute;
-  z-index: 100;
-  left: 50px;
-  color: #fff;
-  background: #1d262d;
-  border-radius: 10px;
-  margin-top: 1rem;
-  display: none;
-
-  .login-box-header {
-    width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-
-    .user-info {
-      color: #253039;
-      font-size: 14px;
-      font-weight: 700;
-    }
-  }
-  .profile-item {
-    list-style: none;
-    width: 100%;
-    li {
-      margin-top: 0.5rem;
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-      transition: all 0.3s linear;
-      &:hover {
-        a,
-        .v-icon {
-          color: rgb(42, 167, 250);
-        }
-      }
-      a {
-        text-decoration: none;
-        color: #253039;
-        font-size: 16px;
-        font-weight: 600;
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.navbar {
+.category_item_mobile {
   display: flex;
   justify-content: flex-end;
+  margin-right: 1rem;
+  pointer-events: none;
+  font-size: 14px;
+  color: #869fb2;
+  opacity: 0.7;
+}
+.active-items {
+  display: flex !important;
 }
 
-.sidebar {
-  width: 300px;
-  padding: 0.5rem;
-  background: #1d262d;
-  position: fixed;
-  top: 0px;
-  height: 100vh;
-  right: 0px;
-  z-index: 100;
-}
-.active {
-  display: block;
-}
-.diActive {
-  display: none;
-}
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  align-items: flex-end;
-  padding: 1rem;
-  li {
-    margin-bottom: 1rem;
+@media screen and (max-width: 960px) {
+  .sub_menu.has_mobile {
     a {
-      color: #a5b7c6;
-      font-size: 1rem;
-      text-decoration: none;
+      display: block;
+      padding-right: 1.5rem;
     }
-  }
-  li:nth-last-child(1) {
-    .sub-category {
-      height: 250px;
-      overflow: hidden;
-      ul {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
+    .topmenu_container {
+      margin-top: 0.8rem;
+      > li {
+        color: #869fb2;
+        position: relative;
+        display: block;
+        width: 100%;
+        position: relative;
         text-align: right;
-        padding-right: 1.5rem;
-        padding-top: 1rem;
-        overflow-y: scroll;
-        height: 250px;
+        > .topmenu_items {
+          display: none;
+          position: relative;
+          width: 100%;
+          flex-direction: column;
+          top: 20px;
+          right: 8px;
+          background-color: #253039;
+          height: 200px;
+          overflow-y: scroll;
+        }
       }
     }
   }

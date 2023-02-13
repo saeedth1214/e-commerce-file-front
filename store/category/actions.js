@@ -24,4 +24,13 @@ export default {
       await commit("SET_CATEGORIES", categories);
     }
   },
+  async fetchMenuBarCategories({ commit, state }) {
+    console.log('sss');
+    let categories = await this.$axios
+      .get("frontend/categories?filters[parentIs]=null&include=subCategories")
+      .then((res) => {
+        return res.data.data;
+      });
+    await commit("SET_MENU_BAR_CATEGORIES", categories);
+  },
 };

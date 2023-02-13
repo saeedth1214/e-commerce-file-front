@@ -40,7 +40,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .theme--light.v-sheet {
   background-color: transparent;
   margin-top: 2rem;

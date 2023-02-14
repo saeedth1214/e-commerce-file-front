@@ -1,5 +1,6 @@
 <template>
   <v-row dense>
+    <TheSearchbox />
     <TheSearchByTag />
     <TheSlider :files="files" />
   </v-row>

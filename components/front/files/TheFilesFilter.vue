@@ -1,90 +1,114 @@
 <template>
-  <div
-    class="filter-wrapper"
-    :style="[
-      showFilter ? { transform: 'translateX(4px)' } : '',
-      // $vuetify.breakpoint.smAndDown ? { transform: 'translateY(-125px)' } : '',
-    ]"
-  >
-    <div class="filter">
-      <div
-        class="text-body-2 font-weight-bold d-flex justify-space-between align-center mt-4"
-        style="color: #e37043"
-      >
-        دسته بندی
-      </div>
-      <div class="categories">
-        <v-chip-group v-model="category" active-class="grey white--text">
-          <v-chip
-            :value="{ id: category.id, name: category.name }"
-            v-for="category in categories"
-            :key="category.id"
-            >{{ category.name }}</v-chip
+  <div class="filter-wrapper">
+    <ul class="filter-list">
+      <li v-if="$vuetify.breakpoint.mdAndDown" style="align-items: end">
+        <v-icon @click="$emit('showFilterBox')">mdi-close</v-icon>
+      </li>
+      <li class="filter-item" @click="openContent">
+        <div class="item-label">
+          <span>
+            <v-icon small>mdi-layers</v-icon>
+            دسته بندی
+          </span>
+          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+        </div>
+        <div class="content">
+          <v-chip-group
+            active-class="blue accent-2 white--text"
+            v-model="category"
           >
-          <v-btn icon color="grey" @click="redirectToCategory">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </v-chip-group>
-      </div>
-      <v-row dense class="pa-4 d-flex justify-center">
-        <v-col cols="12">
-          <div
-            class="text-body-2 font-weight-bold d-flex justify-space-between align-center"
-            style="color: #e37043"
-          >
-            <p>براساس قیمت</p>
-            <v-radio-group v-model="amountType">
-              <v-radio label="نقدی" value="cash"></v-radio>
-              <v-radio label="رایگان" value="free"></v-radio>
-            </v-radio-group>
-          </div>
-        </v-col>
-        <v-row dense v-if="amountType === 'cash'">
-          <v-col cols="12">
-            <v-select
-              v-model="amountValue"
-              :items="amounts"
-              item-text="value"
-              return-object
-              color="#e37043"
-              label="محدوده ی قیمت"
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-row dense v-if="amountType === 'cash'">
-          <v-col cols="12">
-            <v-select
-              v-model="rebateValue"
-              :items="rebates"
-              item-text="text"
-              return-object
-              color="#e37043"
-              label="براساس تخفیف"
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-col cols="12">
-          <v-chip-group active-class="primary--text" column>
-            <v-chip
-              v-for="(item, key) in filterItems"
-              :key="key"
-              @click="removeItem(key)"
-            >
-              {{ item.text }} : {{ item.value }}
-              <v-icon>mdi-close</v-icon>
-            </v-chip>
+            <v-chip value="1">طراحی</v-chip>
+            <v-chip value="2">تصاویر</v-chip>
+            <v-chip value="3">وکتور</v-chip>
+            <v-chip value="4">PSD</v-chip>
           </v-chip-group>
-        </v-col>
-        <v-col cols="12">
-          <v-btn
-            color="blue-grey darken-1"
-            class="white--text font-weight-bold"
-            @click="setMyFilter"
-            >اعمال فیلتر</v-btn
+        </div>
+      </li>
+      <li class="filter-item" @click="openContent">
+        <div class="item-label">
+          <span>
+            <v-icon small>mdi-cash</v-icon>
+            نقدی</span
           >
-        </v-col>
-      </v-row>
-    </div>
+          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+        </div>
+        <div class="content">
+          <v-chip-group
+            active-class="blue accent-2 white--text"
+            v-model="amount"
+          >
+            <v-chip value="cash">نقدی</v-chip>
+            <v-chip value="free">رایگان</v-chip>
+          </v-chip-group>
+        </div>
+      </li>
+      <li class="filter-item" @click="openContent">
+        <div class="item-label">
+          <span>
+            <v-icon small>mdi-sale</v-icon>
+            تخفیف</span
+          >
+          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+        </div>
+        <div class="content">
+          <v-chip-group
+            active-class="blue accent-2 white--text"
+            v-model="discount"
+          >
+            <v-chip value="1">بدون تخفیف</v-chip>
+            <v-chip value="2">تخفیف دار</v-chip>
+          </v-chip-group>
+        </div>
+      </li>
+      <li class="filter-item" @click="openContent">
+        <div class="item-label">
+          <span>
+            <v-icon small>mdi-file</v-icon>
+            فرمت</span
+          >
+          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+        </div>
+        <div class="content">
+          <v-chip-group
+            active-class="blue accent-2 white--text"
+            v-model="format"
+          >
+            <v-chip value="1">PNG</v-chip>
+            <v-chip value="2">JPG</v-chip>
+            <v-chip value="3">JPEG</v-chip>
+            <v-chip value="4">AL</v-chip>
+            <v-chip value="5">EPS</v-chip>
+            <v-chip value="6">PSD</v-chip>
+          </v-chip-group>
+        </div>
+      </li>
+      <li class="filter-item" @click="openContent">
+        <div class="item-label">
+          <span>
+            <v-icon small>mdi-calendar-range</v-icon>
+            تاریخ انتشار</span
+          >
+          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+        </div>
+        <div class="content">
+          <v-chip-group
+            active-class="blue accent-2 white--text"
+            v-model="published"
+          >
+            <v-chip value="1">3 ماه قبل</v-chip>
+            <v-chip value="2">6 ماه قبل</v-chip>
+            <v-chip value="3">1 سال قبل</v-chip>
+          </v-chip-group>
+        </div>
+      </li>
+    </ul>
+    <v-row class="mt-4">
+      <v-col class="text-center">
+        <v-btn color="primary" class="white--text" @click="setMyFilter"
+          >اعمال فیلتر</v-btn
+        >
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -95,6 +119,11 @@ export default {
   data() {
     return {
       category: null,
+      active: false,
+      amount: null,
+      format: null,
+      discount: null,
+      published: null,
     };
   },
   mixins: [createFilter],
@@ -130,13 +159,11 @@ export default {
         this.removeFilter(key);
       }
     },
-
     redirectToCategory() {
       this.$router.push({
         path: "/front/categories",
       });
     },
-
     async setMyFilter() {
       this.category &&
         (this.params = this.createFilter(this.params, "category", {
@@ -144,11 +171,47 @@ export default {
         }));
       await this.applyfilter();
     },
+    openContent(el) {
+      if (el.target.classList.contains("item-label")) {
+        el.target
+          .getElementsByClassName("v-icon")[1]
+          .classList.toggle("mdi-chevron-up");
+        let divContent = el.target.parentElement;
+        divContent
+          .getElementsByClassName("content")[0]
+          .classList.toggle("active_content");
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.active_content {
+  display: block !important;
+}
+.filter-list {
+  padding: 0.5rem;
+
+  > li {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    cursor: pointer;
+    flex-direction: column;
+    .item-label {
+      display: flex;
+      justify-content: space-between;
+    }
+    .content {
+      margin-top: 1rem;
+      display: none;
+    }
+  }
+}
+
 a {
   width: 180px;
   background-color: #fff;
@@ -163,36 +226,9 @@ a:hover {
   transition: all 0.3s linear;
 }
 
-.filter {
-  position: relative;
-  height: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  width: 100%;
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-}
-
 .filter-wrapper {
   background: #fff;
   min-height: 100vh;
-  transform: translateX(-340px);
   transition: all 0.3s linear;
   z-index: 0;
   position: sticky;
@@ -226,13 +262,10 @@ a:hover {
     position: absolute;
     z-index: 1000;
     top: 0px;
-    right: 0px;
+    right: -4px;
     bottom: 0px;
     width: 300px;
     overflow-x: scroll;
-  }
-  .filter {
-    width: 295px;
   }
 }
 @media screen and (max-width: 375px) {
@@ -244,9 +277,6 @@ a:hover {
     bottom: 0px;
     width: 280px;
     overflow-x: scroll;
-  }
-  .filter {
-    width: 300px;
   }
 }
 </style>

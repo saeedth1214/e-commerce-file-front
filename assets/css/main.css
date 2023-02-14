@@ -175,6 +175,11 @@ body {
   margin-top: 0px !important;
 }
 
+
+.v-label {
+  right: 10px !important;
+}
+
 @-moz-keyframes loader {
   from {
     transform: rotate(0);
@@ -211,16 +216,4 @@ body {
 .v-menu__content {
   background: #fff;
 }
-/* text field */
 
-/* .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)
-  > .v-input__control
-  > .v-input__slot
-  fieldset {
-  height: 50px;
-  background: #e2e8ec;
-  border: 2px solid #cfcbcb;
-}
-.v-application--is-rtl .v-text-field .v-input__append-inner {
-  margin-top: 10px;
-} */

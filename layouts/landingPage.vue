@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <v-app>
     <FrontHeader>
-      <TheNavBar />
-      <TheSearchbox />
+      <TheNavBar headerStyle="padding-top:1.5rem" />
       <Nuxt />
     </FrontHeader>
-  </div>
+  </v-app>
 </template>
 <script>
 import TheLoader from "../components/TheLoader.vue";
@@ -15,4 +14,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>

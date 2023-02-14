@@ -2,40 +2,17 @@
   <v-row dense>
     <v-container>
       <section style="margin-top: 4rem">
-        <h4>بهترین فایل ها برای شما</h4>
-        <div class="search">
-          <v-text-field
-            v-model="search"
-            single-line
-            outlined
-            clearable
-            append-icon="mdi-magnify"
-            placeholder="جستجو"
-            solo
-            @keydown="searchByTitle"
-          ></v-text-field>
-        </div>
+        <h4>بهترین و با کیفیت ترین فایل هارو اینجا دانلود کنید</h4>
+        <TheFormSearchBox :landing="true" />
       </section>
     </v-container>
   </v-row>
 </template>
 <script>
+import TheFormSearchBox from "@/components/front/TheFormSearchBox.vue";
 export default {
-  data() {
-    return {
-      search: null,
-    };
-  },
-
-  methods: {
-    async searchByTitle(event) {
-      if (event.keyCode === 13) {
-        this.$router.push({
-          path: "/front/files",
-          query: { searchByTitle: this.search },
-        });
-      }
-    },
+  components: {
+    TheFormSearchBox,
   },
 };
 </script>
@@ -59,8 +36,9 @@ section {
     width: 95%;
   }
 }
->>> .v-text-field__slot input {
-  text-align: right;
-  padding: 0px 0.5rem;
+@media screen and(max-width:768px) {
+  h4 {
+    font-size: 1rem !important;
+  }
 }
 </style>

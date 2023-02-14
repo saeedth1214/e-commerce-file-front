@@ -7,7 +7,7 @@
       height="50px"
     ></v-skeleton-loader>
   </v-row>
-  <v-row dense style="direction: ltr; padding-top: 1.5rem" v-else>
+  <v-row dense style="direction: ltr; height: 60px" :style="headerStyle" v-else>
     <v-col :md="$vuetify.breakpoint.mdAndUp ? '3' : '6'" sm="6" lg="3">
       <div class="auth" v-if="!$auth.loggedIn">
         <span>
@@ -18,29 +18,17 @@
         </span>
       </div>
       <div class="auth" v-else>
-        <v-badge
-          dot
-          bottom
-          offset-y="10"
-          offset-x="10"
-          color="green"
-          style="width: 40px; text-align: center"
-        >
-          <v-avatar
-            size="40"
-            color="indigo darken-4"
-            style="cursor: pointer; margin-left: 10px"
+        <v-avatar size="40" style="cursor: pointer; margin-left: 10px">
+          <v-img
+            @click="auth = !auth"
+            :src="$auth.user && $auth.user.media_url"
+            v-if="$auth.user && $auth.user.media_url"
+          ></v-img>
+          <v-icon dark color="#fff" v-else @click="auth = !auth"
+            >mdi-account-circle</v-icon
           >
-            <v-img
-              @click="auth = !auth"
-              :src="$auth.user && $auth.user.media_url"
-              v-if="$auth.user && $auth.user.media_url"
-            ></v-img>
-            <v-icon dark color="#fff" v-else @click="auth = !auth"
-              >mdi-account-circle</v-icon
-            >
-          </v-avatar>
-        </v-badge>
+        </v-avatar>
+
         <v-icon
           dark
           color="#fff"
@@ -83,7 +71,6 @@
                 <v-btn
                   class="ml-2"
                   small
-                  color="primary"
                   dark
                   nuxt
                   to="/front/profile/?tab=information"
@@ -180,8 +167,8 @@
               <li>
                 <a href="/front/plans">تصاویر</a>
               </li>
-
               <li
+                id="expand"
                 @click="active = !active"
                 v-click-outside="onClickOutsideCategory"
               >
@@ -192,7 +179,7 @@
                   دسته بندی
                 </a>
                 <div
-                  class="sub_menu"
+                  class="sub_menu_screen_size"
                   :style="[!active ? { display: 'none' } : '']"
                 >
                   <ul class="topmenu_container">
@@ -239,6 +226,9 @@
                   </ul>
                 </div>
               </li>
+              <li>
+                <a href="/front/plans">درباره من </a>
+              </li>
             </ul>
           </div>
         </v-col>
@@ -247,7 +237,7 @@
 
     <v-col :md="$vuetify.breakpoint.mdAndUp ? '3' : '6'" sm="6" lg="3">
       <p class="brand" v-if="$vuetify.breakpoint.mdAndUp">
-        <a href="/">Free picks</a>
+        <a href="/">Filymo</a>
       </p>
       <p style="width: 100%; text-align: right; padding-right: 1rem" v-else>
         <v-icon color="#fff" @click="toggle = !toggle">mdi-menu</v-icon>
@@ -320,6 +310,10 @@
                 </ul>
               </div>
             </li>
+
+            <li>
+              <a href="/front/plans">دربار من </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -340,6 +334,12 @@ export default {
         elevation: 2,
       },
     };
+  },
+  props: {
+    headerStyle: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     categories() {
@@ -401,63 +401,6 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/navBar.scss";
-
-.active_topmenu {
-  display: grid !important;
-}
-.active_topMenuTitle {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff !important;
-}
-.btn-exit {
-  color: #253039;
-  font-size: 16px;
-  font-weight: 600;
-  margin-right: 10px;
-}
-.category_item_mobile {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1rem;
-  pointer-events: none;
-  font-size: 14px;
-  color: #869fb2;
-  opacity: 0.7;
-}
-.active-items {
-  display: flex !important;
-}
-
-@media screen and (max-width: 960px) {
-  .sub_menu.has_mobile {
-    a {
-      display: block;
-      padding-right: 1.5rem;
-    }
-    .topmenu_container {
-      margin-top: 0.8rem;
-      > li {
-        color: #869fb2;
-        position: relative;
-        display: block;
-        width: 100%;
-        position: relative;
-        text-align: right;
-        > .topmenu_items {
-          display: none;
-          position: relative;
-          width: 100%;
-          flex-direction: column;
-          top: 20px;
-          right: 8px;
-          background-color: #253039;
-          height: 200px;
-          overflow-y: scroll;
-        }
-      }
-    }
-  }
-}
 </style>

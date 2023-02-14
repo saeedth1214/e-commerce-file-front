@@ -1,53 +1,36 @@
 <template>
-  <div style="width: 100%" class="box">
-    <v-row dense>
-      <v-col cols="2" v-if="$vuetify.breakpoint.lgAndUp">
-        <div class="brand">
-          <span>Free</span>
-          <span>Picks</span>
-        </div>
-      </v-col>
-      <v-col :cols="$vuetify.breakpoint.lgAndUp ? '10' : '12'">
-        <v-row dense>
-          <v-col offset-cols="1"></v-col>
-          <v-col cols="10" class="d-flex">
-            <div class="searchbox">
-              <input
-                type="text"
-                placeholder="جستجو"
-                v-model.trim="search"
-                @focus="activeIcon = true"
-                @blur="activeIcon = false"
-              />
-            </div>
-            <v-icon
-              color="#c1c1c1"
-              class="magnify"
-              :class="{ active: activeIcon }"
-              @click="searchfileByTitle"
-            >
-              mdi-magnify
-            </v-icon>
-          </v-col>
-          <v-col cols="1">
-            <div class="filter">
-              <v-btn color="#eff3f6" @click="$emit('showFilterBox')">
-                <v-icon color="#374957">mdi-tune</v-icon>
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </div>
+  <section style="width: 95%" class="box">
+    <div class="brand">
+      <span>Fily</span>
+      <span>mo</span>
+    </div>
+
+    <TheFormSearchBox
+      searchGroupStyle="border:1px solid #d7d7d7;"
+      dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%);"
+      btnHeight="height:48px"
+    />
+
+    <div class="filter-btn">
+      <v-btn color="#eff3f6" @click="$emit('showFilterBox')" shaped tile>
+        <v-icon color="#374957">mdi-tune</v-icon>
+      </v-btn>
+    </div>
+  </section>
 </template>
+
 <script>
+import TheFormSearchBox from "@/components/front/TheFormSearchBox";
 export default {
   data() {
     return {
       search: null,
       activeIcon: false,
     };
+  },
+
+  components: {
+    TheFormSearchBox,
   },
 
   methods: {
@@ -58,13 +41,13 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .box {
-  border-bottom: 1px solid #e7e7e7;
   height: 80px;
   display: flex;
   align-items: center;
 }
+
 .brand {
   display: flex;
   direction: ltr;
@@ -83,56 +66,9 @@ export default {
   }
 }
 
-.searchbox {
-  width: 100%;
-  padding: 0.8rem;
-  height: 45px;
-  text-align: left;
-  background: #e2e8ec;
-  border: 2px solid #c9c9c9;
-  border-radius: 0.2rem;
-  input {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    color: #374957;
-  }
-}
-
-.active {
-  background: #1273eb !important;
-  color: #fff !important;
-  border-right: none;
-}
-.magnify {
-  border-radius: 3px;
-  padding: 0.6rem;
-  height: 45px;
-  background: transparent;
-  border-right: 2px solid #c1c1c1;
-  left: 45px;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.filter {
-  display: flex;
-  height: 100%;
-  justify-content: flex-end;
-  align-items: center;
-  margin-left: 1.5rem;
-}
-
 @media screen and (max-width: 1096px) {
   .brand {
     display: none;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 425px) {
-  .filter {
-    margin-left: 0.3rem;
   }
 }
 </style>

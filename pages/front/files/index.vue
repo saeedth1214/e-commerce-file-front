@@ -1,45 +1,56 @@
 <template>
   <div>
     <v-container fluid class="mt-2" v-if="!loading">
-      <v-row class="sticky sticky-search">
+      <v-row
+        class="sticky sticky-search"
+        style="border-bottom: 1px solid #d7d7d7"
+      >
         <TheFilesSearch
           @searchByTitle="filterByTitle"
           @showFilterBox="showFilter = !showFilter"
         />
       </v-row>
       <v-row class="sticky sticky-tag">
-        <!-- :md="showFilter ? '9' : '12'" -->
-        <v-col cols="12" :lg="showFilter ? '9' : '12'">
-          <FileSeachbyTags @searchByTag="filterByTag" />
-        </v-col>
         <v-col
           cols="12"
           lg="3"
-          :style="[showFilter ? { 'border-right': '1px solid #e1e1e1' } : '']"
+          :style="[showFilter ? { 'border-left': '1px solid #e1e1e1' } : '']"
         >
           <div
             class="d-flex flex-column showfilterbox"
             v-if="showFilter && $vuetify.breakpoint.lgAndUp"
           >
-            <div class="d-flex justify-space-between pr-4 pl-4">
-              <v-btn>
+            <div class="pr-4 pl-4" style="text-align: left">
+              <v-btn icon plain color="#333">
                 <v-icon
                   style="cursor: pointer"
                   @click="showFilter = !showFilter"
                 >
-                  mdi-arrow-expand-left
+                  mdi-arrow-expand-right
                 </v-icon>
-              </v-btn>
-              <v-btn style="font-size: 1rem; font-weight: 600">
-                فیلتر
-                <v-icon color="#374957">mdi-tune</v-icon>
               </v-btn>
             </div>
           </div>
         </v-col>
+        <v-col cols="12" :lg="showFilter ? '9' : '12'">
+          <FileSeachbyTags @searchByTag="filterByTag" />
+        </v-col>
       </v-row>
-
       <v-row style="border-bottom: 1px solid #d7d7d7">
+        <v-col
+          cols="12"
+          md="3"
+          sm="3"
+          lg="3"
+          v-if="showFilter"
+          style="border-left: 1px solid #d7d7d7"
+        >
+          <TheFilesFilter
+            @filterItems="filterFiles"
+            :showFilter="showFilter"
+            @showFilterBox="showFilter = !showFilter"
+          />
+        </v-col>
         <v-col
           cols="12"
           :md="showFilter ? '9' : '12'"
@@ -50,16 +61,6 @@
             @fetchMoreFiles="fetchMoreFiles"
             :loading="loading"
           />
-        </v-col>
-        <v-col
-          cols="12"
-          md="3"
-          sm="3"
-          lg="3"
-          v-if="showFilter"
-          style="border-right: 1px solid #d7d7d7"
-        >
-          <TheFilesFilter @filterItems="filterFiles" :showFilter="showFilter" />
         </v-col>
       </v-row>
     </v-container>
@@ -215,7 +216,7 @@ export default {
   }
   &-tag {
     top: 80px;
-    z-index: 10;
+    z-index: 1;
     border-bottom: 1px solid #e7e7e7;
   }
 }

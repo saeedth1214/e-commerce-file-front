@@ -7,8 +7,10 @@
 
     <TheFormSearchBox
       searchGroupStyle="border:1px solid #d7d7d7;"
-      dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%);"
+      searchDropDownStyle="width:20% !important"
+      dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%)"
       btnHeight="height:48px"
+      searchValueStyle="width:80% !important"
     />
 
     <div class="filter-btn">

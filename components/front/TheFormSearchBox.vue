@@ -3,7 +3,10 @@
     <div class="search-gr" :style="searchGroupStyle">
       <div class="search-dropdown" :style="searchDropDownStyle">
         <span class="dropdown_button" @click="showPopover"> فیلتر </span>
-        <div class="dropdown_popover" :style="dropDownStyle">
+        <div
+          class="dropdown_popover"
+          :style="[{ display: display + ' !important', dropDownStyle }]"
+        >
           <ul>
             <li>
               <v-radio-group v-model="category">
@@ -46,13 +49,14 @@
         type="text"
         class="search-value-fake"
         style="direction: rtl; padding-right: 0.5rem"
+        :style="searchValueStyle"
         :placeholder="searchWhat"
         v-model="search"
       />
       <v-btn
         tile
         color="#000"
-        height="47px"
+        :height="landing ? '50px' : '47px'"
         shaped
         plain
         style="background-color: #fff"
@@ -85,6 +89,10 @@ export default {
       required: false,
     },
     searchDropDownStyle: {
+      type: String,
+      required: false,
+    },
+    searchValueStyle: {
       type: String,
       required: false,
     },
@@ -125,7 +133,7 @@ export default {
         });
       }
     },
-    showPopover() {
+    showPopover(el) {
       this.display = this.display === "none" ? "block" : "none";
     },
   },
@@ -167,7 +175,7 @@ export default {
     height: 100%;
   }
   .search-dropdown {
-    width: 20%;
+    width: 30%;
     background-color: #fff;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
@@ -228,7 +236,7 @@ export default {
       }
     }
     .dropdown_popover {
-      display: v-bind(display);
+      display: none;
       position: absolute;
       top: 60px;
       width: 100%;
@@ -255,7 +263,7 @@ export default {
   }
   .search-value-fake {
     outline: none;
-    width: 80%;
+    width: 70%;
     background-color: #fff;
   }
 }
@@ -280,12 +288,4 @@ export default {
     width: 30% !important;
   }
 }
-// @media screen and (min-height: 960px) {
-//   .search-value-fake {
-//     width: 80% !important;
-//   }
-//   .search-dropdown {
-//     width: 20% !important;
-//   }
-// }
 </style>

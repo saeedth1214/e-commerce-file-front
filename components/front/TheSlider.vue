@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" style="margin-top: 2rem">
-    <v-sheet class="mx-auto">
+    <v-sheet class="mx-auto" style="width: 800px">
       <v-slide-group max="10" class="pt-4" show-arrows center-active>
         <v-slide-item v-for="(file, Idx) in files" :key="Idx">
           <v-card

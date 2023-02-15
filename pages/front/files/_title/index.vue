@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheFileInfo :file="file"/>
+    <Show :file="file" />
     <SnackBar color="orange darken-2" />
     <ScrollTop />
   </div>
@@ -8,11 +8,14 @@
 <script>
 export default {
   async asyncData(context) {
-    // fetch file
-    let fileValue = context.params.id ? context.params.id : context.params.title;
+    let fileValue = context.params.id
+      ? context.params.id
+      : context.params.title;
+    let parameters = {};
+    parameters["include"] = "attributes,tags";
     let uri = encodeURI(`frontend/files/${fileValue}`);
     let file = await context.$axios
-      .get(uri)
+      .get(uri, { params: parameters })
       .then((res) => {
         return res.data.data;
       });

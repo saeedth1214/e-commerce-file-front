@@ -32,7 +32,7 @@ export default {
   methods: {
     onEditorChange({ editor, html, text }) {
       this.content = html;
-      this.$emit("applyComment", this.content,text);
+      this.$emit("applyComment", this.content, text);
     },
   },
 };
@@ -40,13 +40,19 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 50px 0;
   .quill-editor {
     min-height: 200px;
     max-height: 400px;
     overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .container {
+    width: 350px;
   }
 }
 </style>

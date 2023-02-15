@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container fluid v-if="!overlay">
+    <v-container fluid v-if="!overlay" class="comment-container">
       <ul>
         <li class="parent" v-for="comment in comments" :key="comment.id">
           <div class="message">
@@ -191,6 +191,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@media screen and (max-width: 425px) {
+  .parent {
+    width: 400px;
+  }
+  .comment-container {
+    overflow-x: scroll;
+  }
+}
+
 .leave-comment {
   padding: 0.5rem;
   text-align: center;

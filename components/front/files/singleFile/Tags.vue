@@ -1,14 +1,15 @@
 <template>
-  <v-card-text v-if="file.tags.data.length">
-    <p class="text-center text-h5" style="width: 100%">تگ های مشابه</p>
-    <v-sheet elevation="10" class="py-4 px-1">
-      <v-chip-group mandatory active-class="primary--text">
-        <v-chip v-for="tag in file.tags.data" :key="tag">{{ tag.name }}</v-chip>
-      </v-chip-group>
-    </v-sheet>
-  </v-card-text>
+  <div class="tags" v-if="tags.length">
+    <p class="subtitle-2 font-weight-bold">تگ های مشابه</p>
+    <ul class="tag-lits d-flex flex-wrap">
+      <li class="tag-item" v-for="tag in tags" :key="tag.id">
+        <v-btn color="#888" class="ma-2 subtitle-2" dark outlined>
+          {{ tag.name }}
+        </v-btn>
+      </li>
+    </ul>
+  </div>
 </template>
-
 <script>
 export default {
   props: {
@@ -19,5 +20,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

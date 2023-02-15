@@ -1,4 +1,10 @@
 export default (context, inject) => {
+  inject("numberShorter", (number) => {
+    if (parseInt(number) > 1000) {
+      return parseInt(number) / 1000 + "k";
+    }
+    return number;
+  });
   inject("formatMoney", (money) => {
     return new Intl.NumberFormat().format(money);
   });

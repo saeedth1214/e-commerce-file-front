@@ -35,8 +35,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/card.js",
-    "~/plugins/chart.js",
+    "~/plugins/injections.js",
     "~/plugins/axios.js",
     "~/plugins/validate.js",
     "~/plugins/vue-select.js",
@@ -53,6 +52,7 @@ export default {
     { path: "~/components/panel/Header", extensions: ["vue"] },
     { path: "~/components/panel/SidebarAside", extensions: ["vue"] },
     { path: "~/components/panel/Content/category", extensions: ["vue"] },
+    { path: "~/components/panel/Content/attribute", extensions: ["vue"] },
     { path: "~/components/panel/Content/file", extensions: ["vue"] },
     { path: "~/components/panel/Content/plan", extensions: ["vue"] },
     { path: "~/components/panel/Content/tag", extensions: ["vue"] },
@@ -67,7 +67,6 @@ export default {
     { path: "~/components/front/plans", extensions: ["vue"] },
     { path: "~/components/front/files", extensions: ["vue"] },
     { path: "~/components/front/files/singleFile", extensions: ["vue"] },
-    { path: "~/components/front/landing-page", extensions: ["vue"] },
     { path: "~/components/front/profile", extensions: ["vue"] },
 
     // public
@@ -154,6 +153,10 @@ export default {
             title: "تگ ها",
             link: "تگ ها",
           },
+          attribute: {
+            title: "ویژگی ها",
+            link: "ویژگی ها",
+          },
           voucher: {
             title: "کد تخفیف",
             link: "تخفیف ها",
@@ -224,7 +227,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api.filymo.ir/",
+      target: "https://api.filymo.ir//",
     },
   },
   sweetalert: {

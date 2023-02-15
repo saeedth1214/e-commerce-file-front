@@ -60,6 +60,12 @@ body {
   max-height: 150px !important;
 }
 
+/*  editor */
+.ql-toolbar.ql-snow {
+  direction: ltr !important;
+}
+
+/* end editor */
 .hour > button:nth-child(1) {
   margin-bottom: 20px !important;
 }
@@ -175,7 +181,6 @@ body {
   margin-top: 0px !important;
 }
 
-
 .v-label {
   right: 10px !important;
 }
@@ -216,4 +221,3 @@ body {
 .v-menu__content {
   background: #fff;
 }
-

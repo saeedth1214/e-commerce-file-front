@@ -26,7 +26,7 @@ export default {
   height: 100%;
   position: absolute;
   top: 0px;
-  background-color: rgba(8, 25, 43, 0.85);
+  /* background-color: rgba(8, 25, 43, 0.85); */
   overflow: hidden;
   /* filter: blur(1px); */
 }

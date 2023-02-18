@@ -1,5 +1,9 @@
 <template>
   <div>
+    <p style="font-size: 1rem; font-weight: 600;">
+      فایل های خریداری شده
+    </p>
+
     <v-data-table
       :headers="headers"
       :items="files"
@@ -21,8 +25,6 @@
       </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>لیست فایل ها </v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -104,7 +106,6 @@ export default {
       files: [],
       page: 1,
       pageCount: 0,
-
       loading: true,
     };
   },

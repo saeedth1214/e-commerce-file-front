@@ -1,50 +1,36 @@
 <template>
   <div>
-    <v-card width="100%" v-if="!loading">
-      <v-row dense>
-        <v-col cols="12" md="6" sm="6">
-          <v-card-text>
-            <div>اطلاعات کلی</div>
-            <v-divider></v-divider>
-          </v-card-text>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>نام :</span>
-              <span>{{ user.first_name ? user.first_name : "ثبت نشده" }}</span>
-            </p>
-          </v-card-actions>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>نام خانوادگی :</span>
-              <span>{{ user.last_name ? user.last_name : "ثبت نشده" }}</span>
-            </p>
-          </v-card-actions>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>تلفن همراه :</span>
-              <span>{{ user.mobile ? user.mobile : "ثبت نشده" }}</span>
-            </p>
-          </v-card-actions>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>ایمیل :</span>
-              <span>{{ user.email ? user.email : "ثبت نشده" }}</span>
-            </p>
-          </v-card-actions>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>نقش کاربری :</span>
-              <span>{{ user.role }}</span>
-            </p>
-          </v-card-actions>
-          <v-card-actions>
-            <p class="d-flex justify-space-between" style="width: 100%">
-              <span>تاریخ عضویت :</span>
-              <span>{{ user.created_at }}</span>
-            </p>
-          </v-card-actions>
-        </v-col>
-        <v-col cols="12" md="6" sm="6">
+    <v-row dense v-if="!loading">
+      <v-col cols="12" lg="3" sm="3" md="3">
+        <v-card :loading="infoLoading">
+          <div class="avatar-box">
+            <v-avatar
+              size="60"
+              style="cursor: pointer"
+              color="primary"
+              @click="handleFileImport"
+            >
+              <v-img
+                :src="$auth.user && $auth.user.media_url"
+                v-if="$auth.user && $auth.user.media_url"
+              ></v-img>
+              <v-icon dark color="#fff" v-else>mdi-account-circle</v-icon>
+            </v-avatar>
+            <v-btn color="primary" small dark @click="uploadFile">
+              ویرایش
+            </v-btn>
+            <div class="fileName" v-if="file">{{ file.name }}</div>
+            <input
+              ref="uploader"
+              class="d-none"
+              type="file"
+              @change="onFileChanged"
+            />
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="12" lg="9" sm="9" md="9">
+        <v-card :loading="avatarLoading">
           <v-card-text>
             <div>ویرایش اطلاعات</div>
             <v-divider></v-divider>
@@ -99,7 +85,7 @@
                     <div class="text-center mt-5">
                       <v-btn
                         rounded
-                        color="indigo darken-4"
+                        color="primary"
                         type="submit"
                         :disabled="invalid"
                         class="mb-6 white--text"
@@ -112,9 +98,9 @@
               </v-form>
             </validation-observer>
           </v-card-actions>
-        </v-col>
-      </v-row>
-    </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-sheet color="grey lighten-4" class="pa-3" v-else>
       <v-skeleton-loader
         class="mx-auto"
@@ -124,7 +110,6 @@
     </v-sheet>
   </div>
 </template>
-
 <script>
 import showMessage from "@/mixins/showMessage";
 
@@ -136,7 +121,14 @@ export default {
       email: null,
       mobile: null,
     },
+    isSelecting: false,
+    file: null,
+    avatarLoading: false,
+    infoLoading: false,
     loading: false,
+    // 500 kb
+    maxSize: 500000,
+    types: ["image/jpeg", "image/jpg", "image/png", "image/webp"],
   }),
   mixins: [showMessage],
 
@@ -149,7 +141,7 @@ export default {
 
   methods: {
     async updateInformation() {
-      this.loading = true;
+      this.infoLoading = true;
       let updatedProfile = {
         first_name: this.profile.first_name,
         last_name: this.profile.last_name,
@@ -158,13 +150,89 @@ export default {
       await this.$axios.put("user/profile", updatedProfile).then((res) => {
         this.showMessage("success", ".اطلاعات شما تغییر پیدا کرد");
       });
-      this.loading = false;
+      this.infoLoading = false;
+    },
+    onFileChanged(e) {
+      if (e.target.files[0] !== undefined) {
+        this.file = e.target.files[0];
+      }
+    },
+    handleFileImport() {
+      this.isSelecting = true;
+      // After obtaining the focus when closing the FilePicker, return the button state to normal
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
+        },
+        { once: true }
+      );
+      // Trigger click on the FileInput
+      this.$refs.uploader.click();
+    },
+
+    uploadFile() {
+      if (!this.file) {
+        return;
+      }
+      this.avatarLoading = true;
+      if (this.file.size > this.maxSize) {
+        alert("The file size should not be more than 500kb.");
+        return;
+      }
+      if (!this.types.includes(this.file.type)) {
+        alert("The file must have one of the [jpeg,jpg,png,webp] formats");
+        return;
+      }
+
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+
+      let formData = new FormData();
+      formData.append("file", this.file);
+
+      this.$axios
+        .post("user/profile/change-avatar", formData, config)
+        .then(async (res) => {
+          if (res.status === 204) {
+            await this.$store.commit("option/changeSnackbarMood", true);
+            await this.$store.commit(
+              "option/changeSnackbarColor",
+              "green darken-1"
+            );
+            await this.$store.commit(
+              "option/changeSnackbarText",
+              " عکس پروفایل شما ویرایش شد."
+            );
+          }
+        });
+
+      this.avatarLoading = false;
     },
   },
   created() {
+    this.loading = true;
     this.profile = Object.assign({}, { ...this.user });
+    this.loading = false;
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.avatar-box {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  .fileName {
+    width: 100%;
+    font-size: 0.8rem;
+    color: #100e0e;
+    text-align: center;
+  }
+}
+</style>

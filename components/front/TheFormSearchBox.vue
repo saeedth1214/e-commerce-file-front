@@ -9,15 +9,15 @@
         >
           <ul>
             <li>
-              <v-radio-group v-model="category">
+              <v-radio-group v-model="selection">
                 <v-radio
-                  label="طراحی"
+                  label="وکتور"
                   :value="1"
                   color="primary"
                   style="margin-top: 0.2rem"
                 ></v-radio>
                 <v-radio
-                  label="تصاویر"
+                  label="بک گراند"
                   :value="2"
                   color="primary"
                   style="margin-top: 0.2rem"
@@ -50,7 +50,7 @@
         class="search-value-fake"
         style="direction: rtl; padding-right: 0.5rem"
         :style="searchValueStyle"
-        :placeholder="searchWhat"
+        placeholder="..."
         v-model="search"
       />
       <v-btn
@@ -73,9 +73,9 @@ export default {
   data() {
     return {
       search: null,
-      category: null,
+      selection: null,
       display: "none",
-      amountType: "",
+      amountType: null,
     };
   },
 
@@ -102,22 +102,18 @@ export default {
     },
   },
   computed: {
-    searchWhat() {
-      return parseInt(this.category) === 1 ? "همه طراحی ها" : "همه تصاویر";
-    },
     height() {
       return this.landing ? "40px" : "37px";
     },
   },
 
   created() {
-    if (Object.keys(this.$route.query).length) {
-      this.search = this.$route.query.title;
-      this.$route.query.selection &&
-        (this.category = parseInt(this.$route.query.selection));
-      this.$route.query.amount && (this.amountType = this.$route.query.amount);
-      this.display = "block";
-    }
+    this.$route.query?.title && (this.search = this.$route.query.title);
+    this.$route.query?.selection &&
+      (this.selection = this.$route.query.selection);
+    this.$route.query?.amount && (this.amountType = this.$route.query.amount);
+    (this.search || this.selection || this.amountType) &&
+      (this.display = "block");
   },
   methods: {
     async searchTitle() {
@@ -243,6 +239,7 @@ export default {
       background: #fff;
       border-radius: 5px;
       direction: rtl;
+      z-index: 10;
       > ul {
         list-style: none;
         padding: 0px;

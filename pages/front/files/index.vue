@@ -96,7 +96,6 @@ export default {
     "$route.query": "$fetch",
     innerWidth(width) {
       if (width <= 1296) {
-        // console.log(width);
         this.showFilter = false;
       } else {
         this.showFilter = true;

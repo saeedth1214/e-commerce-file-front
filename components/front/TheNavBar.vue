@@ -159,13 +159,13 @@
                 <a href="/front/plans">طرح ها</a>
               </li>
               <li>
-                <a href="/front/plans">وکتور</a>
+                <a href="/front/files?format=search&category=وکتور">وکتور</a>
               </li>
               <li>
-                <a href="/front/plans">فتوشاپ</a>
+                <a href="/front/files?format=search&category=طبیعت">طبیعت</a>
               </li>
               <li>
-                <a href="/front/plans">تصاویر</a>
+                <a href="/front/files?format=search&category=ورزشی">ورزشی</a>
               </li>
               <li
                 id="expand"
@@ -192,7 +192,7 @@
                         class="topmenu_title"
                         :class="[!index ? 'active_topMenuTitle' : '']"
                         :to="{
-                          path: '/front/categories',
+                          path: '/front/files?format=search',
                           query: {
                             category: category.name,
                           },
@@ -210,7 +210,7 @@
                         >
                           <nuxt-link
                             :to="{
-                              path: '/front/categories',
+                              path: '/front/files?format=search',
                               query: {
                                 category: subCategory.name,
                               },
@@ -258,13 +258,13 @@
               <a href="/front/files">طرح ها </a>
             </li>
             <li>
-              <a href="/front/plans">وکتور</a>
+              <a href="/front/files?format=search&category=وکتور">وکتور</a>
             </li>
             <li>
-              <a href="/front/plans">فتوشاپ</a>
+              <a href="/front/files?format=search&category=طبیعت">طبیعت</a>
             </li>
             <li>
-              <a href="/front/plans">تصاویر</a>
+              <a href="/front/files?format=search&category=ورزشی">ورزشی</a>
             </li>
             <li style="width: 100%">
               <span class="category_item_mobile"> دسته بندی </span>
@@ -310,7 +310,6 @@
                 </ul>
               </div>
             </li>
-
             <li>
               <a href="/front/plans">دربار من </a>
             </li>
@@ -328,6 +327,7 @@ export default {
       active: false,
       toggle: false,
       loading: false,
+      categories: [],
       attrs: {
         class: "mb-6",
         boilerplate: true,
@@ -342,9 +342,9 @@ export default {
     },
   },
   computed: {
-    categories() {
-      return this.$store.state.category.menuBarCategories;
-    },
+    // categories() {
+    //   return this.$store.state.category.menuBarCategories;
+    // },
     chevronIcon() {
       return this.auth ? "mdi-chevron-up" : "mdi-chevron-down";
     },
@@ -378,6 +378,13 @@ export default {
     this.loading = true;
   },
 
+  async fetch() {
+    this.categories = await this.$axios
+      .get("frontend/categories/menubar?include=subCategories")
+      .then((res) => {
+        return res.data.data;
+      });
+  },
   methods: {
     async logout() {
       await this.$auth.logout();

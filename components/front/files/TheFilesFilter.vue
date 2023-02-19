@@ -17,10 +17,10 @@
             active-class="blue accent-2 white--text"
             v-model="category"
           >
-            <v-chip value="1">طراحی</v-chip>
-            <v-chip value="2">تصاویر</v-chip>
-            <v-chip value="3">وکتور</v-chip>
-            <v-chip value="4">PSD</v-chip>
+            <v-chip value="1">وکتور</v-chip>
+            <v-chip value="2">بک گراند</v-chip>
+            <v-chip value="3">طبیعت</v-chip>
+            <v-chip value="4">ورزشی</v-chip>
           </v-chip-group>
         </div>
       </li>

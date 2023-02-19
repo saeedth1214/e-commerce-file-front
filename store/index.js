@@ -13,7 +13,7 @@ const createStore = () => {
     mutations: {},
     actions: {
       async nuxtServerInit({ dispatch }) {
-        await dispatch("category/fetchMenuBarCategories");
+        // await dispatch("category/fetchMenuBarCategories");
         await dispatch("tag/fetchTagsInLandingPage");
       },
     },

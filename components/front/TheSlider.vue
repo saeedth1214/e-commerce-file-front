@@ -1,10 +1,10 @@
 <template>
   <v-col cols="12" style="margin-top: 2rem">
-    <v-sheet class="mx-auto" style="width: 800px">
+    <v-sheet class="mx-auto">
       <v-slide-group max="10" class="pt-4" show-arrows center-active>
         <v-slide-item v-for="(file, Idx) in files" :key="Idx">
           <v-card
-            class="ma-4 content"
+            class="ma-4 slider-wrapper"
             nuxt
             :to="{
               name: 'front-files-title___fa',
@@ -32,21 +32,25 @@
 </template>
 <script>
 export default {
-  props: {
-    files: {
-      type: Array,
-      required: true,
-    },
+  data() {
+    return {
+      files: [],
+    };
+  },
+  async fetch() {
+    await this.$axios.get("frontend/files/most-visited").then((res) => {
+      this.files = res.data.data["most-visited"];
+    });
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .theme--light.v-sheet {
   background-color: transparent;
   margin-top: 2rem;
   direction: rtl;
 }
-.content {
+.slider-wrapper {
   width: 150px;
   height: 150px;
   border-radius: 50% !important;

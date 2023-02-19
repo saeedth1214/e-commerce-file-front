@@ -66,13 +66,13 @@ export default {
   .wrapper-tags {
     width: 95%;
     overflow-x: scroll;
-    // border: 1px solid red;
     height: 50px;
     position: relative;
     .tags {
       width: 500px;
       position: absolute;
       left: 0px;
+      justify-content: flex-end !important;
       a {
         width: 140px;
       }

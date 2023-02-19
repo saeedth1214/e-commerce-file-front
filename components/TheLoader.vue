@@ -32,8 +32,8 @@ export default {
 }
 .ring {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 60%;
   margin: 0px auto;
   height: 100%;
 }

@@ -1,12 +1,12 @@
 <template>
-  <v-row dense>
-    <v-container>
-      <section style="margin-top: 4rem">
-        <h4>بهترین و با کیفیت ترین فایل هارو اینجا دانلود کنید</h4>
-        <TheFormSearchBox :landing="true" />
-      </section>
-    </v-container>
-  </v-row>
+    <v-row dense>
+      <v-container>
+        <section style="margin-top: 4rem">
+          <h4>بهترین و با کیفیت ترین فایل هارو اینجا دانلود کنید</h4>
+          <TheFormSearchBox :landing="true" />
+        </section>
+      </v-container>
+    </v-row>
 </template>
 <script>
 import TheFormSearchBox from "@/components/front/TheFormSearchBox.vue";

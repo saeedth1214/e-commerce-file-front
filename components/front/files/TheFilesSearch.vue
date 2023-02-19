@@ -1,24 +1,25 @@
 <template>
-  <section style="width: 95%" class="box">
-    <div class="brand">
-      <span>Fily</span>
-      <span>mo</span>
-    </div>
+  <v-row class="sticky sticky-search" style="border-bottom: 1px solid #d7d7d7">
+    <section style="width: 95%" class="box">
+      <div class="brand">
+        <span>Fily</span>
+        <span>mo</span>
+      </div>
+      <TheFormSearchBox
+        searchGroupStyle="border:1px solid #d7d7d7;"
+        searchDropDownStyle="width:20% !important"
+        dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%)"
+        btnHeight="height:48px"
+        searchValueStyle="width:80% !important"
+      />
 
-    <TheFormSearchBox
-      searchGroupStyle="border:1px solid #d7d7d7;"
-      searchDropDownStyle="width:20% !important"
-      dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%)"
-      btnHeight="height:48px"
-      searchValueStyle="width:80% !important"
-    />
-
-    <div class="filter-btn">
-      <v-btn color="#eff3f6" @click="$emit('showFilterBox')" shaped tile>
-        <v-icon color="#374957">mdi-tune</v-icon>
-      </v-btn>
-    </div>
-  </section>
+      <div class="filter-btn">
+        <v-btn color="#eff3f6" @click="$emit('showFilterBox')" shaped tile>
+          <v-icon color="#374957">mdi-tune</v-icon>
+        </v-btn>
+      </div>
+    </section>
+  </v-row>
 </template>
 
 <script>

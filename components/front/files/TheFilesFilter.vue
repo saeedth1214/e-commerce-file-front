@@ -1,121 +1,129 @@
 <template>
-  <div class="filter-wrapper">
-    <ul class="filter-list">
-      <li v-if="$vuetify.breakpoint.mdAndDown" style="align-items: end">
-        <v-icon @click="$emit('showFilterBox')">mdi-close</v-icon>
-      </li>
-      <li class="filter-item" @click="openContent">
-        <div class="item-label">
-          <span>
-            <v-icon small>mdi-layers</v-icon>
-            دسته بندی
-          </span>
-          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-        </div>
-        <div class="content">
-          <v-chip-group
-            active-class="blue accent-2 white--text"
-            v-model="category"
+  <v-col
+    cols="12"
+    md="3"
+    sm="3"
+    lg="3"
+    v-if="showFilter"
+    style="border-left: 1px solid #d7d7d7"
+  >
+    <div class="filter-wrapper">
+      <ul class="filter-list">
+        <li v-if="$vuetify.breakpoint.mdAndDown" style="align-items: end">
+          <v-icon @click="$emit('showFilterBox')">mdi-close</v-icon>
+        </li>
+        <li class="filter-item" @click="openContent">
+          <div class="item-label">
+            <span>
+              <v-icon small>mdi-layers</v-icon>
+              دسته بندی
+            </span>
+            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+          </div>
+          <div class="content">
+            <v-chip-group
+              active-class="blue accent-2 white--text"
+              v-model="category"
+            >
+              <v-chip value="1">وکتور</v-chip>
+              <v-chip value="2">بک گراند</v-chip>
+              <v-chip value="3">طبیعت</v-chip>
+              <v-chip value="4">ورزشی</v-chip>
+            </v-chip-group>
+          </div>
+        </li>
+        <li class="filter-item" @click="openContent">
+          <div class="item-label">
+            <span>
+              <v-icon small>mdi-cash</v-icon>
+              نقدی</span
+            >
+            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+          </div>
+          <div class="content">
+            <v-chip-group
+              active-class="blue accent-2 white--text"
+              v-model="amount"
+            >
+              <v-chip value="cash">نقدی</v-chip>
+              <v-chip value="free">رایگان</v-chip>
+            </v-chip-group>
+          </div>
+        </li>
+        <li class="filter-item" @click="openContent">
+          <div class="item-label">
+            <span>
+              <v-icon small>mdi-sale</v-icon>
+              تخفیف</span
+            >
+            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+          </div>
+          <div class="content">
+            <v-chip-group
+              active-class="blue accent-2 white--text"
+              v-model="discount"
+            >
+              <v-chip value="1">بدون تخفیف</v-chip>
+              <v-chip value="2">تخفیف دار</v-chip>
+            </v-chip-group>
+          </div>
+        </li>
+        <li class="filter-item" @click="openContent">
+          <div class="item-label">
+            <span>
+              <v-icon small>mdi-file</v-icon>
+              فرمت</span
+            >
+            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+          </div>
+          <div class="content">
+            <v-chip-group
+              active-class="blue accent-2 white--text"
+              v-model="format"
+            >
+              <v-chip value="1">PNG</v-chip>
+              <v-chip value="2">JPG</v-chip>
+              <v-chip value="3">JPEG</v-chip>
+              <v-chip value="4">AL</v-chip>
+              <v-chip value="5">EPS</v-chip>
+              <v-chip value="6">PSD</v-chip>
+            </v-chip-group>
+          </div>
+        </li>
+        <li class="filter-item" @click="openContent">
+          <div class="item-label">
+            <span>
+              <v-icon small>mdi-calendar-range</v-icon>
+              تاریخ انتشار</span
+            >
+            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
+          </div>
+          <div class="content">
+            <v-chip-group
+              active-class="blue accent-2 white--text"
+              v-model="published"
+            >
+              <v-chip value="1">3 ماه قبل</v-chip>
+              <v-chip value="2">6 ماه قبل</v-chip>
+              <v-chip value="3">1 سال قبل</v-chip>
+            </v-chip-group>
+          </div>
+        </li>
+      </ul>
+      <v-row class="mt-4">
+        <v-col class="text-center">
+          <v-btn color="primary" class="white--text" @click="setMyFilter"
+            >اعمال فیلتر</v-btn
           >
-            <v-chip value="1">وکتور</v-chip>
-            <v-chip value="2">بک گراند</v-chip>
-            <v-chip value="3">طبیعت</v-chip>
-            <v-chip value="4">ورزشی</v-chip>
-          </v-chip-group>
-        </div>
-      </li>
-      <li class="filter-item" @click="openContent">
-        <div class="item-label">
-          <span>
-            <v-icon small>mdi-cash</v-icon>
-            نقدی</span
-          >
-          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-        </div>
-        <div class="content">
-          <v-chip-group
-            active-class="blue accent-2 white--text"
-            v-model="amount"
-          >
-            <v-chip value="cash">نقدی</v-chip>
-            <v-chip value="free">رایگان</v-chip>
-          </v-chip-group>
-        </div>
-      </li>
-      <li class="filter-item" @click="openContent">
-        <div class="item-label">
-          <span>
-            <v-icon small>mdi-sale</v-icon>
-            تخفیف</span
-          >
-          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-        </div>
-        <div class="content">
-          <v-chip-group
-            active-class="blue accent-2 white--text"
-            v-model="discount"
-          >
-            <v-chip value="1">بدون تخفیف</v-chip>
-            <v-chip value="2">تخفیف دار</v-chip>
-          </v-chip-group>
-        </div>
-      </li>
-      <li class="filter-item" @click="openContent">
-        <div class="item-label">
-          <span>
-            <v-icon small>mdi-file</v-icon>
-            فرمت</span
-          >
-          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-        </div>
-        <div class="content">
-          <v-chip-group
-            active-class="blue accent-2 white--text"
-            v-model="format"
-          >
-            <v-chip value="1">PNG</v-chip>
-            <v-chip value="2">JPG</v-chip>
-            <v-chip value="3">JPEG</v-chip>
-            <v-chip value="4">AL</v-chip>
-            <v-chip value="5">EPS</v-chip>
-            <v-chip value="6">PSD</v-chip>
-          </v-chip-group>
-        </div>
-      </li>
-      <li class="filter-item" @click="openContent">
-        <div class="item-label">
-          <span>
-            <v-icon small>mdi-calendar-range</v-icon>
-            تاریخ انتشار</span
-          >
-          <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-        </div>
-        <div class="content">
-          <v-chip-group
-            active-class="blue accent-2 white--text"
-            v-model="published"
-          >
-            <v-chip value="1">3 ماه قبل</v-chip>
-            <v-chip value="2">6 ماه قبل</v-chip>
-            <v-chip value="3">1 سال قبل</v-chip>
-          </v-chip-group>
-        </div>
-      </li>
-    </ul>
-    <v-row class="mt-4">
-      <v-col class="text-center">
-        <v-btn color="primary" class="white--text" @click="setMyFilter"
-          >اعمال فیلتر</v-btn
-        >
-      </v-col>
-    </v-row>
-  </div>
+        </v-col>
+      </v-row>
+    </div>
+  </v-col>
 </template>
 
 <script>
 import createFilter from "@/mixins/createFilter";
 export default {
-  ssr: false,
   data() {
     return {
       category: null,

@@ -1,18 +1,20 @@
 <template>
-  <v-col cols="12">
-    <div class="wrapper-tags">
-      <div class="tags">
-        <nuxt-link
-          v-for="tag in tags"
-          :key="tag.id"
-          :to="{ path: 'front/files', query: { searchByTag: tag.name } }"
-        >
-          {{ tag.name }}
-          <v-icon color="#fff">mdi-magnify</v-icon>
-        </nuxt-link>
+  <client-only>
+    <v-col cols="12">
+      <div class="wrapper-tags">
+        <div class="tags">
+          <nuxt-link
+            v-for="tag in tags"
+            :key="tag.id"
+            :to="{ path: 'front/files', query: { searchByTag: tag.name } }"
+          >
+            {{ tag.name }}
+            <v-icon color="#fff">mdi-magnify</v-icon>
+          </nuxt-link>
+        </div>
       </div>
-    </div>
-  </v-col>
+    </v-col>
+  </client-only>
 </template>
 <script>
 export default {

@@ -1,14 +1,6 @@
 <template>
-  <v-row v-if="loading">
-    <v-skeleton-loader
-      v-bind="attrs"
-      type="card-avatar, article, actions"
-      width="100%"
-      height="50px"
-    ></v-skeleton-loader>
-  </v-row>
-  <v-row dense style="direction: ltr; height: 60px" :style="headerStyle" v-else>
-    <v-col :md="$vuetify.breakpoint.mdAndUp ? '3' : '6'" sm="6" lg="3">
+  <v-row dense style="direction: ltr; height: 60px" :style="headerStyle">
+    <v-col md="3" sm="3" lg="3">
       <div class="auth" v-if="!$auth.loggedIn">
         <span>
           <a href="/authenticate?login">ورود</a>
@@ -18,7 +10,7 @@
         </span>
       </div>
       <div class="auth" v-else>
-        <v-avatar size="40" style="cursor: pointer; margin-left: 10px">
+        <v-avatar size="40" style="cursor: pointer; margin-right: 10px">
           <v-img
             @click="auth = !auth"
             :src="$auth.user && $auth.user.media_url"
@@ -147,8 +139,8 @@
         </v-card>
       </div>
     </v-col>
-    <v-col md="6" sm="6" lg="6" v-if="$vuetify.breakpoint.mdAndUp">
-      <v-row>
+    <v-col md="6" sm="6" lg="6">
+      <v-row v-if="$vuetify.breakpoint.mdAndUp">
         <v-col cols="12">
           <div class="navbar">
             <ul class="category">
@@ -234,8 +226,7 @@
         </v-col>
       </v-row>
     </v-col>
-
-    <v-col :md="$vuetify.breakpoint.mdAndUp ? '3' : '6'" sm="6" lg="3">
+    <v-col md="3" sm="3" lg="3">
       <p class="brand" v-if="$vuetify.breakpoint.mdAndUp">
         <a href="/">Filymo</a>
       </p>
@@ -326,7 +317,6 @@ export default {
       auth: false,
       active: false,
       toggle: false,
-      loading: false,
       categories: [],
       attrs: {
         class: "mb-6",
@@ -342,9 +332,6 @@ export default {
     },
   },
   computed: {
-    // categories() {
-    //   return this.$store.state.category.menuBarCategories;
-    // },
     chevronIcon() {
       return this.auth ? "mdi-chevron-up" : "mdi-chevron-down";
     },
@@ -374,9 +361,6 @@ export default {
       }
     },
   },
-  created() {
-    this.loading = true;
-  },
 
   async fetch() {
     this.categories = await this.$axios
@@ -402,9 +386,6 @@ export default {
       let ulElement = el.target.getElementsByClassName("topmenu_items")[0];
       ulElement?.classList.toggle("active-items");
     },
-  },
-  mounted() {
-    this.loading = false;
   },
 };
 </script>

@@ -9,7 +9,7 @@ export default {
   SET_MENU_BAR_CATEGORIES(state, payload) {
     state.menuBarCategories = payload;
   },
-  SET_SELECTED_CATEGORY(state, payload) {
-    state.selectedCategory = payload;
+  SET_FILTER_CATEGORY(state, payload) {
+    state.filterCategory = payload;
   },
 };

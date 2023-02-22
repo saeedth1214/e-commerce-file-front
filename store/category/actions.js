@@ -33,4 +33,11 @@ export default {
       });
     await commit("SET_MENU_BAR_CATEGORIES", categories);
   },
+
+  async selectFilterCategory({ commit, state }, payload) {
+    let category = state.menuBarCategories.find(
+      (item) => item.name === payload
+    );
+    await commit("SET_FILTER_CATEGORY", category);
+  },
 };

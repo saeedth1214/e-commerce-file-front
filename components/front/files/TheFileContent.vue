@@ -9,10 +9,10 @@
     <TheFileLists
       :fileData="fileData"
       :showFilter="showFilter"
+      :start="start"
       @closeFilter="$emit('closeFilter')"
+      @fetchMoreFiles="fetchMoreFiles"
     />
-
-    <!-- @fetchMoreFiles="fetchMoreFiles" -->
   </v-row>
 </template>
 <script>
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       fileData: {},
+      start: false,
     };
   },
   props: {
@@ -27,38 +28,60 @@ export default {
       type: Boolean,
       required: true,
     },
+    query: {
+      type: Object,
+      required: false,
+      default: () => {},
+    },
   },
-
+  watch: {
+    query() {
+      this.filterFiles();
+    },
+  },
   async fetch() {
-    let parameters = {};
-    // if (Object.keys(this.$route.query).length) {
-    //   if (Object.keys(this.tag).length) {
-    //     parameters["filters[tag_id]"] = this.tag.id;
-    //   } else if (this.$route.query["searchByTag"] !== undefined) {
-    //     let tagName = this.$route.query["searchByTag"];
-    //     let index = this.tags.findIndex((tag) => tag.name === tagName);
-    //     index !== undefined &&
-    //       (parameters["filters[tag_id]"] = this.tags[index].id);
-    //   }
-    //   if (this.$route.query["searchByTitle"]) {
-    //     parameters["filters[title]"] = this.search =
-    //       this.$route.query["searchByTitle"];
-    //   }
-    // }
+    let params = {};
 
-    await this.$axios
-      .get("frontend/files", { params: parameters })
-      .then((res) => {
-        this.fileData = {
-          files: res.data.data,
-          pagination: res.data.meta.pagination,
-        };
-      })
-      .catch((err) => {});
+    this.$route.query.category &&
+      (params["filters[category_name]"] = this.$route.query.category);
+    this.$route.query.tag &&
+      (params["filters[tag_name]"] = this.$route.query.tag);
+    this.$route.query.type &&
+      (params["filters[type]"] = this.$route.query.type);
+    this.$route.query.title &&
+      (params["filters[title]"] = this.$route.query.title);
+    this.$route.query.amount &&
+      (params["filters[amount]"] = this.$route.query.amount);
+
+    await this.$axios.get("frontend/files", { params }).then((res) => {
+      this.fileData = {
+        files: res.data.data,
+        pagination: res.data.meta.pagination,
+      };
+    });
   },
   computed: {
     tags() {
       return this.$store.state.tag.tags;
+    },
+  },
+  methods: {
+    async fetchMoreFiles() {
+      this.start = true;
+      await this.$fetch();
+      this.start = false;
+    },
+    async filterFiles() {
+      this.start = true;
+      let params = {};
+      params = { ...this.query };
+      await this.$axios.get("frontend/files", { params }).then((res) => {
+        this.fileData = {
+          files: res.data.data,
+          pagination: res.data.meta.pagination,
+        };
+      });
+      this.start = false;
     },
   },
 };

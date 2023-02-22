@@ -145,19 +145,19 @@
           <div class="navbar">
             <ul class="category">
               <li>
-                <a href="/front/files">فایل ها</a>
+                <nuxt-link to="/front/files">فایل ها</nuxt-link>
               </li>
               <li>
-                <a href="/front/plans">طرح ها</a>
+                <nuxt-link to="/front/plans">طرح ها</nuxt-link>
               </li>
               <li>
-                <a href="/front/files?format=search&category=وکتور">وکتور</a>
+                <nuxt-link to="/front/files?format=search&category=وکتور">وکتور</nuxt-link>
               </li>
               <li>
-                <a href="/front/files?format=search&category=طبیعت">طبیعت</a>
+                <nuxt-link to="/front/files?format=search&category=طبیعت">طبیعت</nuxt-link>
               </li>
               <li>
-                <a href="/front/files?format=search&category=ورزشی">ورزشی</a>
+                <nuxt-link to="/front/files?format=search&category=ورزشی">ورزشی</nuxt-link>
               </li>
               <li
                 id="expand"
@@ -186,7 +186,7 @@
                         :to="{
                           path: '/front/files?format=search',
                           query: {
-                            category: category.name,
+                            type: category.name,
                           },
                         }"
                       >
@@ -219,7 +219,7 @@
                 </div>
               </li>
               <li>
-                <a href="/front/plans">درباره من </a>
+                <nuxt-link to="/front/plans">درباره من </nuxt-link>
               </li>
             </ul>
           </div>
@@ -243,19 +243,19 @@
         <div>
           <ul class="sidebar-menu">
             <li>
-              <a href="/front/files">فایل ها </a>
+              <nuxt-link to="/front/files">فایل ها </nuxt-link>
             </li>
             <li>
-              <a href="/front/files">طرح ها </a>
+              <nuxt-link to="/front/files">طرح ها </nuxt-link>
             </li>
             <li>
-              <a href="/front/files?format=search&category=وکتور">وکتور</a>
+              <nuxt-link to="/front/files?format=search&category=وکتور">وکتور</nuxt-link>
             </li>
             <li>
-              <a href="/front/files?format=search&category=طبیعت">طبیعت</a>
+              <nuxt-link to="/front/files?format=search&category=طبیعت">طبیعت</nuxt-link>
             </li>
             <li>
-              <a href="/front/files?format=search&category=ورزشی">ورزشی</a>
+              <nuxt-link to="/front/files?format=search&category=ورزشی">ورزشی</nuxt-link>
             </li>
             <li style="width: 100%">
               <span class="category_item_mobile"> دسته بندی </span>
@@ -302,7 +302,7 @@
               </div>
             </li>
             <li>
-              <a href="/front/plans">دربار من </a>
+              <nuxt-link to="/front/plans">دربار من </nuxt-link>
             </li>
           </ul>
         </div>
@@ -317,7 +317,6 @@ export default {
       auth: false,
       active: false,
       toggle: false,
-      categories: [],
       attrs: {
         class: "mb-6",
         boilerplate: true,
@@ -334,6 +333,9 @@ export default {
   computed: {
     chevronIcon() {
       return this.auth ? "mdi-chevron-up" : "mdi-chevron-down";
+    },
+    categories() {
+      return this.$store.state.category.menuBarCategories;
     },
   },
   watch: {
@@ -360,14 +362,6 @@ export default {
         });
       }
     },
-  },
-
-  async fetch() {
-    this.categories = await this.$axios
-      .get("frontend/categories/menubar?include=subCategories")
-      .then((res) => {
-        return res.data.data;
-      });
   },
   methods: {
     async logout() {

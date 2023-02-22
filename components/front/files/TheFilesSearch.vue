@@ -11,6 +11,7 @@
         dropDownStyle="border:1px solid #d7d7d7;box-shadow: 0 0 60px rgb(34 34 34 / 25%)"
         btnHeight="height:48px"
         searchValueStyle="width:80% !important"
+        @searchBox="(query) => $emit('searchBoxAction', query)"
       />
 
       <div class="filter-btn">
@@ -21,26 +22,11 @@
     </section>
   </v-row>
 </template>
-
 <script>
 import TheFormSearchBox from "@/components/front/TheFormSearchBox";
 export default {
-  data() {
-    return {
-      search: null,
-      activeIcon: false,
-    };
-  },
-
   components: {
     TheFormSearchBox,
-  },
-
-  methods: {
-    async searchfileByTitle() {
-      this.$emit("searchByTitle", this.search);
-      this.search = null;
-    },
   },
 };
 </script>

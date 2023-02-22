@@ -9,37 +9,29 @@
         >
           <ul>
             <li>
-              <v-radio-group v-model="selection">
-                <v-radio
-                  label="وکتور"
-                  :value="1"
-                  color="primary"
-                  style="margin-top: 0.2rem"
-                ></v-radio>
-                <v-radio
-                  label="بک گراند"
-                  :value="2"
-                  color="primary"
-                  style="margin-top: 0.2rem"
-                ></v-radio>
-              </v-radio-group>
+              <v-checkbox
+                v-model="type"
+                label="طراحی"
+                value="طراحی"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="type"
+                label="تصاویر"
+                value="تصاویر"
+              ></v-checkbox>
             </li>
             <v-divider></v-divider>
             <li>
-              <v-radio-group v-model="amountType">
-                <v-radio
-                  label="رایگان"
-                  value="free"
-                  color="primary"
-                  style="margin-top: 0.2rem"
-                ></v-radio>
-                <v-radio
-                  label="نقدی"
-                  value="cash"
-                  color="primary"
-                  style="margin-top: 0.2rem"
-                ></v-radio>
-              </v-radio-group>
+              <v-checkbox
+                v-model="amountType"
+                label="نقدی"
+                value="نقدی"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="amountType"
+                label="رایگان"
+                value="رایگان"
+              ></v-checkbox>
             </li>
             <v-divider></v-divider>
           </ul>
@@ -73,7 +65,7 @@ export default {
   data() {
     return {
       search: null,
-      selection: null,
+      type: null,
       display: "none",
       amountType: null,
     };
@@ -106,30 +98,27 @@ export default {
       return this.landing ? "40px" : "37px";
     },
   },
-
+  watch: {
+    async type() {
+      await this.$store.dispatch("category/selectFilterCategory", this.type);
+    },
+  },
   created() {
     this.$route.query?.title && (this.search = this.$route.query.title);
-    this.$route.query?.selection &&
-      (this.selection = this.$route.query.selection);
     this.$route.query?.amount && (this.amountType = this.$route.query.amount);
-    (this.search || this.selection || this.amountType) &&
-      (this.display = "block");
+    this.$route.query?.type && (this.type = this.$route.query.type);
+    (this.amountType || this.type) && (this.display = "block");
   },
   methods: {
     async searchTitle() {
-      if (this.search && this.search.trim().length) {
-        let query = {};
-        query["format"] = "search";
-        query["title"] = this.search;
-        this.category && (query["selection"] = this.category);
-        this.amountType && (query["amount"] = this.amountType);
-        this.$router.push({
-          path: "/front/files",
-          query: { ...query },
-        });
-      }
+      let query = {};
+      query["format"] = "search";
+      this.search && (query["title"] = this.search);
+      this.amountType && (query["amount"] = this.amountType);
+      this.type && (query["type"] = this.type);
+      this.$emit("searchBox", query);
     },
-    showPopover(el) {
+    showPopover() {
       this.display = this.display === "none" ? "block" : "none";
     },
   },
@@ -244,16 +233,9 @@ export default {
         list-style: none;
         padding: 0px;
         li {
-          text-align: right;
           padding: 0.5rem;
           display: flex;
-          justify-content: flex-end;
-          flex-direction: row-reverse;
-          align-items: flex-end;
-          span {
-            color: #5f7d95;
-            margin-right: 0.5rem;
-          }
+          flex-direction: column;
         }
       }
     }

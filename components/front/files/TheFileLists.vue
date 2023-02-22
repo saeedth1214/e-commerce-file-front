@@ -5,8 +5,8 @@
       :md="showFilter ? '9' : '12'"
       :lg="showFilter ? '9' : '12'"
     >
-      <div class="mt-8">
-        <v-row v-if="fileData.files.length">
+      <div class="mt-8" v-if="!start">
+        <v-row v-if="fileData.files?.length">
           <v-col
             cols="12"
             md="3"
@@ -191,7 +191,7 @@
             >
           </v-col>
         </v-row>
-        <v-row dense v-if="fileData.files.length">
+        <v-row dense v-if="fileData.files?.length">
           <v-col cols="12" class="text-center">
             <v-hover v-slot="{ hover }">
               <v-btn
@@ -202,7 +202,7 @@
                 class="pa-4 white--text font-weight-bold text-center"
                 :class="{ 'on-hover': hover }"
                 @click="fetchMoreFiles"
-                :disabled="!fileData.files.length"
+                :disabled="!fileData.files?.length"
               >
                 موارد بیشتر
                 <template v-slot:loader>
@@ -214,6 +214,17 @@
             </v-hover>
           </v-col>
         </v-row>
+      </div>
+
+      <div style="width: 100%; height: 400px" v-else>
+        <TheLoader
+          :start="start"
+          :leftStyle="[
+            $vuetify.breakpoint.mdAndUp
+              ? { left: '60% !important' }
+              : { left: '50% !important' },
+          ]"
+        />
       </div>
     </v-col>
     <template #placeholder>
@@ -243,13 +254,19 @@ export default {
       type: Boolean,
       required: true,
     },
+    start: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   methods: {
     async fetchMoreFiles() {
-      this.page++;
-      if (this.page <= this.fileData.pagination.total_pages) {
-        this.$emit("fetchMoreFiles", this.page);
-      }
+      console.log("list");
+      this.$emit("fetchMoreFiles");
+      // this.page++;
+      // if (this.page <= this.fileData.pagination.total_pages) {
+      // }
     },
   },
 };

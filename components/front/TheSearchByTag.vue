@@ -18,15 +18,6 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      attrs: {
-        class: "mb-6",
-        boilerplate: true,
-        elevation: 2,
-      },
-    };
-  },
   computed: {
     tags() {
       return this.$store.state.tag.tags;
@@ -73,8 +64,8 @@ export default {
     .tags {
       width: 500px;
       position: absolute;
-      left: 0px;
-      justify-content: flex-end !important;
+      // left: 0px;
+      // justify-content: flex-end !important;
       a {
         width: 140px;
       }

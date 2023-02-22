@@ -24,7 +24,7 @@
         class="wrapper d-flex justify-center border-none"
       >
         <v-chip-group active-class="primary--text" v-model="tag">
-          <v-chip v-for="tag in tags" :key="tag.id" :value="tag">
+          <v-chip v-for="tag in tags" :key="tag.id" :value="tag.name">
             <span>
               {{ tag.name }}
               <v-icon>mdi-magnify</v-icon>
@@ -40,13 +40,6 @@ export default {
   data() {
     return {
       tag: null,
-      tags: [],
-      pagination: {},
-      attrs: {
-        class: "mb-6",
-        boilerplate: true,
-        elevation: 2,
-      },
     };
   },
   props: {
@@ -54,31 +47,14 @@ export default {
       type: Boolean,
       required: true,
     },
-  },
-  watch: {
-    tag(tag) {
-      if (tag !== undefined) {
-        this.$emit("searchByTag", { name: tag.name, id: tag.id });
-      } else {
-        this.$router.push({
-          path: "/front/files",
-        });
-      }
+    tags: {
+      type: Array,
+      required: true,
     },
   },
-
-  async created() {
-    this.fetchTags();
-  },
-
-  methods: {
-    async fetchTags() {
-      let params = {};
-      params["per_page"] = 30;
-      await this.$axios.get("frontend/tags", { params }).then((res) => {
-        this.tags = res.data.data;
-        this.pagination = res.data.meta.pagination;
-      });
+  watch: {
+    tag(value) {
+      this.$emit("searchByTag", value);
     },
   },
 };

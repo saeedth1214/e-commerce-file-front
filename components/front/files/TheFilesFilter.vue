@@ -12,31 +12,59 @@
         <li v-if="$vuetify.breakpoint.mdAndDown" style="align-items: end">
           <v-icon @click="$emit('showFilterBox')">mdi-close</v-icon>
         </li>
-        <li class="filter-item" @click="openContent">
-          <div class="item-label">
-            <span>
-              <v-icon small>mdi-layers</v-icon>
-              دسته بندی
-            </span>
-            <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
-          </div>
-          <div class="content">
-            <v-chip-group
-              active-class="blue accent-2 white--text"
-              v-model="category"
+        <li>
+          <div
+            class="apply-filter-box"
+            style="display: flex; gap: 5px; flex-wrap: wrap"
+          >
+            <v-btn
+              v-if="amount"
+              @click="amount = null"
+              tail
+              shaped
+              small
+              color="primary"
+              style="font-size: 0.8rem; padding: 0.5rem"
             >
-              <v-chip value="1">وکتور</v-chip>
-              <v-chip value="2">بک گراند</v-chip>
-              <v-chip value="3">طبیعت</v-chip>
-              <v-chip value="4">ورزشی</v-chip>
-            </v-chip-group>
+              {{ applyAmount }}
+              <v-icon color="#fff" style="font-size: 0.8rem" small
+                >mdi-close</v-icon
+              >
+            </v-btn>
+            <v-btn
+              v-if="format"
+              @click="format = null"
+              color="primary"
+              style="font-size: 0.8rem; padding: 0.5rem"
+            >
+              {{ applyFormat }}
+              <v-icon color="#fff" style="font-size: 0.8rem">mdi-close</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="discount"
+              @click="discount = null"
+              color="primary"
+              style="font-size: 0.8rem; padding: 0.5rem"
+            >
+              {{ applyDiscount }}
+              <v-icon color="#fff" style="font-size: 0.8rem">mdi-close</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="published"
+              @click="published = null"
+              color="primary"
+              style="font-size: 0.8rem; padding: 0.5rem"
+            >
+              {{ applyPublished }}
+              <v-icon color="#fff" style="font-size: 0.8rem">mdi-close</v-icon>
+            </v-btn>
           </div>
         </li>
         <li class="filter-item" @click="openContent">
           <div class="item-label">
             <span>
               <v-icon small>mdi-cash</v-icon>
-              نقدی</span
+              بر اساس قیمت</span
             >
             <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
           </div>
@@ -54,7 +82,7 @@
           <div class="item-label">
             <span>
               <v-icon small>mdi-sale</v-icon>
-              تخفیف</span
+              بر اساس تخفیف</span
             >
             <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
           </div>
@@ -63,8 +91,8 @@
               active-class="blue accent-2 white--text"
               v-model="discount"
             >
-              <v-chip value="1">بدون تخفیف</v-chip>
-              <v-chip value="2">تخفیف دار</v-chip>
+              <v-chip value="0">بدون تخفیف</v-chip>
+              <v-chip value="1">تخفیف دار</v-chip>
             </v-chip-group>
           </div>
         </li>
@@ -81,12 +109,12 @@
               active-class="blue accent-2 white--text"
               v-model="format"
             >
-              <v-chip value="1">PNG</v-chip>
-              <v-chip value="2">JPG</v-chip>
-              <v-chip value="3">JPEG</v-chip>
-              <v-chip value="4">AL</v-chip>
-              <v-chip value="5">EPS</v-chip>
-              <v-chip value="6">PSD</v-chip>
+              <v-chip
+                :value="index + 1"
+                v-for="(format, index) in formatItems"
+                :key="index"
+                >{{ format }}</v-chip
+              >
             </v-chip-group>
           </div>
         </li>
@@ -103,16 +131,16 @@
               active-class="blue accent-2 white--text"
               v-model="published"
             >
-              <v-chip value="1">3 ماه قبل</v-chip>
-              <v-chip value="2">6 ماه قبل</v-chip>
-              <v-chip value="3">1 سال قبل</v-chip>
+              <v-chip value="3">3 ماه قبل</v-chip>
+              <v-chip value="6">6 ماه قبل</v-chip>
+              <v-chip value="1">1 سال قبل</v-chip>
             </v-chip-group>
           </div>
         </li>
       </ul>
       <v-row class="mt-4">
         <v-col class="text-center">
-          <v-btn color="primary" class="white--text" @click="setMyFilter"
+          <v-btn color="primary" class="white--text" @click="applyfilter"
             >اعمال فیلتر</v-btn
           >
         </v-col>
@@ -120,32 +148,17 @@
     </div>
   </v-col>
 </template>
-
 <script>
-import createFilter from "@/mixins/createFilter";
 export default {
   data() {
     return {
-      category: null,
       active: false,
       amount: null,
       format: null,
       discount: null,
       published: null,
+      formatItems: ["EPS", "AL", "JPG", "PNG", "JPEG", "PSD"],
     };
-  },
-  mixins: [createFilter],
-  watch: {
-    category(newVal) {
-      if (newVal) {
-        this.filterItems["category"] = {
-          text: "دسته بندی",
-          value: newVal.name,
-        };
-      } else {
-        delete this.filterItems["category"];
-      }
-    },
   },
   props: {
     showFilter: {
@@ -153,31 +166,37 @@ export default {
       required: true,
     },
   },
+
   computed: {
-    categories() {
-      return this.$store.state.category.categories;
+    applyAmount() {
+      return this.amount === "free" ? "رایگان" : "نقدی";
+    },
+    applyDiscount() {
+      return parseInt(this.discount) === 0 ? "بدون تخفیف" : "تخفیف دار";
+    },
+    applyPublished() {
+      let text = "";
+      if (parseInt(this.published) === 3) {
+        text = "3 ماه قبل";
+      } else if (parseInt(this.published) === 6) {
+        text = "6 ماه قبل";
+      } else if (parseInt(this.published) === 1) {
+        text = "1 سال قبل ";
+      }
+      return text;
+    },
+    applyFormat() {
+      return this.formatItems[this.format - 1];
     },
   },
   methods: {
-    removeItem(key) {
-      if (key === "category") {
-        delete this.filterItems[key];
-        this.category = null;
-      } else {
-        this.removeFilter(key);
-      }
-    },
-    redirectToCategory() {
-      this.$router.push({
-        path: "/front/categories",
-      });
-    },
-    async setMyFilter() {
-      this.category &&
-        (this.params = this.createFilter(this.params, "category", {
-          value: this.category.id,
-        }));
-      await this.applyfilter();
+    applyfilter() {
+      let params = {};
+      this.amount && (params["amount"] = this.amount);
+      this.format && (params["format"] = this.format);
+      this.discount && (params["discount"] = this.discount);
+      this.published && (params["published"] = this.published);
+      this.$emit("applyFilter", params);
     },
     openContent(el) {
       if (el.target.classList.contains("item-label")) {

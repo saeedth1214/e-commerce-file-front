@@ -4,6 +4,7 @@
     <TheFilesFilter
       :showFilter="showFilter"
       @showFilterBox="$emit('closeFilter')"
+      @applyFilter="applyFilterRequest"
     />
 
     <TheFileLists
@@ -75,6 +76,23 @@ export default {
       this.start = true;
       let params = {};
       params = { ...this.query };
+      await this.$axios.get("frontend/files", { params }).then((res) => {
+        this.fileData = {
+          files: res.data.data,
+          pagination: res.data.meta.pagination,
+        };
+      });
+      this.start = false;
+    },
+
+    async applyFilterRequest(filters) {
+      let params = {};
+      this.start = true;
+      filters.amount && (params["filters[amount]"] = filters.amount);
+      filters.discount &&
+        (params["filters[rebate]"] = parseInt(filters["discount"]) === 1);
+      filters.format && (params["filters[format]"] = filters.format);
+      filters.published && (params["filters[published]"] = filters.published);
       await this.$axios.get("frontend/files", { params }).then((res) => {
         this.fileData = {
           files: res.data.data,

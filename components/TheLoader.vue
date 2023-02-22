@@ -1,6 +1,6 @@
 <template>
   <div class="spain" v-if="start">
-    <div class="ring">
+    <div class="ring" :style="leftStyle">
       <div class="lds-ripple">
         <div></div>
         <div></div>
@@ -16,6 +16,11 @@ export default {
       required: false,
       default: false,
     },
+    leftStyle: {
+      type: Array,
+      required: false,
+      default: () => {},
+    },
   },
 };
 </script>
@@ -26,9 +31,7 @@ export default {
   height: 100%;
   position: absolute;
   top: 0px;
-  /* background-color: rgba(8, 25, 43, 0.85); */
   overflow: hidden;
-  /* filter: blur(1px); */
 }
 .ring {
   position: absolute;

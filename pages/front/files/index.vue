@@ -2,17 +2,19 @@
   <div>
     <v-container fluid class="mt-2">
       <TheFilesSearch
-        @searchByTitle="filterByTitle"
+        @searchBoxAction="(query) => filterbySearchBox(query)"
         @showFilterBox="showFilter = !showFilter"
       />
       <FileSeachbyTags
         @searchByTag="filterByTag"
         :showFilter="showFilter"
         @closeFilter="showFilter = !showFilter"
+        :tags="tags"
       />
       <TheFileContent
         :showFilter="showFilter"
         @closeFilter="showFilter = !showFilter"
+        :query="queryParameter"
       />
     </v-container>
   </div>
@@ -22,15 +24,18 @@ export default {
   data: () => ({
     showFilter: true,
     search: null,
-    tag: {},
+    type: null,
+    amount: null,
+    tag: null,
+    tempUrlQueryString: {},
     innerWidth: null,
+    queryParameter: {},
     fileData: {
       files: [],
       pagination: {},
     },
   }),
   watch: {
-    "$route.query": "$fetch",
     innerWidth(width) {
       if (width <= 1296) {
         this.showFilter = false;
@@ -38,11 +43,20 @@ export default {
         this.showFilter = true;
       }
     },
+    "$route.query": "matchedUrlWithApiRequestParams",
   },
 
   mounted() {
     window.addEventListener("resize", this.handleResizeScreen);
     this.innerWidth = window.innerWidth;
+  },
+  computed: {
+    tags() {
+      return this.$store.state.tag.tags;
+    },
+  },
+  async created() {
+    await this.$store.dispatch("tag/fetchTags", { per_page: 30 });
   },
 
   methods: {
@@ -65,26 +79,41 @@ export default {
         this.showFilter = false;
       }
     },
-    async filterByTitle(title) {
-      this.search = title;
-      this.$router.push({
-        path: "/front/files",
-        query: this.buildQueryParameter(),
-      });
+    async filterbySearchBox(query) {
+      if (!query.title) {
+        this.tempUrlQueryString.title && delete this.tempUrlQueryString.title;
+      }
+      if (!query.amount) {
+        this.tempUrlQueryString.amount && delete this.tempUrlQueryString.amount;
+      }
+      if (!query.type) {
+        this.tempUrlQueryString.type && delete this.tempUrlQueryString.type;
+      }
+      this.search = query.title;
+      this.amount = query.amount;
+      this.type = query.type;
+      this.buildUrlParams();
     },
     async filterByTag(tag) {
+      if (!tag) {
+        this.tempUrlQueryString.tag && delete this.tempUrlQueryString.tag;
+      }
       this.tag = tag;
-      this.$router.push({
-        name: this.$nuxt.$route.name,
-        query: this.buildQueryParameter(),
-      });
+      this.buildUrlParams();
     },
+    async buildUrlParams() {
+      this.tempUrlQueryString["format"] = "search";
+      this.search && (this.tempUrlQueryString["title"] = this.search);
+      this.amount && (this.tempUrlQueryString["amount"] = this.amount);
+      this.tag && (this.tempUrlQueryString["tag"] = this.tag);
+      this.type && (this.tempUrlQueryString["type"] = this.type);
+      this.$route.query.category &&
+        (this.tempUrlQueryString["category"] = this.$route.query.category);
 
-    buildQueryParameter() {
-      let query = {};
-      this.search && (query["searchByTitle"] = this.search);
-      this.tag && (query["searchByTag"] = this.tag.name);
-      return query;
+      this.$router.push({
+        path: "/front/files",
+        query: { ...this.tempUrlQueryString },
+      });
     },
     async fetchMoreFiles(page) {
       let params = {};
@@ -98,6 +127,20 @@ export default {
           this.filterFiles.files.push(res.data.data);
         })
         .catch((err) => console.log(err));
+    },
+    async matchedUrlWithApiRequestParams() {
+      let temp = {};
+      this.$route.query.title &&
+        (temp["filters[title]"] = this.$route.query.title);
+      this.$route.query.type &&
+        (temp["filters[type]"] = this.$route.query.type);
+      this.$route.query.tag &&
+        (temp["filters[tag_name]"] = this.$route.query.tag);
+      this.$route.query.category &&
+        (temp["filters[category_name]"] = this.$route.query.category);
+      this.$route.query.amount &&
+        (temp["filters[amount]"] = this.$route.query.amount);
+      this.queryParameter = { ...temp };
     },
   },
 };

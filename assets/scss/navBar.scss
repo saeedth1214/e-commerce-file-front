@@ -68,6 +68,7 @@ ul {
       top: 20px;
       .topmenu_container {
         position: relative;
+        min-height: 110px;
         > li {
           display: flex;
           padding: 0.8rem;

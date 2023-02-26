@@ -1,5 +1,5 @@
 <template>
-  <client-only>
+  <!-- <client-only> -->
     <v-col
       cols="12"
       :md="showFilter ? '9' : '12'"
@@ -209,10 +209,10 @@
         />
       </div>
     </v-col>
-    <template #placeholder>
+    <!-- <template #placeholder>
       <TheLoader :start="true" />
     </template>
-  </client-only>
+  </client-only> -->
 </template>
 
 <script>

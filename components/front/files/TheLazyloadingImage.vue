@@ -10,6 +10,7 @@
         <v-progress-circular
           indeterminate
           color="grey lighten-5"
+          :style="progress_style"
         ></v-progress-circular>
       </v-row>
     </template>
@@ -21,6 +22,10 @@ export default {
     mediaUrl: {
       type: String,
       required: true,
+    },
+    progress_style: {
+      type: String,
+      required: false,
     },
   },
 };

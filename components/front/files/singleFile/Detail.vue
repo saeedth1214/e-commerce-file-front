@@ -4,22 +4,10 @@
       <div class="modal_upperContent">
         <div class="title">
           <div class="image">
-            <v-img
-              :src="media_url"
-              lazy-src="https://picsum.photos/id/11/100/60"
-              max-height="100"
-              max-width="100"
-              contain
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
+            <TheLazyloadingImage
+              :media-url="media_url"
+              progress_style="width:20px;height: 20px;top:0px"
+            />
           </div>
           <div class="short-info">
             <span class="subtitle-1 font-weight-bold"> {{ title }}</span>
@@ -69,6 +57,8 @@
   </v-dialog>
 </template>
 <script>
+import TheLazyloadingImage from "../TheLazyloadingImage.vue";
+
 export default {
   data() {
     return {
@@ -115,6 +105,7 @@ export default {
       return this.date.split(" ")[0].replaceAll("-", "/");
     },
   },
+  components: { TheLazyloadingImage },
 };
 </script>
 <style lang="scss" scoped>

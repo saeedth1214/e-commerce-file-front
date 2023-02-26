@@ -133,7 +133,7 @@
                   <v-col cols="12" md="4" class="indigo darken-4">
                     <v-card-text class="white--text mt-12">
                       <h5 class="text-center body-2">
-                        اگه میخای وارد سیستم بشی روی دکمه زیر کلیک کن
+                        اگه میخای وارد سایت بشی روی دکمه زیر کلیک کن
                       </h5>
                     </v-card-text>
                     <div class="text-center">
@@ -424,7 +424,7 @@ export default {
         .then(async (res) => {
           await this.$auth.setUserToken(res.data.data.token);
           await this.$auth.setUser(res.data.data.user.data);
-          this.$router.push("front/profile");
+          this.$router.go(-1);
         })
         .catch(async (err) => {
           if (err.response.status === 400) {

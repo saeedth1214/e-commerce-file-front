@@ -192,30 +192,12 @@
           </v-col>
         </v-row>
         <v-row dense v-if="fileData.files?.length">
-          <v-col cols="12" class="text-center">
-            <v-hover v-slot="{ hover }">
-              <v-btn
-                nuxt
-                to
-                color="blue-grey darken-1"
-                width="180px"
-                class="pa-4 white--text font-weight-bold text-center"
-                :class="{ 'on-hover': hover }"
-                @click="fetchMoreFiles"
-                :disabled="!fileData.files?.length"
-              >
-                موارد بیشتر
-                <template v-slot:loader>
-                  <span class="custom-loader">
-                    <v-icon color="#fff">mdi-cached</v-icon>
-                  </span>
-                </template>
-              </v-btn>
-            </v-hover>
-          </v-col>
+          <ThePagination
+            :pagination="fileData.pagination"
+            @initialize="fetchMoreFiles"
+          />
         </v-row>
       </div>
-
       <div style="width: 100%; height: 400px" v-else>
         <TheLoader
           :start="start"
@@ -261,12 +243,8 @@ export default {
     },
   },
   methods: {
-    async fetchMoreFiles() {
-      console.log("list");
-      this.$emit("fetchMoreFiles");
-      // this.page++;
-      // if (this.page <= this.fileData.pagination.total_pages) {
-      // }
+    async fetchMoreFiles(page) {
+      this.$emit("fetchMoreFiles", page);
     },
   },
 };

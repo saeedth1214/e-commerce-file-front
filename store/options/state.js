@@ -120,7 +120,7 @@ export default () => ({
       { text: "مقدار تخفیف", value: "rebate", sortable: false },
       {
         text: "قیمت بعداز کد تخفیف",
-        value: "total_amount_after_rebate_code",
+        value: "total_amount_after_voucher_code",
         sortable: false,
       },
       {

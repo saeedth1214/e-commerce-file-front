@@ -1,27 +1,53 @@
 <template>
   <v-row justify="center" class="pa-8">
     <v-container fluid>
-      <v-card>
+      <v-card :loading="loading">
         <v-card-title>
+          <span v-if="file.amount_after_rebate > 0">
+            <v-btn
+              color="primary"
+              class="ma-2 subtitle-1 font-weight-light"
+              dark
+              @click="AddtoCart"
+              v-if="file.sale_as_single"
+            >
+              افزودن به سبد خرید
+              <v-icon class="mr-2">mdi-basket</v-icon>
+            </v-btn>
+            <v-btn
+              color="primary"
+              class="ma-2 subtitle-1 font-weight-light"
+              dark
+              nuxt
+              to="/front/plans"
+              @click="AddtoCart"
+              v-else
+            >
+              خرید اشتراک
+            </v-btn>
+          </span>
           <v-btn
-            color="primary"
+            color="#05a081"
             class="ma-2 subtitle-1 font-weight-light"
             dark
-            v-if="false"
+            @click="download"
           >
-            افزودن به سبد خرید
-            <v-icon class="mr-2">mdi-basket</v-icon>
-          </v-btn>
-          <v-btn color="#05a081" class="ma-2 subtitle-1 font-weight-light" dark>
             دانلود
           </v-btn>
           <v-btn
-            color="#dfdfe0"
+            :color="is_reacted ? 'green' : '#dfdfe0'"
             class="ma-2 subtitle-1 font-weight-light"
             dark
             outlined
+            @click="toggleReaction()"
           >
-            <svg class="" viewBox="0 0 24 24" width="24" height="24">
+            <svg
+              class="like_icon"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              :style="[is_reacted ? { fill: 'green !important' } : '']"
+            >
               <path
                 id="favorite_border-bcbe810b1c8684d420b21248b530177d_Tracé_2228"
                 d="M19.519,9.6A5.717,5.717,0,0,0,14,4.858h0a5.238,5.238,0,0,0-1.8.278A5.692,5.692,0,0,0,9.616,6.8l-.1-.116a5.377,5.377,0,0,0-4.229-1.85,4.188,4.188,0,0,0-.481.019A5.451,5.451,0,0,0,1.057,6.8,6.306,6.306,0,0,0,.035,13.032a13.481,13.481,0,0,0,2.558,4.048,35.618,35.618,0,0,0,6.85,5.754.31.31,0,0,0,.173.058.27.27,0,0,0,.173-.058,36.676,36.676,0,0,0,5.47-4.276A18.5,18.5,0,0,0,18.636,14.4,7.4,7.4,0,0,0,19.519,9.6Zm-2.753,3.753a15.6,15.6,0,0,1-3.057,3.724,36.039,36.039,0,0,1-4.1,3.379,33.6,33.6,0,0,1-5.322-4.64,10.684,10.684,0,0,1-2.183-3.225,3.947,3.947,0,0,1,.487-4.367,2.955,2.955,0,0,1,2.38-1.222H5.3A4.416,4.416,0,0,1,8.53,8.741l.077.1.039.039,1.04,1.117.982-1.155a5.186,5.186,0,0,1,2.014-1.58A4.432,4.432,0,0,1,14,7.006a3.486,3.486,0,0,1,3.426,2.857A5.088,5.088,0,0,1,16.765,13.357Z"
@@ -39,7 +65,10 @@
           <v-row dense>
             <v-col cols="12" md="6" lg="6" sm="6">
               <div class="btn-details" style="display: flex; gap: 1rem">
-                <p class="subtitle-1 font-weight-bold" v-if="file.amount > 0">
+                <p
+                  class="subtitle-1 font-weight-bold"
+                  v-if="parseInt(file.amount_after_rebate) === 0"
+                >
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <g fill="#7f7f7f">
                       <path
@@ -62,6 +91,22 @@
                   <span style="position: relative; bottom: 10px; right: 5px">{{
                     file.title
                   }}</span>
+                </p>
+                <p class="subtitle-1 font-weight-bold" v-if="file.amount > 0">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="#7f7f7f"
+                      d="M3 6v12h10.32a6.38 6.38 0 0 1-.32-2H7a2 2 0 0 0-2-2v-4c1.11 0 2-.89 2-2h10a2 2 0 0 0 2 2v.06c.67 0 1.34.12 2 .34V6H3m9 3c-1.7.03-3 1.3-3 3s1.3 2.94 3 3c.38 0 .77-.08 1.14-.23c.27-1.1.72-2.14 1.83-3.16C14.85 10.28 13.59 8.97 12 9m9.63 3.27l-3.87 3.9l-1.35-1.37L15 16.22L17.75 19l5.28-5.32l-1.4-1.41Z"
+                    />
+                  </svg>
+                  <span style="position: relative; bottom: 10px; right: 5px"
+                    >{{ $formatMoney(file.amount_after_rebate) }} تومان</span
+                  >
                 </p>
               </div>
             </v-col>
@@ -109,6 +154,11 @@
             :title="file.title"
             :date="file.created_at"
             :attributes="file.attributes.data"
+            :download="file.download_count"
+            :like="
+              Object.keys(reactionSummary).length ? reactionSummary.like : 0
+            "
+            :views="parseInt(file.views)"
           />
         </v-card-title>
         <v-card-text>
@@ -178,8 +228,6 @@ export default {
   },
 
   async created() {
-    console.log(this.file);
-
     let user = this.$auth.user;
     this.file.is_reacted && (this.is_reacted = this.file.is_reacted);
     Object.keys(this.file.reaction_summary).length &&
@@ -199,6 +247,10 @@ export default {
   methods: {
     async download() {
       this.loading = true;
+      if (!this.$auth.loggedIn) {
+        return this.$router.push("/authenticate?login");
+      }
+
       await this.$axios
         .post(`frontend/files/${this.file.id}/download`)
         .then((res) => {
@@ -238,25 +290,27 @@ export default {
       this.loading = false;
     },
 
-    async AddtoCart(file) {
-      let user = this.$auth.user;
-      await this.$axios
-        .get(`frontend/users/${user.id}/files/${this.file.id}`)
-        .then(async (res) => {
-          if (res.data.data.count) {
-            await this.$store.commit("option/changeSnackbarMood", true);
-            await this.$store.commit(
-              "option/changeSnackbarColor",
-              "orange darken-2"
-            );
-            await this.$store.commit(
-              "option/changeSnackbarText",
-              "این فایل قبلا خریداری شده است ."
-            );
-          } else {
-            await this.toCart(file, "file");
-          }
-        });
+    async AddtoCart() {
+      await this.toCart(this.file);
+
+      // let user = this.$auth.user;
+      // await this.$axios
+      //   .get(`frontend/users/${user.id}/files/${this.file.id}`)
+      //   .then(async (res) => {
+      //     if (res.data.data.count) {
+      //       await this.$store.commit("option/changeSnackbarMood", true);
+      //       await this.$store.commit(
+      //         "option/changeSnackbarColor",
+      //         "orange darken-2"
+      //       );
+      //       await this.$store.commit(
+      //         "option/changeSnackbarText",
+      //         "این فایل قبلا خریداری شده است ."
+      //       );
+      //     } else {
+      //       await this.toCart(file, "file");
+      //     }
+      //   });
     },
   },
 };

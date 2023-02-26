@@ -6,7 +6,7 @@
           <nuxt-link
             v-for="tag in tags"
             :key="tag.id"
-            :to="{ path: 'front/files', query: { searchByTag: tag.name } }"
+            :to="{ path: 'front/files', query: { format:'search',tag: tag.name } }"
           >
             {{ tag.name }}
             <v-icon color="#fff">mdi-magnify</v-icon>

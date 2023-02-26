@@ -28,14 +28,6 @@
           >
         </v-avatar>
       </v-badge>
-      <v-icon
-        dark
-        color="#000"
-        size="15"
-        style="margin-left: 5px; cursor: pointer"
-        @click="auth = !auth"
-        >{{ chevronIcon }}</v-icon
-      >
       <v-card
         width="256"
         color="#fff"

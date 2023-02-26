@@ -22,8 +22,8 @@
         >
           <v-card-title>
             <v-img
-              height="100px"
-              width="100px"
+              height="80px"
+              width="80px"
               class="rounded"
               :src="item.media_url"
               style="position: absolute; right: 30%"
@@ -44,12 +44,12 @@
               @click="removeFromBasket(item.type, item.id)"
               icon
               class="close"
-              color="pink"
+              color="#888"
               style="
                 position: relative;
-                right: 95%;
-                top: -30px;
-                background: #00006a;
+                right: 85%;
+                top: -15px;
+                background: #d7d7d7;
               "
             >
               <v-icon>mdi-close</v-icon>
@@ -203,17 +203,17 @@
           </v-row>
         </v-card>
       </v-row>
-        <v-alert
+      <v-alert
         v-if="!cartItems.length"
-          width="70%"
-          type="error"
-          class="text-center mx-auto"
-          dense
-          colored-border
-          color="deep-purple accent-4"
-          elevation="2"
-          >سبد خرید شما خالیست</v-alert
-        >
+        width="70%"
+        type="error"
+        class="text-center mx-auto"
+        dense
+        colored-border
+        color="deep-purple accent-4"
+        elevation="2"
+        >سبد خرید شما خالیست</v-alert
+      >
       <div style="height: 300px; width: 100%"></div>
       <SnackBar />
     </v-container>
@@ -222,11 +222,11 @@
 <script>
 import showMessage from "@/mixins/showMessage";
 export default {
-  middleware(context) {
-    if (!context.$auth.loggedIn) {
-      context.redirect("/authenticate?login");
-    }
-  },
+  // middleware(context) {
+  //   if (!context.$auth.loggedIn) {
+  //     context.redirect("/authenticate?login");
+  //   }
+  // },
   data: () => ({
     cartItems: [],
     rebate_code: "***",
@@ -253,33 +253,27 @@ export default {
   methods: {
     async finalPurches() {
       this.finalBtnLoading = true;
+      if (!this.$auth.loggedIn) {
+        return this.$router.push("/authenticate?login");
+      }
       let order = {};
       let files = [];
       this.voucher.id && (order["voucher_id"] = this.voucher.id);
-      let index = this.cartItems.findIndex((item) => item.type === "plan");
-      if (index > -1) {
-        order["plan_id"] = this.cartItems[index].id;
-      }
+
       this.cartItems.map((item) => {
-        if (item.type === "file") {
-          files.push(item.id);
-        }
+        files.push(item.id);
       });
 
       if (files.length > 0) {
         order["files"] = files;
       }
-
-      await this.$axios
-        .post("panel/orders", { ...order })
-        .then((res) => {
-          if (res.status === 204) {
-            this.showMessage("success", "سفارش شما ثبت شد");
-            this.$cookies.set("cart", []);
-            this.$router.push("/front/profile");
-          }
-        })
-        .catch((err) => console.log(err));
+      await this.$axios.post("panel/orders", { ...order }).then((res) => {
+        if (res.status === 204) {
+          this.showMessage("success", "سفارش شما ثبت شد");
+          this.$cookies.set("cart", []);
+          this.$router.push("/front/profile?tab=orders");
+        }
+      });
       this.finalBtnLoading = false;
     },
     async applyVoucher() {

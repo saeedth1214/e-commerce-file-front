@@ -23,35 +23,44 @@
           </div>
           <div class="short-info">
             <span class="subtitle-1 font-weight-bold"> {{ title }}</span>
-            <span class="subtitle-2 font-weight-light">
-              ثبت شده در تاریخ : {{ splitDate }}</span
-            >
+            <p>
+              <span class="subtitle-2 font-weight-light">
+                ثبت شده در تاریخ :
+              </span>
+              <span class="subtitle-2 font-weight-light">
+                {{ splitDate }}
+              </span>
+            </p>
           </div>
         </div>
         <div class="more-info">
           <p>
             <span>تعداد دانلود</span>
-            <span>{{ $numberShorter(22500) }}</span>
+            <span>{{ $numberShorter(download) }}</span>
           </p>
           <p>
             <span>تعداد لایک</span>
-            <span>220</span>
+            <span>{{ $numberShorter(like) }}</span>
           </p>
           <p>
             <span>تعداد بازدید</span>
-            <span>{{ $numberShorter(445750) }}</span>
+            <span>{{ $numberShorter(views) }}</span>
           </p>
         </div>
       </div>
     </v-card>
-    <v-card>
+    <v-card color="#fff">
       <v-btn color="#000" text @click="$emit('closeDetail')">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-card-text>
         <div class="attribute-box" v-if="attributes.length">
           <p class="item" v-for="attribute in attributes" :key="attribute.id">
-            <span>{{ attribute.name }}</span>
+            <span>{{
+              attribute.type === "SIZE"
+                ? attribute.name + "(mb)"
+                : attribute.name
+            }}</span>
             <span>{{ attribute.value }}</span>
           </p>
         </div>
@@ -79,6 +88,18 @@ export default {
       type: String,
       required: true,
     },
+    download: {
+      type: Number,
+      required: true,
+    },
+    like: {
+      type: Number,
+      required: true,
+    },
+    views: {
+      type: Number,
+      required: true,
+    },
     date: {
       type: String,
       required: true,
@@ -89,10 +110,9 @@ export default {
       default: [],
     },
   },
-
   computed: {
     splitDate() {
-      return this.date.split(" ")[0];
+      return this.date.split(" ")[0].replaceAll("-", "/");
     },
   },
 };
@@ -149,7 +169,8 @@ export default {
 
 .attribute-box {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  text-align: center;
   > p {
     display: flex;
     flex-direction: column;

@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       fileData: {},
-      start: false,
+      start: true,
+      page: null,
     };
   },
   props: {
@@ -42,7 +43,8 @@ export default {
   },
   async fetch() {
     let params = {};
-
+    this.page && (params["page"] = this.page);
+    this.start = true;
     this.$route.query.category &&
       (params["filters[category_name]"] = this.$route.query.category);
     this.$route.query.tag &&
@@ -53,13 +55,13 @@ export default {
       (params["filters[title]"] = this.$route.query.title);
     this.$route.query.amount &&
       (params["filters[amount]"] = this.$route.query.amount);
-
     await this.$axios.get("frontend/files", { params }).then((res) => {
       this.fileData = {
         files: res.data.data,
         pagination: res.data.meta.pagination,
       };
     });
+    this.start = false;
   },
   computed: {
     tags() {
@@ -67,10 +69,9 @@ export default {
     },
   },
   methods: {
-    async fetchMoreFiles() {
-      this.start = true;
+    async fetchMoreFiles(page) {
+      this.page = page;
       await this.$fetch();
-      this.start = false;
     },
     async filterFiles() {
       this.start = true;

@@ -23,8 +23,8 @@
         <div class="expiration-date">
           <div class="item">
             <label class="black--text ml-4" style="font-size: 1rem">
-              روز :</label
-            >
+              : روز
+            </label>
             <v-text-field
               v-model="day"
               type="number"
@@ -35,7 +35,7 @@
           </div>
           <div class="item">
             <label class="black--text ml-4" style="font-size: 1rem">
-              ساعت :
+              : ساعت
             </label>
             <v-text-field
               v-model="hour"
@@ -46,7 +46,7 @@
           </div>
           <div class="item">
             <label class="black--text ml-4" style="font-size: 1rem">
-              دقیقه :
+              : دقیقه
             </label>
             <v-text-field
               v-model="minute"
@@ -152,7 +152,7 @@ export default {
       return this.valid
         ? this.$moment(t)
             .add(this.expiration_seconds, "seconds")
-            .format("H:mm jDD/jMM/jYYYY")
+            .format("jYYYY/jMM/jDD H:mm")
         : "-";
     },
   },
@@ -197,9 +197,11 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   column-gap: 20px;
   margin-top: 1.5rem;
+  direction: ltr;
 
   .item {
     display: flex;
+    flex-direction: row-reverse;
     label {
       width: 70px;
       color: #443f3f;
@@ -239,17 +241,14 @@ export default {
   }
 }
 
-@media screen and (min-width: 505px) and (max-width:960px) {
- 
+@media screen and (min-width: 505px) and (max-width: 960px) {
   .file-format {
     width: 75% !important;
   }
 }
 @media screen and (max-width: 505px) {
- 
- .file-format {
-   width: 68% !important;
- }
+  .file-format {
+    width: 68% !important;
+  }
 }
-
 </style>

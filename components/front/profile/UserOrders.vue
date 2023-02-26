@@ -45,9 +45,9 @@
         </span>
       </div>
     </template>
-    <template v-slot:item.total_amuont_after_rebate_code="{ item }">
+    <template v-slot:item.total_amuont_after_voucher_code="{ item }">
       <div>
-        <span>{{ $formatMoney(item.total_amuont_after_rebate_code) }}</span>
+        <span>{{ $formatMoney(item.total_amuont_after_voucher_code) }}</span>
       </div>
     </template>
     <template v-slot:item.total_amuont="{ item }">

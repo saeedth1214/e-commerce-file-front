@@ -1,6 +1,6 @@
 <template>
   <v-row dense>
-    <div class="mx-auto">
+    <div class="mx-auto" style="margin-top: 10rem">
       <v-pagination
         v-model="pagination.current_page"
         :length="pagination.total_pages"
@@ -17,17 +17,16 @@ export default {
   methods: {
     async handlePageChange(value) {
       this.page = value;
-      await this.$emit("initialize", value);
-    }
+      this.$emit("initialize", value);
+    },
   },
   props: {
     pagination: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

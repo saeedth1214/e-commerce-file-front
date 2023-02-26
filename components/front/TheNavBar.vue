@@ -1,142 +1,166 @@
 <template>
   <v-row dense style="direction: ltr; height: 60px" :style="headerStyle">
     <v-col md="3" sm="3" lg="3">
-      <div class="auth" v-if="!$auth.loggedIn">
-        <span>
-          <a href="/authenticate?login">ورود</a>
-        </span>
-        <span>
-          <a href="/authenticate?register"> ثبت نام </a>
-        </span>
-      </div>
-      <div class="auth" v-else>
-        <v-avatar size="40" style="cursor: pointer; margin-right: 10px">
-          <v-img
-            @click="auth = !auth"
-            :src="$auth.user && $auth.user.media_url"
-            v-if="$auth.user && $auth.user.media_url"
-          ></v-img>
-          <v-icon dark color="#fff" v-else @click="auth = !auth"
-            >mdi-account-circle</v-icon
+      <div class="d-flex align-center pl-4">
+        <div class="auth" v-if="!$auth.loggedIn">
+          <span>
+            <v-btn
+              small
+              color="#fff"
+              outlined
+              shaped
+              nuxt
+              to="/authenticate?login"
+              style="font-size: 14; font-weight: 600"
+            >
+              ورود
+            </v-btn>
+          </span>
+          <span>
+            <v-btn
+              small
+              color="#fff"
+              outlined
+              shaped
+              nuxt
+              to="/authenticate?register"
+              style="font-size: 14; font-weight: 600"
+            >
+              ثبت نام
+            </v-btn>
+          </span>
+        </div>
+        <div class="auth" v-else>
+          <v-avatar size="40" style="cursor: pointer; margin-right: 10px">
+            <v-img
+              @click="auth = !auth"
+              :src="$auth.user && $auth.user.media_url"
+              v-if="$auth.user && $auth.user.media_url"
+            ></v-img>
+            <v-icon dark color="#fff" v-else @click="auth = !auth"
+              >mdi-account-circle</v-icon
+            >
+          </v-avatar>
+          <v-card
+            width="256"
+            color="#fff"
+            class="user-box-profile"
+            :class="[auth ? 'active' : 'diActive']"
+            v-click-outside="onClickOutside"
           >
-        </v-avatar>
+            <v-card-title style="border-bottom: 2px solid #253039">
+              <div class="login-box-header">
+                <div class="avatar">
+                  <v-avatar
+                    size="40"
+                    style="cursor: pointer; margin-left: 10px"
+                  >
+                    <v-img
+                      @click="auth = !auth"
+                      :src="$auth.user && $auth.user.media_url"
+                      v-if="$auth.user && $auth.user.media_url"
+                    ></v-img>
+                    <v-icon dark color="#fff" v-else @click="auth = !auth"
+                      >mdi-account-circle</v-icon
+                    >
+                  </v-avatar>
+                </div>
+                <div class="user-info">
+                  <p class="userName">
+                    {{ $auth.user.first_name + " " + $auth.user.last_name }}
+                  </p>
+                  <p class="email">
+                    {{ $auth.user.mobile ? $auth.user.mobile : "-" }}
+                  </p>
+                  <v-btn
+                    class="ml-2"
+                    small
+                    dark
+                    nuxt
+                    to="/front/profile/?tab=information"
+                  >
+                    ویرایش پروفایل
+                  </v-btn>
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions style="border-bottom: 2px solid #253039">
+              <ul class="profile-item">
+                <li>
+                  <span>
+                    <a href="/front/profile/?tab=information">پروفایل</a>
+                  </span>
+                  <span>
+                    <v-icon color="#253039">mdi-account</v-icon>
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <a href="/front/profile/?tab=files">فایل ها</a>
+                  </span>
+                  <span>
+                    <v-icon color="#253039">mdi-file-image</v-icon>
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <a href="/front/profile/?tab=plans">طرح ها </a>
+                  </span>
+                  <span>
+                    <v-icon color="#253039">mdi-book-multiple</v-icon>
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <a href="/front/profile/?tab=change-password"
+                      >تغییر رمزعیور</a
+                    >
+                  </span>
+                  <span>
+                    <v-icon color="#253039">mdi-lock-open</v-icon>
+                  </span>
+                </li>
+              </ul>
+            </v-card-actions>
+            <v-card-actions
+              style="border-bottom: 2px solid #253039"
+              v-if="$auth.user && $auth.user.role_id"
+            >
+              <ul class="profile-item">
+                <li>
+                  <span>
+                    <a href="/panel/dashboard">مدیریت</a>
+                  </span>
+                  <span>
+                    <v-icon color="#253039">mdi-view-dashboard</v-icon>
+                  </span>
+                </li>
+              </ul>
+            </v-card-actions>
+            <v-card-actions>
+              <ul class="profile-item">
+                <li style="cursor: pointer" @click="logout">
+                  <span class="btn-exit">خروج</span>
+                  <span>
+                    <v-icon color="#253039">mdi-logout</v-icon>
+                  </span>
+                </li>
+              </ul>
+            </v-card-actions>
+            <v-card-subtitle></v-card-subtitle>
+          </v-card>
+        </div>
 
-        <v-icon
-          dark
+        <v-btn
+          class="ml-2 inline-block"
           color="#fff"
-          size="15"
-          style="position: relative; right: 5px; cursor: pointer"
-          @click="auth = !auth"
-          >{{ chevronIcon }}</v-icon
+          nuxt
+          small
+          outlined
+          to="/front/basket"
         >
-        <v-btn class="ml-2" icon color="transparent" nuxt to="/front/basket">
-          <v-icon color="#fff">mdi-cart</v-icon>
+          <v-icon color="#fff" small>mdi-cart</v-icon>
         </v-btn>
-        <v-card
-          width="256"
-          color="#fff"
-          class="user-box-profile"
-          :class="[auth ? 'active' : 'diActive']"
-          v-click-outside="onClickOutside"
-        >
-          <v-card-title style="border-bottom: 2px solid #253039">
-            <div class="login-box-header">
-              <div class="avatar">
-                <v-avatar size="40" style="cursor: pointer; margin-left: 10px">
-                  <v-img
-                    @click="auth = !auth"
-                    :src="$auth.user && $auth.user.media_url"
-                    v-if="$auth.user && $auth.user.media_url"
-                  ></v-img>
-                  <v-icon dark color="#fff" v-else @click="auth = !auth"
-                    >mdi-account-circle</v-icon
-                  >
-                </v-avatar>
-              </div>
-              <div class="user-info">
-                <p class="userName">
-                  {{ $auth.user.first_name + " " + $auth.user.last_name }}
-                </p>
-                <p class="email">
-                  {{ $auth.user.mobile ? $auth.user.mobile : "-" }}
-                </p>
-                <v-btn
-                  class="ml-2"
-                  small
-                  dark
-                  nuxt
-                  to="/front/profile/?tab=information"
-                >
-                  ویرایش پروفایل
-                </v-btn>
-              </div>
-            </div>
-          </v-card-title>
-          <v-card-actions style="border-bottom: 2px solid #253039">
-            <ul class="profile-item">
-              <li>
-                <span>
-                  <a href="/front/profile/?tab=information">پروفایل</a>
-                </span>
-                <span>
-                  <v-icon color="#253039">mdi-account</v-icon>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/front/profile/?tab=files">فایل ها</a>
-                </span>
-                <span>
-                  <v-icon color="#253039">mdi-file-image</v-icon>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/front/profile/?tab=plans">طرح ها </a>
-                </span>
-                <span>
-                  <v-icon color="#253039">mdi-book-multiple</v-icon>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <a href="/front/profile/?tab=change-password"
-                    >تغییر رمزعیور</a
-                  >
-                </span>
-                <span>
-                  <v-icon color="#253039">mdi-lock-open</v-icon>
-                </span>
-              </li>
-            </ul>
-          </v-card-actions>
-          <v-card-actions
-            style="border-bottom: 2px solid #253039"
-            v-if="$auth.user && $auth.user.role_id"
-          >
-            <ul class="profile-item">
-              <li>
-                <span>
-                  <a href="/panel/dashboard">مدیریت</a>
-                </span>
-                <span>
-                  <v-icon color="#253039">mdi-view-dashboard</v-icon>
-                </span>
-              </li>
-            </ul>
-          </v-card-actions>
-          <v-card-actions>
-            <ul class="profile-item">
-              <li style="cursor: pointer" @click="logout">
-                <span class="btn-exit">خروج</span>
-                <span>
-                  <v-icon color="#253039">mdi-logout</v-icon>
-                </span>
-              </li>
-            </ul>
-          </v-card-actions>
-          <v-card-subtitle></v-card-subtitle>
-        </v-card>
       </div>
     </v-col>
     <v-col md="6" sm="6" lg="6">
@@ -151,13 +175,19 @@
                 <nuxt-link to="/front/plans">طرح ها</nuxt-link>
               </li>
               <li>
-                <nuxt-link to="/front/files?format=search&category=وکتور">وکتور</nuxt-link>
+                <nuxt-link to="/front/files?format=search&category=وکتور"
+                  >وکتور</nuxt-link
+                >
               </li>
               <li>
-                <nuxt-link to="/front/files?format=search&category=طبیعت">طبیعت</nuxt-link>
+                <nuxt-link to="/front/files?format=search&category=طبیعت"
+                  >طبیعت</nuxt-link
+                >
               </li>
               <li>
-                <nuxt-link to="/front/files?format=search&category=ورزشی">ورزشی</nuxt-link>
+                <nuxt-link to="/front/files?format=search&category=ورزشی"
+                  >ورزشی</nuxt-link
+                >
               </li>
               <li
                 id="expand"
@@ -249,13 +279,19 @@
               <nuxt-link to="/front/files">طرح ها </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/front/files?format=search&category=وکتور">وکتور</nuxt-link>
+              <nuxt-link to="/front/files?format=search&category=وکتور"
+                >وکتور</nuxt-link
+              >
             </li>
             <li>
-              <nuxt-link to="/front/files?format=search&category=طبیعت">طبیعت</nuxt-link>
+              <nuxt-link to="/front/files?format=search&category=طبیعت"
+                >طبیعت</nuxt-link
+              >
             </li>
             <li>
-              <nuxt-link to="/front/files?format=search&category=ورزشی">ورزشی</nuxt-link>
+              <nuxt-link to="/front/files?format=search&category=ورزشی"
+                >ورزشی</nuxt-link
+              >
             </li>
             <li style="width: 100%">
               <span class="category_item_mobile"> دسته بندی </span>

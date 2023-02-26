@@ -175,17 +175,18 @@ export default {
         .get("panel/files", { params })
         .then(async (res) => {
           if (!res.data.data.length) {
-            await this.$axios.post("panel/files", this.file).then((res) => {
-              this.close();
-              this.showMessage("success", "فایل جدیدی ثبت شد");
-              this.$emit("initializeEmit");
-            });
+            await this.$axios
+              .post("panel/files", this.file)
+              .then(async (res) => {
+                await this.showMessage("success", "فایل جدیدی ثبت شد");
+                this.close();
+                this.$emit("initializeEmit");
+              });
           } else {
             this.close();
             this.showMessage("error", "فایلی با این  نام ثبت شده است");
           }
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
     close() {

@@ -3,7 +3,17 @@
     <p class="subtitle-2 font-weight-bold">تگ های مشابه</p>
     <ul class="tag-lits d-flex flex-wrap">
       <li class="tag-item" v-for="tag in tags" :key="tag.id">
-        <v-btn color="#888" class="ma-2 subtitle-2" dark outlined>
+        <v-btn
+          color="#888"
+          class="ma-2 subtitle-2"
+          dark
+          outlined
+          nuxt
+          :to="{
+            path: 'front/files',
+            query: { format: 'search', tag: tag.name },
+          }"
+        >
           {{ tag.name }}
         </v-btn>
       </li>

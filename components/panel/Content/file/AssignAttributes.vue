@@ -1,5 +1,5 @@
 <template>
-  <v-container style="height: 450px">
+  <v-container style="height: auto">
     <v-progress-linear
       :active="loading"
       :indeterminate="loading"

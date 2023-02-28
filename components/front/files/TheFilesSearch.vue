@@ -2,8 +2,7 @@
   <v-row class="sticky sticky-search" style="border-bottom: 1px solid #d7d7d7">
     <section style="width: 95%" class="box">
       <div class="brand">
-        <span>Fily</span>
-        <span>mo</span>
+        <span>فایلیمو</span>
       </div>
       <TheFormSearchBox
         searchGroupStyle="border:1px solid #d7d7d7;"
@@ -38,19 +37,10 @@ export default {
 }
 
 .brand {
-  display: flex;
-  direction: ltr;
-  justify-content: flex-start;
-  height: 60px;
-  gap: 5px;
+  margin-right: 1rem;
   span:nth-child(1) {
     font-size: 1.5rem;
-    font-weight: 700;
-    margin-top: 5px;
-  }
-  span:nth-child(2) {
-    font-size: 2rem;
-    font-weight: 900;
+    font-weight: 800;
     color: blue;
   }
 }

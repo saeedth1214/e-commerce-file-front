@@ -5,29 +5,20 @@
     ></v-app-bar-nav-icon>
     <v-spacer />
     <div class="auth">
-      <v-badge
-        dot
-        bottom
-        offset-y="10"
-        offset-x="10"
-        color="green"
-        style="width: 40px; text-align: center"
+      <v-avatar
+        size="40"
+        color="indigo darken-4"
+        style="cursor: pointer; margin-left: 10px"
       >
-        <v-avatar
-          size="40"
-          color="indigo darken-4"
-          style="cursor: pointer; margin-left: 10px"
+        <v-img
+          @click="auth = !auth"
+          :src="$auth.user && $auth.user.media_url"
+          v-if="$auth.user && $auth.user.media_url"
+        ></v-img>
+        <v-icon dark color="#fff" v-else @click="auth = !auth"
+          >mdi-account-circle</v-icon
         >
-          <v-img
-            @click="auth = !auth"
-            :src="$auth.user && $auth.user.media_url"
-            v-if="$auth.user && $auth.user.media_url"
-          ></v-img>
-          <v-icon dark color="#fff" v-else @click="auth = !auth"
-            >mdi-account-circle</v-icon
-          >
-        </v-avatar>
-      </v-badge>
+      </v-avatar>
       <v-card
         width="256"
         color="#fff"

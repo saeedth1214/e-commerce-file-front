@@ -122,7 +122,9 @@ export default {
 }
 .modal_upperContent {
   padding: 2rem;
-
+  .image {
+    width: 30%;
+  }
   > .title {
     display: flex;
     justify-content: flex-start;

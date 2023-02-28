@@ -10,6 +10,7 @@ export default {};
 .header {
   background: linear-gradient(180deg, #2d2db0 -65%, #2c8cf4 110%);
   height: 100%;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 560px) {

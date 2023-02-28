@@ -3,7 +3,9 @@
     <v-container>
       <v-card>
         <v-toolbar color="inigo">
-          <v-toolbar-title>داشبورد -طرح ها</v-toolbar-title>
+          <div>
+            <v-breadcrumbs :items="items" divider="-"></v-breadcrumbs>
+          </div>
         </v-toolbar>
         <v-spacer></v-spacer>
         <v-container fluid mt-3>
@@ -21,15 +23,28 @@
 export default {
   layout: "panel",
 
+  data() {
+    return {
+      items: [
+      {
+        text: "داشبورد",
+        disabled: false,
+        href: "/panel/dashboard",
+      },
+      {
+        text: "ویرایش طرح",
+        disabled: false,
+        href: "/panel/plans",
+      },
+    ],
+    }
+  },
   async asyncData(context) {
-    let params = {};
-    params["include"] = "comments.user";
     const plan = await context.$axios
-      .get(`panel/plans/${context.params.id}`, { params })
+      .get(`panel/plans/${context.params.id}`)
       .then((res) => {
         return res.data.data;
-      })
-      .catch((err) => console.log(err));
+      });
     return { plan };
   },
 };

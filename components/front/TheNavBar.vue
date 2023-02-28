@@ -172,9 +172,6 @@
                 <nuxt-link to="/front/files">فایل ها</nuxt-link>
               </li>
               <li>
-                <nuxt-link to="/front/plans">طرح ها</nuxt-link>
-              </li>
-              <li>
                 <nuxt-link to="/front/files?format=search&category=وکتور"
                   >وکتور</nuxt-link
                 >
@@ -257,8 +254,9 @@
       </v-row>
     </v-col>
     <v-col md="3" sm="3" lg="3">
-      <p class="brand" v-if="$vuetify.breakpoint.mdAndUp">
-        <a href="/">Filymo</a>
+      <p class="navbar_brand" v-if="$vuetify.breakpoint.mdAndUp">
+        <a href="/">فایلیمو</a>
+        <a class="pricing" href="./front/plans">طرح ها </a>
       </p>
       <p style="width: 100%; text-align: right; padding-right: 1rem" v-else>
         <v-icon color="#fff" @click="toggle = !toggle">mdi-menu</v-icon>
@@ -273,10 +271,10 @@
         <div>
           <ul class="sidebar-menu">
             <li>
-              <nuxt-link to="/front/files">فایل ها </nuxt-link>
+              <nuxt-link to="/front/plans" class="pricing">طرح ها</nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/front/files">طرح ها </nuxt-link>
+              <nuxt-link to="/front/files">فایل ها </nuxt-link>
             </li>
             <li>
               <nuxt-link to="/front/files?format=search&category=وکتور"
@@ -321,8 +319,9 @@
                       >
                         <nuxt-link
                           :to="{
-                            path: '/front/categories',
+                            path: '/front/files',
                             query: {
+                              format:'search',
                               category: subCategory.name,
                             },
                           }"

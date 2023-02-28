@@ -133,6 +133,9 @@ localize({
         max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,
         min: (_, { length }) => `مقدار ورودی کمتر از ${length}  کاراکتر است`,
       },
+      "plan-type": {
+        required: "مقدار این فیلد الزامیست",
+      },
       "plan-description": {
         required: "مقدار این فیلد الزامیست",
         max: (_, { length }) => `مقدار ورودی بیشتر از ${length}  کاراکتر است`,

@@ -100,7 +100,27 @@ export default () => ({
       { text: "تعداد دانلود", value: "download_count", sortable: false },
       { text: "تعداد لایک", value: "reaction_summary", sortable: false },
       { text: "تعداد بازدید", value: "views", sortable: false },
-      { text: "تاریخ خرید", value: "created_at", sortable: false },
+      { text: "تاریخ ایجاد", value: "created_at", sortable: false },
+    ],
+  },
+  panelPlan: {
+    headers: [
+      { text: "عنوان", value: "title", sortable: false },
+      { text: "قیمت", value: "amount", sortable: false },
+      { text: "تخفیف", value: "rebate", sortable: false },
+      { text: "نوع تخفیف", value: "percentage", sortable: false },
+      { text: "قیمت نهایی", value: "amount_after_rebate", sortable: false },
+      {
+        text: " محدودیت دانلود روزانه",
+        value: "daily_download_limit_count",
+        sortable: false,
+      },
+      {
+        text: " محدودیت دانلود روزانه فایل های رایگان ",
+        value: "daily_free_download_limit_count",
+        sortable: false,
+      },
+      { text: "نوع طرح", value: "type_desc", sortable: false },
     ],
   },
   file: {

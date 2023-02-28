@@ -30,6 +30,11 @@ export default {
         disabled: false,
         href: "/panel/dashboard",
       },
+      {
+        text: "طرح ها",
+        disabled: false,
+        href: "/panel/plans",
+      },
     ],
   }),
 };

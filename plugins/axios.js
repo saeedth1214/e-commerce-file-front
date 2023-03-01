@@ -8,7 +8,8 @@ export default function ({ $axios, $auth, error, redirect }) {
       resError.response &&
       resError.response.status !== 422 &&
       resError.response.status !== 400 &&
-      resError.response.status !== 403
+      resError.response.status !== 403 &&
+      resError.response.status !== 503 
     ) {
       error(resError);
     }

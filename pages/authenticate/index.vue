@@ -413,7 +413,15 @@ export default {
                 }
               })
               .catch((err) => {
-                this.snackbar = true;
+                if (err.response.status === 503) {
+                  this.showMessage("error", err.response.data.data.error);
+                }
+                if (err.response.status === 422) {
+                  this.showMessage(
+                    "error",
+                    "لطفا بعد از 2 دقیقه دوباره اقدام کنید . "
+                  );
+                }
               });
           } else {
             this.overlay = false;

@@ -5,7 +5,6 @@
       md="3"
       sm="3"
       lg="3"
-      v-if="showFilter"
       style="border-left: 1px solid #d7d7d7"
     >
       <div class="filter-wrapper">
@@ -75,7 +74,7 @@
               >
               <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
             </div>
-            <div class="content">
+            <div class="filter_sub_content">
               <v-chip-group
                 active-class="blue accent-2 white--text"
                 v-model="amount"
@@ -93,7 +92,7 @@
               >
               <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
             </div>
-            <div class="content">
+            <div class="filter_sub_content">
               <v-chip-group
                 active-class="blue accent-2 white--text"
                 v-model="discount"
@@ -111,7 +110,7 @@
               >
               <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
             </div>
-            <div class="content">
+            <div class="filter_sub_content">
               <v-chip-group
                 active-class="blue accent-2 white--text"
                 v-model="format"
@@ -133,7 +132,7 @@
               >
               <v-icon color="#000">{{ "mdi-chevron-down" }}</v-icon>
             </div>
-            <div class="content">
+            <div class="filter_sub_content">
               <v-chip-group
                 active-class="blue accent-2 white--text"
                 v-model="published"
@@ -168,13 +167,6 @@ export default {
       formatItems: ["EPS", "AL", "JPG", "PNG", "JPEG", "PSD"],
     };
   },
-  props: {
-    showFilter: {
-      type: Boolean,
-      required: true,
-    },
-  },
-
   computed: {
     applyAmount() {
       return this.amount === "free" ? "رایگان" : "نقدی";
@@ -213,7 +205,7 @@ export default {
           .classList.toggle("mdi-chevron-up");
         let divContent = el.target.parentElement;
         divContent
-          .getElementsByClassName("content")[0]
+          .getElementsByClassName("filter_sub_content")[0]
           .classList.toggle("active_content");
       }
     },
@@ -240,7 +232,7 @@ export default {
       display: flex;
       justify-content: space-between;
     }
-    .content {
+    .filter_sub_content {
       margin-top: 1rem;
       display: none;
     }

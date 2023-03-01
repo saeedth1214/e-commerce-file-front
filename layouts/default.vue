@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main style="heigth: 1000px">
+    <v-main style="overflow: hidden">
       <TheNavBar headerStyle="padding-top:0.5rem;background-color: #1d262d" />
       <Nuxt />
       <TheFooter />

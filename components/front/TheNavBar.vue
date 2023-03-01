@@ -326,7 +326,7 @@
                             },
                           }"
                         >
-                          <div class="content">
+                          <div class="subCategory_item">
                             <span>{{ subCategory.name }}</span>
                           </div>
                         </nuxt-link>

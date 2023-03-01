@@ -1,8 +1,7 @@
 <template>
   <v-row style="border-bottom: 1px solid #d7d7d7">
-    <!-- @filterItems="filterFiles" -->
     <TheFilesFilter
-      :showFilter="showFilter"
+      v-if="showFilter"
       @showFilterBox="$emit('closeFilter')"
       @applyFilter="applyFilterRequest"
     />

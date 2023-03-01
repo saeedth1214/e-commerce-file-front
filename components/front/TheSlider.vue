@@ -58,7 +58,7 @@ export default {
 }
 @media screen and (max-width: 1024px) {
   .content {
-    height: 250px;
+    height: 400px;
     padding: 1rem 0px;
     overflow-y: scroll !important;
   }

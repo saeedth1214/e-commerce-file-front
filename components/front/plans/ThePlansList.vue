@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="plan-list">
+    <div class="plan-list" v-if="plans.length">
       <v-card
         width="100%"
         height="auto"
@@ -71,8 +71,7 @@
         </v-card-text>
       </v-card>
     </div>
-    <!-- 
-    <v-row dense >
+    <v-row dense v-else>
       <v-col cols="12">
         <v-alert
           width="70%"
@@ -86,7 +85,7 @@
         >
         <div style="height: 300px; width: 100%"></div>
       </v-col>
-    </v-row> -->
+    </v-row>
   </v-container>
 </template>
 
@@ -100,10 +99,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-
-  created() {
-    console.log(this.plans);
   },
 };
 </script>

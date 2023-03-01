@@ -255,8 +255,8 @@
     </v-col>
     <v-col md="3" sm="3" lg="3">
       <p class="navbar_brand" v-if="$vuetify.breakpoint.mdAndUp">
-        <a href="/">فایلیمو</a>
-        <a class="pricing" href="./front/plans">طرح ها </a>
+        <nuxt-link to="/">فایلیمو</nuxt-link>
+        <nuxt-link class="pricing" to="/front/plans">طرح ها </nuxt-link>
       </p>
       <p style="width: 100%; text-align: right; padding-right: 1rem" v-else>
         <v-icon color="#fff" @click="toggle = !toggle">mdi-menu</v-icon>
@@ -321,7 +321,7 @@
                           :to="{
                             path: '/front/files',
                             query: {
-                              format:'search',
+                              format: 'search',
                               category: subCategory.name,
                             },
                           }"

@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 490px">
+  <div>
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center" class="mb-3">
         <v-col cols="12" sm="8" md="8">
@@ -151,7 +151,6 @@
                       >
                     </div>
                   </v-col>
-
                   <v-col cols="12" md="8">
                     <v-card-text class="mt-12">
                       <h1
@@ -322,6 +321,7 @@
         </v-col>
       </v-row>
     </v-container>
+    <div style="width: 100%; height: 150px"></div>
     <v-row>
       <v-overlay :value="overlay">
         <v-progress-circular indeterminate size="64"></v-progress-circular>

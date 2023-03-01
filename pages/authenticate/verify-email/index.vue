@@ -120,6 +120,7 @@
           </v-card>
         </v-col>
       </v-row>
+      <div style="width: 100%; height: 150px"></div>
       <SnackBar />
     </v-container>
   </div>
@@ -167,11 +168,14 @@ export default {
           }
         })
         .catch(async (err) => {
+          if (err.response.status === 503) {
+            this.showMessage("error", err.response.data.data.error);
+          }
           if (err.response.status === 422) {
             await this.$store.commit("option/changeSnackbarMood", true);
             await this.$store.commit(
               "option/changeSnackbarText",
-              "ایمیل یا کد تایید وارد شده نامعتبر است"
+              "ایمیل یا کد تایید وارد شده نامعتبر است . باید از اخرین زمان ارسال خود 1 دقیقه گذشته باشد ."
             );
             await this.$store.commit(
               "option/changeSnackbarColor",

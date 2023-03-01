@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 300px;">
     <p style="font-size: 1rem; font-weight: 600">اطلاعات طرح فعال شما</p>
     <section class="plan-info" v-if="!loading">
       <ul v-if="hasPlan">
@@ -32,7 +32,7 @@
         >درحال حاضر طرح فعالی وجود ندارد.</v-alert
       >
     </section>
-    <TheLoader :start="loading" />
+    <TheLoader :start="loading" v-else />
   </div>
 </template>
 <script>
@@ -62,7 +62,7 @@ export default {
         .get(`frontend/users/${this.userId}/active-plan`)
         .then((res) => {
           this.activePlan = res.data.data;
-          !Object.keys(this.activePlan).length && (this.hasPlan = false);
+          !this.activePlan && (this.hasPlan = false);
         });
       this.loading = false;
     },

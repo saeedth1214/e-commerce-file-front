@@ -104,10 +104,10 @@
         </v-card>
       </section>
     </v-container>
+    <div style="width: 100%; height: 150px"></div>
     <TheFooter />
   </v-app>
 </template>
-
 <script>
 export default {
   middleware(context) {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 490px">
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center" class="mb-3">
         <v-col cols="12" sm="8" md="8">
@@ -121,7 +121,11 @@
                       </h5>
                     </v-card-text>
                     <div class="text-center mb-4">
-                      <v-btn rounded outlined dark @click="step++"
+                      <v-btn
+                        rounded
+                        outlined
+                        dark
+                        @click="$router.push('/authenticate?register')"
                         >ثبت نام</v-btn
                       >
                     </div>
@@ -137,7 +141,12 @@
                       </h5>
                     </v-card-text>
                     <div class="text-center">
-                      <v-btn rounded outlined dark @click="step--" class="mb-3"
+                      <v-btn
+                        rounded
+                        outlined
+                        dark
+                        @click="$router.push('/authenticate?login')"
+                        class="mb-3"
                         >ورود</v-btn
                       >
                     </div>
@@ -357,6 +366,10 @@ export default {
       context.redirect("/");
     }
   },
+
+  watch: {
+    "$route.query": "changeStep",
+  },
   methods: {
     async registerForm() {
       this.overlay = true;
@@ -439,13 +452,17 @@ export default {
         });
       this.overlay = false;
     },
+
+    changeStep() {
+      if (this.$route.query && "login" in this.$route.query) {
+        this.step = 1;
+      } else if (this.$route.query && "register" in this.$route.query) {
+        this.step = 2;
+      }
+    },
   },
   async created() {
-    if (this.$route.query && "login" in this.$route.query) {
-      this.step = 1;
-    } else if (this.$route.query && "register" in this.$route.query) {
-      this.step = 2;
-    }
+    this.changeStep();
   },
 };
 </script>

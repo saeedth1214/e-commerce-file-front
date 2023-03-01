@@ -271,7 +271,14 @@
         <div>
           <ul class="sidebar-menu">
             <li>
-              <nuxt-link to="/front/plans" class="pricing">طرح ها</nuxt-link>
+              <nuxt-link to="/">فایلیمو</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link
+                to="/front/plans"
+                style="font-size: 1rem; font-weight: 600; color: gold"
+                >طرح ها</nuxt-link
+              >
             </li>
             <li>
               <nuxt-link to="/front/files">فایل ها </nuxt-link>
@@ -337,7 +344,7 @@
               </div>
             </li>
             <li>
-              <nuxt-link to="/front/plans">دربار من </nuxt-link>
+              <nuxt-link to="/front/plans">درباره من </nuxt-link>
             </li>
           </ul>
         </div>
@@ -397,8 +404,12 @@ export default {
         });
       }
     },
+    "$route.query": "closeSideBar",
   },
   methods: {
+    closeSideBar() {
+      this.toggle = false;
+    },
     async logout() {
       await this.$auth.logout();
       await this.$router.push("/");
@@ -418,6 +429,6 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/navBar.scss";
 </style>

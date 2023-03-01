@@ -223,7 +223,7 @@ ul {
   list-style: none;
   align-items: flex-end;
   li {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     a {
       color: #a5b7c6;
       font-size: 1rem;
@@ -303,8 +303,11 @@ ul {
         background-color: #253039;
         height: 200px;
         overflow-y: scroll;
+        padding: 1rem;
       }
     }
   }
 }
-// }
+.v-application ul {
+  padding-left: 2px !important;
+}

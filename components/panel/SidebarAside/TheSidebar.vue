@@ -9,7 +9,7 @@
     >
       <v-container>
         <p class="brand">
-          <a href="/">Free picks</a>
+          <nuxt-link to="/">فایلیمو</nuxt-link>
         </p>
       </v-container>
       <v-list nav>

@@ -12,10 +12,4 @@ export default {};
   height: 100%;
   overflow: hidden;
 }
-
-@media screen and (max-width: 560px) {
-  .header {
-    height: auto !important;
-  }
-}
 </style>

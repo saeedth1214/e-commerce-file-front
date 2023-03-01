@@ -73,7 +73,7 @@ footer {
   margin-top: 1rem;
   height: 70px;
   background: #253039;
-  position: relative;
+  position: absolute;
   bottom: 0;
   left: 0;
   display: flex;

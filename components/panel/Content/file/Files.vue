@@ -1,67 +1,20 @@
 <template>
   <v-app id="inspire">
-    <v-container v-if="!loading">
-      <NewFile @initializeEmit="fetchAgain" />
-      <FileList :fetch="fetchAgainFlag" />
+    <v-container>
+      <NewFile @initializeEmit="fetchAgainFlag = true" />
+      <FileList
+        :fetch="fetchAgainFlag"
+        @closeFetchAgain="fetchAgainFlag = false"
+      />
     </v-container>
-    <v-row dense v-else>
-      <v-col cols="12">
-        <v-sheet color="grey lighten-3" class="pa-3">
-          <v-skeleton-loader
-            class="mx-auto"
-            width="100%"
-            height="300px"
-            type="card"
-          ></v-skeleton-loader>
-        </v-sheet>
-      </v-col>
-    </v-row>
   </v-app>
 </template>
 <script>
 export default {
   data() {
     return {
-      loading: true,
-      drawer: false,
-      dialog: false,
-      files: [],
       fetchAgainFlag: false,
-      pagination: {},
-      page: 1,
-      loading: true,
     };
-  },
-
-  created() {
-    this.initialize();
-  },
-
-  methods: {
-    async fetchData() {
-      this.page++;
-      if (this.page <= this.pagination.total_pages) {
-        this.moreFiles();
-      } else {
-        this.page = 1;
-      }
-    },
-    fetchAgain() {
-      this.fetchAgainFlag = true;
-    },
-    async initialize() {
-      let params = {};
-      this.loading = true;
-      params["page"] = this.page;
-      await this.$axios
-        .get("panel/files", { params })
-        .then((res) => {
-          this.files = res.data.data;
-          this.pagination = res.data.meta.pagination;
-        })
-        .catch((err) => console.log(err));
-      this.loading = false;
-    },
   },
 };
 </script>

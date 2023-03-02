@@ -77,8 +77,6 @@
 import showMessage from "@/mixins/showMessage";
 export default {
   data: () => ({
-    dialog: false,
-    dialogDelete: false,
     search: null,
     page: 1,
     pageCount: 0,
@@ -128,19 +126,12 @@ export default {
       this.loading = true;
       let params = {};
       this.page && (params["page"] = this.page);
-      await this.$axios
-        .$get("panel/files", { params })
-        .then((res) => {
-          this.items = res.data;
-          this.setPagination(res.meta.pagination);
-        })
-        .catch((err) => {
-          this.showMessage("error", err);
-        });
+      await this.$axios.$get("panel/files", { params }).then((res) => {
+        this.items = res.data;
+        this.setPagination(res.meta.pagination);
+      });
       this.loading = false;
-    },
-    async close() {
-      this.dialog = false;
+      this.$emit("closeFetchAgain");
     },
   },
 };

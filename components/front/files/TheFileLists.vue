@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" :md="showFilter ? '9' : '12'" :lg="showFilter ? '9' : '12'">
-    <div class="mt-8" style="min-height: 190px" v-if="!start">
+    <div class="mt-8" style="min-height: 350px" v-if="!start">
       <v-row v-if="fileData.files?.length">
         <v-col
           cols="12"

@@ -60,11 +60,7 @@
   </client-only>
 </template>
 <script>
-export default {
-  data() {
-    return {};
-  },
-};
+export default {};
 </script>
 
 <style scoped lang="scss">
@@ -73,9 +69,6 @@ footer {
   margin-top: 1rem;
   height: 70px;
   background: #253039;
-  position: absolute;
-  bottom: 0;
-  left: 0;
   display: flex;
   align-items: center;
 }
@@ -117,7 +110,7 @@ footer {
 }
 
 @media screen and (max-width: 960px) {
-  .copyright p {
+  .copyright {
     font-size: 0.9rem !important;
   }
 

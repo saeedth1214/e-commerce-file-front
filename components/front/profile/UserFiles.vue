@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p style="font-size: 1rem; font-weight: 600;">
-      فایل های خریداری شده
-    </p>
+    <p style="font-size: 1rem; font-weight: 600">فایل های خریداری شده</p>
 
     <v-data-table
       :headers="headers"
@@ -36,28 +34,29 @@
         </v-toolbar>
       </template>
       <template v-slot:item.title="{ item }">
-        <v-img
-          width="4rem"
-          height="4rem"
-          style="border-radius: 50%"
-          :src="item.media_url"
-        >
-          <template #placeholder>
-            <v-row class="fill-height" justify="center" align="center">
-              <v-progress-circular
-                width="2"
-                size="100"
-                color="primary"
-                indeterminate
-              ></v-progress-circular>
-            </v-row>
-          </template>
-        </v-img>
-        <span
-          class="text-body-2 font-weight-medium"
-          style="position: relative; right: 70px; top: -30px"
-          >{{ item.title }}</span
-        >
+        <div class="file-title-box">
+          <v-img
+            max-width="40"
+            max-height="40"
+            min-width="40"
+            min-height="40"
+            aspect-ratio="1"
+            rounded
+            :src="item.media_url"
+          >
+            <template #placeholder>
+              <v-row class="fill-height" justify="center" align="center">
+                <v-progress-circular
+                  width="2"
+                  size="100"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <p class="text-body-2 font-weight-medium">{{ item.title }}</p>
+        </div>
       </template>
 
       <template v-slot:item.rebate="{ item }">
@@ -140,4 +139,10 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style lang="scss" scoped>
+.file-title-box {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+</style>

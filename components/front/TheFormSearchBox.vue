@@ -125,6 +125,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 @media screen and (max-width: 768px) {
   .search-dropdown {
     display: none !important;

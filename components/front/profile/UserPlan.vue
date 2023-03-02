@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 300px;">
+  <div style="min-height: 300px">
     <p style="font-size: 1rem; font-weight: 600">اطلاعات طرح فعال شما</p>
     <section class="plan-info" v-if="!loading">
       <ul v-if="hasPlan">
@@ -22,7 +22,6 @@
       </ul>
       <v-alert
         v-else
-        width="70%"
         type="error"
         class="text-center mx-auto"
         dense

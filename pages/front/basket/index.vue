@@ -214,7 +214,7 @@
         elevation="2"
         >سبد خرید شما خالیست</v-alert
       >
-      <div style="height: 300px; width: 100%"></div>
+      <div style="min-height: 400px; width: 100%"></div>
       <SnackBar />
     </v-container>
   </div>
@@ -222,11 +222,6 @@
 <script>
 import showMessage from "@/mixins/showMessage";
 export default {
-  // middleware(context) {
-  //   if (!context.$auth.loggedIn) {
-  //     context.redirect("/authenticate?login");
-  //   }
-  // },
   data: () => ({
     cartItems: [],
     rebate_code: "***",

@@ -49,7 +49,11 @@
                 ? attribute.name + "(mb)"
                 : attribute.name
             }}</span>
-            <span>{{ attribute.value }}</span>
+            <span>{{
+              attribute.type === "FORMAT"
+                ? attribute.value_desc
+                : attribute.value
+            }}</span>
           </p>
         </div>
       </v-card-text>

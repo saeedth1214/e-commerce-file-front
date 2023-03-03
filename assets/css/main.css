@@ -10,25 +10,6 @@
     /* chrome, firefox */ url("../fonts/vazir/vazir.ttf?t=1525787366991")
       format("truetype");
 }
-@font-face {
-  font-family: "jalali";
-  src: url("../fonts/jalali/Far.Jalal.eot?t=1525787366991"); /* IE9*/
-  src: url("../fonts/jalali/Far.Jalal.eot?t=1525787366991#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/jalali/Far.Jalal.woff?t=1525787366991")
-      format("woff"),
-    /* chrome, firefox */ url("../fonts/jalali/Far.Jalal.ttf?t=1525787366991")
-      format("truetype");
-}
-@font-face {
-  font-family: "kara";
-  src: url("../fonts/kara/kara.eot?t=1525787366991"); /* IE9*/
-  src: url("../fonts/kara/kara.eot?t=1525787366991#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/kara/kara.woff?t=1525787366991") format("woff"),
-    /* chrome, firefox */ url("../fonts/kara/kara.ttf?t=1525787366991")
-      format("truetype");
-}
 body {
   font-family: "vazir", serif !important;
 }

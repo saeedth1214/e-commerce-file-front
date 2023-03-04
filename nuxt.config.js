@@ -24,12 +24,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     "~/assets/css/main.css",
-    "~/assets/css/content-styles.css",
-    "nuxt-dropzone/dropzone.css",
-    "vue-select/dist/vue-select.css",
-    "quill/dist/quill.snow.css",
-    "quill/dist/quill.bubble.css",
-    "quill/dist/quill.core.css",
     "@mdi/font/css/materialdesignicons.css",
   ],
 
@@ -227,7 +221,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api.filymo.ir//",
+      target: "https://api.v2.filymo.ir",
     },
   },
   sweetalert: {
@@ -239,8 +233,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api.filymo.ir/api/panel/",
-    dropzoneUrlFront: "https://api.filymo.ir/api/frontend/",
+    dropzoneUrl: "https://api.v2.filymo.ir/api/panel/",
+    dropzoneUrlFront: "https://api.v2.filymo.ir/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
     PER_PAGE: 15,

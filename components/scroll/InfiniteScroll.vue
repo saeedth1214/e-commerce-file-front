@@ -203,4 +203,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@import "vue-select/dist/vue-select.css";
+</style>

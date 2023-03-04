@@ -118,6 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "nuxt-dropzone/dropzone.css";
 .label-format {
   color: #443f3f;
   font-size: 1rem;

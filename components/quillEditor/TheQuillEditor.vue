@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="quill-container">
     <div
       class="quill-editor"
       :content="content"
@@ -38,8 +38,25 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
+<style lang="scss">
+@import "quill/dist/quill.snow.css";
+@import "quill/dist/quill.bubble.css";
+@import "quill/dist/quill.core.css";
+
+.ql-toolbar.ql-snow {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  font-family: "vazir";
+  font-size: 0.9rem;
+  color: #000;
+  font-weight: 700;
+}
+.quill-container {
   width: 90%;
   margin: 0 auto;
   padding: 50px 0;

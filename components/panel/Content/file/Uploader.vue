@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "nuxt-dropzone/dropzone.css";
 .label-format {
   color: #443f3f;

@@ -127,7 +127,6 @@ export default {
   margin-bottom: 1.5rem;
 }
 .v-card > div {
-  width: 95%;
   margin: 0px auto;
   padding: 0.5rem;
 }

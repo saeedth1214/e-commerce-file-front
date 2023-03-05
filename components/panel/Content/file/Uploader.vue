@@ -126,10 +126,10 @@ export default {
   display: block;
   margin-bottom: 1.5rem;
 }
-.v-card > div {
-  margin: 0px auto;
-  padding: 0.5rem;
-}
+// .v-card > div {
+//   margin: 0px auto;
+//   padding: 0.5rem;
+// }
 .dropzone-custom-title {
   font-size: 14px;
   display: flex;

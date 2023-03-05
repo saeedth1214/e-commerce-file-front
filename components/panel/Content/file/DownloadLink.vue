@@ -34,6 +34,7 @@
           small
           color="text-subtitle-2 green darken-4 white--text"
           @click="generateLink"
+          :disabled="radioExpirationTime ===null"
           >ایجاد</v-btn
         >
       </v-col>
@@ -114,7 +115,7 @@ export default {
 </script>
 <style lang="scss">
 .v-input--radio-group--column .v-input--radio-group__input {
-  flex-direction: row;
+  flex-direction: row !important;
   gap: 2rem;
 }
 .v-radio {

@@ -127,18 +127,11 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <UploadCategoryMedia
-          v-if="uploadMediaShow"
-          :url="dropZoneUrl"
-          :showMedia="uploadMediaShow"
-          @closeUploadMedia="initialize"
-        />
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-      <v-icon small @click="uploadMedia(item.id)">mdi-upload</v-icon>
     </template>
     <template v-slot:item.media="{ item }">
       <v-img
@@ -201,11 +194,6 @@ export default {
   methods: {
     setParentId(id) {
       this.editedItem.parent_id = id;
-    },
-    async uploadMedia(categoryId) {
-      this.uploadMediaShow = true;
-      this.dropZoneUrl =
-        process.env.dropzoneUrl + `categories/${categoryId}/upload-media`;
     },
     async handlePageChange(value) {
       this.page = value;

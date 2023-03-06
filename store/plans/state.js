@@ -1,4 +1,3 @@
 export default () => ({
-    page: 1,
-    sliderPlans: [],    
-})
+  buySubscription: null,
+});

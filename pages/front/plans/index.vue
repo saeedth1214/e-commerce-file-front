@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <ThePlansList :plans="plans" v-if="!start" />
-    <TheLoader :start="true" leftStyle="left:50%;" v-else />
+    <TheLoader :start="true" v-else :leftStyle="[{ left: '50%' }]" />
   </div>
 </template>
 <script>

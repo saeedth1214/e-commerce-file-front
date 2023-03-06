@@ -61,11 +61,14 @@
             >
               {{ $formatMoney(plan.amount_after_rebate) }}
             </p>
-            <nuxt-link
+            <v-btn
               style="width: 80%"
-              class="rounded blue--text accent-3 pa-3 ma-3 d-block text-center text-decoration-none text-center text-body-2 font-weight-bold mx-auto"
-              to="#"
-              >خرید اشتراک</nuxt-link
+              class="rounded blue--text accent-3 pa-2 d-block text-center text-body-2 font-weight-bold mx-auto"
+              @click="buyPlan(Idx)"
+              plain
+              shaped
+              outlined
+              >خرید اشتراک</v-btn
             >
           </div>
         </v-card-text>
@@ -98,6 +101,19 @@ export default {
     plans: {
       type: Array,
       required: true,
+    },
+  },
+
+  methods: {
+    async buyPlan(Idx) {
+      let plan = this.plans[Idx];
+      let subscription = {
+        id: plan.id,
+        title: plan.title,
+        price: plan.amount_after_rebate,
+      };
+      await this.$store.dispatch("plan/setSubscription", subscription);
+      this.$router.push("/front/plans/subscription");
     },
   },
 };

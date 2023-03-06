@@ -17,7 +17,9 @@ const createStore = () => {
         await dispatch("tag/fetchTags", { per_page: 5 });
       },
     },
-    getters: {},
+    getters: {
+      
+    },
     modules: {
       card,
       option,

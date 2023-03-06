@@ -1,5 +1,5 @@
 export default {
-    getSliderPlans(state) {
-        return state.sliderPlans;
-    },
-}
+  getSubscription(state) {
+    return state.buySubscription;
+  },
+};

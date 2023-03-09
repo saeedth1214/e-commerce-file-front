@@ -139,11 +139,6 @@ export default () => ({
       { text: "قیمت کل", value: "total_amount", sortable: false },
       { text: "مقدار تخفیف", value: "rebate", sortable: false },
       {
-        text: "قیمت بعداز کد تخفیف",
-        value: "total_amount_after_voucher_code",
-        sortable: false,
-      },
-      {
         text: "قیمت نهایی",
         value: "total_amount",
         sortable: false,

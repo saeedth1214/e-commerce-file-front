@@ -263,11 +263,7 @@ export default {
         order["files"] = files;
       }
       await this.$axios.post("panel/orders", { ...order }).then((res) => {
-        if (res.status === 204) {
-          this.showMessage("success", "سفارش شما ثبت شد");
-          this.$cookies.set("cart", []);
-          this.$router.push("/front/profile?tab=orders");
-        }
+          window.open(res.data.action, "_blank");
       });
       this.finalBtnLoading = false;
     },

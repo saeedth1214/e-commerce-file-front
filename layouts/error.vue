@@ -122,7 +122,7 @@ h1 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url(/bg.jpg);
+  background-image: url(/bg2.jpg);
   background-size: cover;
 }
 .bg::after {

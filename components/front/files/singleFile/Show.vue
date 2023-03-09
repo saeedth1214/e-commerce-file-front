@@ -292,25 +292,6 @@ export default {
 
     async AddtoCart() {
       await this.toCart(this.file);
-
-      // let user = this.$auth.user;
-      // await this.$axios
-      //   .get(`frontend/users/${user.id}/files/${this.file.id}`)
-      //   .then(async (res) => {
-      //     if (res.data.data.count) {
-      //       await this.$store.commit("option/changeSnackbarMood", true);
-      //       await this.$store.commit(
-      //         "option/changeSnackbarColor",
-      //         "orange darken-2"
-      //       );
-      //       await this.$store.commit(
-      //         "option/changeSnackbarText",
-      //         "این فایل قبلا خریداری شده است ."
-      //       );
-      //     } else {
-      //       await this.toCart(file, "file");
-      //     }
-      //   });
     },
   },
 };

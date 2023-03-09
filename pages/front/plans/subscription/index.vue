@@ -1,11 +1,23 @@
 <template>
   <section>
     <div class="plan-details" v-if="plan !== null">
+      <v-progress-linear
+        indeterminate
+        color="primary"
+        v-if="loading"
+      ></v-progress-linear>
+
       <ul>
         <li>{{ plan.title }}</li>
         <li>{{ $formatMoney(plan.price) }} تومان</li>
         <li>
-          <v-btn small color="primary" style="position: relative; top: 50px">
+          <v-btn
+            small
+            color="primary"
+            style="position: relative; top: 50px"
+            @click="finalPurchase"
+            :disabled="loading"
+          >
             خرید نهایی
           </v-btn>
         </li>
@@ -23,14 +35,51 @@
       v-else
       >اشتراکی انتخاب نشده است .
     </v-alert>
+    <SnackBar />
   </section>
 </template>
 <script>
 export default {
   layout: "buyPlan",
+  data() {
+    return {
+      loading: false,
+    };
+  },
   computed: {
     plan() {
       return this.$store.getters["plan/getSubscription"];
+    },
+  },
+
+  methods: {
+    async finalPurchase() {
+      this.loading = true;
+      await this.$axios
+        .get(`frontend/users/${this.$auth.user.id}/active-plan`)
+        .then(async (res) => {
+          if (res.data.data === null) {
+            await this.$axios
+              .post(`frontend/plans/${this.plan.id}/purchase`, {
+                amount: this.plan.price,
+              })
+              .then((res) => {
+                window.open(res.data.action, "_blank");
+              });
+          } else {
+            await this.$store.commit("option/changeSnackbarMood", true);
+            await this.$store.commit(
+              "option/changeSnackbarColor",
+              "orange darken-2"
+            );
+            await this.$store.commit(
+              "option/changeSnackbarText",
+              `در حال حاضر طرح ( ${res.data.data.title} ) برای شما فعال است .`
+            );
+          }
+        });
+
+      this.loading = false;
     },
   },
 };

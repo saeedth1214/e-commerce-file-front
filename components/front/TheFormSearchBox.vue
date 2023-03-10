@@ -48,7 +48,7 @@
       <v-btn
         tile
         color="#000"
-        :height="landing ? '50px' : '47px'"
+        :height="landing ? '50px' : '37px'"
         shaped
         plain
         style="background-color: #fff"
@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     height() {
-      return this.landing ? "40px" : "37px";
+      return this.landing ? "35px" : "33px";
     },
   },
   watch: {
@@ -253,7 +253,7 @@ export default {
     width: 100% !important;
   }
   .search-fake {
-    height: 40px !important;
+    height: 35px !important;
   }
   .btn-search {
     height: v-bind(height) !important;

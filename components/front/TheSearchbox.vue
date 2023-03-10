@@ -43,7 +43,7 @@ section {
 }
 @media screen and(max-width:768px) {
   h4 {
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
   }
 }
 </style>

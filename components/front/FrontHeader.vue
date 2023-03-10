@@ -8,7 +8,13 @@ export default {};
 </script>
 <style lang="scss" scoped>
 .header {
-  background: linear-gradient(180deg, #2d2db0 -65%, #2c8cf4 110%);
+  background-image: linear-gradient(
+      to bottom,
+      rgb(0 18 129 / 52%),
+      rgb(34 4 27 / 73%)
+    ),
+    url(/header.jpg);
+  background-size: cover;
   height: 100%;
   overflow: hidden;
 }

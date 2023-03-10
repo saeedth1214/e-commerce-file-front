@@ -56,13 +56,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-@media screen and (max-width: 1024px) {
-  .content {
-    height: 400px;
-    padding: 1rem 0px;
-    overflow-y: scroll !important;
-  }
-}
+
 article {
   display: flex;
   flex-direction: column;

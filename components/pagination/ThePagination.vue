@@ -1,6 +1,5 @@
 <template>
-  <v-row dense>
-    <div class="mx-auto" style="margin-top: 10rem">
+    <div class="mx-auto" style="margin-top: 1rem">
       <v-pagination
         v-model="pagination.current_page"
         :length="pagination.total_pages"
@@ -9,7 +8,6 @@
         color="#00bdfe"
       ></v-pagination>
     </div>
-  </v-row>
 </template>
 
 <script>

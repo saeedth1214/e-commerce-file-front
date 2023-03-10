@@ -34,7 +34,7 @@
           small
           color="text-subtitle-2 green darken-4 white--text"
           @click="generateLink"
-          :disabled="radioExpirationTime ===null"
+          :disabled="radioExpirationTime === null"
           >ایجاد</v-btn
         >
       </v-col>
@@ -114,25 +114,26 @@ export default {
 };
 </script>
 <style lang="scss">
-.v-input--radio-group--column .v-input--radio-group__input {
-  flex-direction: row !important;
-  gap: 2rem;
-}
-.v-radio {
-  align-items: center;
-  display: flex;
-  height: 45px;
-  outline: none;
-  width: 120px;
-  border: 2px solid #d7d7d7;
-  padding: 0.5rem;
-  border-radius: 10px;
-}
 .expiration-date {
   padding: 0.5rem;
   border: 1px solid #d7d7d7;
   border-radius: 10px;
   display: flex;
   justify-content: center;
+  
+  .v-input--radio-group--column .v-input--radio-group__input {
+    flex-direction: row !important;
+    gap: 2rem;
+  }
+  .v-radio {
+    align-items: center;
+    display: flex;
+    height: 45px;
+    outline: none;
+    width: 120px;
+    border: 2px solid #d7d7d7;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
 }
 </style>

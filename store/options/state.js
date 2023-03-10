@@ -2,7 +2,6 @@ export default () => ({
   category: {
     headers: [
       { text: "#", value: "id", sortable: false },
-      { text: "تصویر", value: "media", sortable: false },
       { text: "دسته بندی پدر", value: "parent_name", sortable: false },
       { text: "نامک", value: "slug", sortable: false },
       { text: "عنوان", value: "name", sortable: false },
@@ -150,16 +149,15 @@ export default () => ({
   comment: {
     headers: [
       { text: "#", value: "id", sortable: false },
-
       { text: "نام کاربر", value: "user.data.fullname", sortable: false },
       { text: "متن پیام", value: "content", sortable: false },
       { text: "شناسه والد", value: "parent_id", sortable: false },
       {
-        text: "شناسه محصول",
-        value: "model.data.id",
+        text: "شناسه فایل",
+        value: "file.data.id",
         sortable: false,
       },
-      { text: "نوع محصول", value: "model.data.title", sortable: false },
+      { text: "عنوان فایل", value: "file.data.title", sortable: false },
       { text: "وضعیت", value: "status", sortable: false },
       { text: "تاریخ ثبت", value: "created_at", sortable: false },
       { text: "", value: "actions", sortable: false },

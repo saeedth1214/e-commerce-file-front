@@ -103,9 +103,7 @@
       <v-col cols="12" md="7">
         <v-card color="#fff">
           <v-app-bar color="" flat>
-            <v-toolbar-title class="black--text"
-              >سفارش های 2 ماه اخیر</v-toolbar-title
-            >
+            <p class="text-body-1 font-weight-bold">سفارش های 2 ماه اخیر</p>
           </v-app-bar>
           <v-data-table
             :headers="headers"
@@ -114,10 +112,11 @@
             hide-default-footer
           >
             <template v-slot:footer>
-              <div class="text-center pa-2 grey lighten-2">
+              <div class="text-center pa-2" style="background-color: #f5f5f5">
                 <nuxt-link
                   to="/panel/orders"
-                  class="text-decoration-none grey--text darken-2"
+                  class="text-decoration-none"
+                  style="font-size: 0.8rem; font-weight: 600; color: #333"
                 >
                   <span>مشاهده همه</span>
                 </nuxt-link>
@@ -128,7 +127,7 @@
               {{ item.rebate ? item.rebate : "-" }}
             </template>
             <template v-slot:item.total_amount="{ item }">
-              {{ $formatMoney(item.total_amount) + " تومان" }}
+              {{ $formatMoney(item.total_amount) }}
             </template>
             <template v-slot:item.total_amount_after_rebate="{ item }">
               {{ $formatMoney(item.total_amount_after_rebate) + "تومان" }}
@@ -160,7 +159,15 @@
       <v-col cols="12" md="5">
         <v-card color="#fff">
           <v-app-bar color="" flat>
-            <v-toolbar-title class="title">آخرین نظرات</v-toolbar-title>
+            <p
+              class="text-body-1 font-weight-bold d-flex justify-space-between"
+              style="width: 100%"
+            >
+              <span> آخرین نظرات</span>
+              <v-btn nuxt to="/panel/comments" small color="primary" rounded>
+                همه
+              </v-btn>
+            </p>
           </v-app-bar>
           <v-list three-line class="mt-n5" color="#fff">
             <v-list-item-group>
@@ -210,18 +217,6 @@
                   </template>
                 </v-list-item>
               </template>
-              <v-list-item
-                nuxt
-                to="/panel/comments"
-                class="grey lighten-2 text-center"
-              >
-                <v-list-item-content>
-                  <v-list-item-subtitle>
-                    <span>مشاهده همه</span>
-                    <v-icon> mdi-eye</v-icon>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-card>
@@ -250,25 +245,18 @@ export default {
 
   async created() {
     this.loading = true;
-    await this.$axios
-      .get("/panel/dashboard/details")
-      .then((res) => {
-        this.detailsData = { ...res.data.data.details };
-      })
-      .catch((err) => console.log(err));
+    await this.$axios.get("/panel/dashboard/details").then((res) => {
+      this.detailsData = { ...res.data.data.details };
+    });
 
-    await this.$axios
-      .get("/panel/dashboard/latest-orders")
-      .then((res) => {
-        this.latestOrders = res.data.data;
-      })
-      .catch((err) => console.log(err));
+    await this.$axios.get("/panel/dashboard/latest-orders").then((res) => {
+      this.latestOrders = res.data.data;
+    });
     await this.$axios
       .get("/panel/dashboard/latest-comments?include=user")
       .then((res) => {
         this.latestComments = res.data.data;
-      })
-      .catch((err) => console.log(err));
+      });
     this.loading = false;
   },
 };

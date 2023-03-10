@@ -133,15 +133,6 @@
       <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
-    <template v-slot:item.media="{ item }">
-      <v-img
-        width="50"
-        height="50"
-        class="rounded mt-3"
-        :src="item.media"
-      ></v-img>
-    </template>
-
     <template v-slot:no-data>
       <p class="font-weight-bold">موردی پیدا نشد</p>
     </template>

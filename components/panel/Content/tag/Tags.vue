@@ -126,7 +126,6 @@
         <p class="font-weight-bold">موردی پیدا نشد</p>
       </template>
     </v-data-table>
-    <SnackBar />
   </div>
 </template>
 

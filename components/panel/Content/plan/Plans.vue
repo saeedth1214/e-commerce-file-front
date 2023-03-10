@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-container v-if="!loading">
       <NewPlan @initializeEmit="initialize" />
       <PlanList />

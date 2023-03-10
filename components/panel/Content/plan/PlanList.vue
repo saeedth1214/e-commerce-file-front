@@ -79,20 +79,6 @@ export default {
       return this.$store.state.option.panelPlan.headers;
     },
   },
-  props: {
-    // fetch: {
-    //   type: Boolean,
-    //   required: false,
-    //   default: false,
-    // },
-  },
-  watch: {
-    // fetch(value) {
-    //   if (value) {
-    //     this.initialize();
-    //   }
-    // },
-  },
   created() {
     this.initialize();
     this.itemsPerPage = process.env.PER_PAGE;
@@ -113,15 +99,11 @@ export default {
       this.loading = true;
       let params = {};
       this.page && (params["page"] = this.page);
-      await this.$axios
-        .$get("panel/plans", { params })
-        .then((res) => {
-          this.items = res.data;
-          this.setPagination(res.meta.pagination);
-        })
-        .catch((err) => {
-          this.showMessage("error", err);
-        });
+      await this.$axios.$get("panel/plans", { params }).then((res) => {
+        this.items = res.data;
+        this.setPagination(res.meta.pagination);
+      });
+
       this.loading = false;
     },
     async close() {

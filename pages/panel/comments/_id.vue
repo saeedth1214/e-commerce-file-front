@@ -34,10 +34,10 @@ export default {
 
   async asyncData(context) {
     let params = {};
-    params["include"] = "user,model";
+    params["include"] = "user,file";
     const comment = await context.$axios
-      .get(`/panel/comments/${context.route.params.id}`, { params })
-      .then((res) => {
+    .get(`/panel/comments/${context.route.params.id}`, { params })
+    .then((res) => {
           return res.data.data;
       })
       .catch((err) => {

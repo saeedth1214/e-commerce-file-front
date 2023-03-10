@@ -138,7 +138,7 @@
                     <v-btn class="mr-4" type="submit" :disabled="invalid"
                       >ویرایش</v-btn
                     >
-                    <v-btn class="mr-4" @click="close">انصراف</v-btn>
+                    <v-btn class="mr-4" @click="remove">حذف</v-btn>
                   </div>
                 </v-row>
               </form>
@@ -201,7 +201,7 @@ export default {
       title: this.plan.title,
       description: this.plan.description,
       amount: this.plan.amount,
-      percentage:this.plan.percentage,
+      percentage: this.plan.percentage,
       rebate: this.plan.rebate,
       type: this.plan.type,
       daily_download_limit_count: this.plan.daily_download_limit_count,
@@ -210,9 +210,14 @@ export default {
     };
   },
   methods: {
-    close() {
-      this.$emit("close");
+    async remove() {
+      this.loading = true;
+      await this.$axios.delete(`panel/plans/${this.plan.id}`).then((res) => {
+        this.showMessage("success", "طرح انتخابی حذف شد");
+        this.$router.push("/panel/plans");
+      });
       this.emptyPlan();
+      this.loading = false;
     },
     emptyPlan() {
       this.editedPlan = {
@@ -241,10 +246,9 @@ export default {
       await this.$axios
         .put(`panel/plans/${this.plan.id}`, this.editedPlan)
         .then((res) => {
-          this.close();
+          this.emptyPlan();
           this.showMessage("success", "طرح انتخابی ویرایش شد");
           this.$router.push("/panel/plans");
-
         });
       this.loading = false;
     },

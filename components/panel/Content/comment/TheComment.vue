@@ -21,8 +21,8 @@
               <td>{{ comment.id }}</td>
               <td>{{ comment.content }}</td>
               <td>{{ comment.parent_id ? comment.parent_id : "-" }}</td>
-              <td>{{ comment.model.data.id }}</td>
-              <td>{{ comment.model.data.title }}</td>
+              <td>{{ comment.file.data.id }}</td>
+              <td>{{ comment.file.data.title }}</td>
               <td>
                 <span
                   style="font-size: 0.7rem; width: 60px"
@@ -52,11 +52,13 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="4" sm="4">
-            <v-radio-group v-model="newComment.status" row>
-              <v-radio label="دیده نشده" :value="0"></v-radio>
-              <v-radio label="تایید شده" :value="1"></v-radio>
-              <v-radio label="رد شده" :value="2"></v-radio>
-            </v-radio-group>
+            <div class="status">
+              <v-radio-group v-model="newComment.status" row>
+                <v-radio label="دیده نشده" :value="0"></v-radio>
+                <v-radio label="تایید شده" :value="1"></v-radio>
+                <v-radio label="رد شده" :value="2"></v-radio>
+              </v-radio-group>
+            </div>
           </v-col>
           <v-col
             cols="12"
@@ -87,11 +89,13 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="4" sm="4">
-            <v-radio-group v-model="reply.status" row>
-              <v-radio label="دیده نشده" :value="0"></v-radio>
-              <v-radio label="تایید شده" :value="1"></v-radio>
-              <v-radio label="رد شده" :value="2"></v-radio>
-            </v-radio-group>
+            <div class="status">
+              <v-radio-group v-model="reply.status" row>
+                <v-radio label="دیده نشده" :value="0"></v-radio>
+                <v-radio label="تایید شده" :value="1"></v-radio>
+                <v-radio label="رد شده" :value="2"></v-radio>
+              </v-radio-group>
+            </div>
           </v-col>
           <v-col
             cols="12"
@@ -193,18 +197,12 @@ export default {
     async replyComment() {
       this.loading = true;
       this.reply["parent_id"] = this.comment.id;
-      let type = this.comment.model.data.type;
-
       await this.$axios
-        .post(
-          `panel/${type}/${this.comment.model.data.id}/comments`,
-          this.reply
-        )
+        .post(`panel/files/${this.comment.file.data.id}/comments`, this.reply)
         .then((res) => {
           this.showMessage("success", ".پیغام شما ثبت شد");
           this.$router.push("/panel/comments");
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
     async updateComment() {
@@ -213,12 +211,9 @@ export default {
         content: this.newComment.content,
         status: this.newComment.status,
       };
-
-      let type = this.comment.model.data.type;
-
       await this.$axios
         .put(
-          `panel/${type}/${this.comment.model.data.id}/comments/${this.comment.id}`,
+          `panel/files/${this.comment.file.data.id}/comments/${this.comment.id}`,
           data
         )
         .then((res) => {
@@ -226,11 +221,22 @@ export default {
             this.showMessage("success", ".پیغام انتخابی ویرایش شد");
             this.$router.push("/panel/comments");
           }
-        })
-        .catch((err) => console.log(err));
+        });
       this.loading = false;
     },
   },
 };
 </script>
-<style lang=""></style>
+<style lang="scss">
+.status {
+  .v-input--radio-group.v-input--radio-group--row .v-radio {
+    margin-right: 0px;
+  }
+  .v-radio {
+    align-items: center;
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+}
+</style>

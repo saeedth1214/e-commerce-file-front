@@ -239,6 +239,10 @@ export default {
           name: "psd",
           value: 6,
         },
+        {
+          name: "zip",
+          value: 7,
+        },
       ],
     };
   },

@@ -31,8 +31,9 @@ extend("percentageRule", (value, from) => {
 
 extend("username", (value) => {
   const mobile = /^(\+98||0)?[9][0|1|2|3|4|9][0-9]{8}$/;
-  const email =
-    /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
+  const email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
 
   if (mobile.test(value) || email.test(value)) {
     return true;

@@ -55,10 +55,6 @@ export default {
       return this.$store.state.tag.searchByTags;
     },
   },
-  async created() {
-    await this.$store.dispatch("tag/fetchTags", { per_page: 30 });
-  },
-
   methods: {
     handleResizeScreen() {
       this.innerWidth = window.innerWidth;

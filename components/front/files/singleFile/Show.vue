@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-card :loading="loading">
         <v-card-title>
-          <span v-if="file.amount_after_rebate > 0">
+          <span v-if="file.amount_after_rebate > 0 || !userHasActivePlan">
             <v-btn
               color="primary"
               class="ma-2 subtitle-1 font-weight-light"
@@ -237,7 +237,7 @@ export default {
       await this.$axios
         .get(`frontend/users/${user.id}/active-plan`)
         .then((res) => {
-          if (!res.data) {
+          if (res.data.data.id) {
             this.userHasActivePlan = true;
           }
         });

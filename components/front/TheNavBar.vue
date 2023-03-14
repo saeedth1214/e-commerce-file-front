@@ -30,7 +30,7 @@
             </v-btn>
           </span>
         </div>
-        <div class="auth" v-else>
+        <div class="auth" v-else v-click-outside="onClickOutside">
           <v-avatar size="40" style="cursor: pointer; margin-right: 10px">
             <v-img
               @click="auth = !auth"
@@ -46,7 +46,6 @@
             color="#fff"
             class="user-box-profile"
             :class="[auth ? 'active' : 'diActive']"
-            v-click-outside="onClickOutside"
           >
             <v-card-title style="border-bottom: 2px solid #253039">
               <div class="login-box-header">
@@ -415,12 +414,12 @@ export default {
       await this.$router.push("/");
     },
     onClickOutside(e) {
-      if (
-        !e.target.classList.contains("v-icon") &&
-        !e.target.classList.contains("v-avatar")
-      ) {
-        this.auth = false;
-      }
+      this.auth = false;
+      // if (
+      //   !e.target.classList.contains("v-icon") &&
+      //   !e.target.classList.contains("v-avatar")
+      // ) {
+      // }
     },
     onClickOutsideCategory() {
       this.active = false;

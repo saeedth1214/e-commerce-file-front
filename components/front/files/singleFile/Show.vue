@@ -238,7 +238,7 @@ export default {
       await this.$axios
         .get(`frontend/users/${user.id}/active-plan`)
         .then(async (res) => {
-          if (res.data.data.id) {
+          if (res.data.data) {
             this.userHasActivePlan = true;
           } else {
             await this.$axios

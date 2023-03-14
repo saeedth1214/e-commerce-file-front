@@ -14,12 +14,10 @@ const createStore = () => {
     actions: {
       async nuxtServerInit({ dispatch }) {
         await dispatch("category/fetchMenuBarCategories");
-        await dispatch("tag/fetchTags", { per_page: 5 });
+        await dispatch("tag/fetchTags");
       },
     },
-    getters: {
-      
-    },
+    getters: {},
     modules: {
       card,
       option,

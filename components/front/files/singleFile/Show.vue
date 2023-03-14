@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" class="pa-8">
     <v-container fluid>
-      <v-card :loading="loading">
+      <v-card :loading="loading" v-if="!loading">
         <v-card-title>
           <span v-if="!userHasActivePlan && !userHasThisFile">
             <v-btn
@@ -171,6 +171,18 @@
           <Comments :fileId="file.id" />
         </v-card-text>
       </v-card>
+      <v-row dense v-else>
+        <v-col cols="12">
+          <v-sheet color="grey lighten-3" class="pa-3">
+            <v-skeleton-loader
+              class="mx-auto"
+              width="100%"
+              height="300px"
+              type="card"
+            ></v-skeleton-loader>
+          </v-sheet>
+        </v-col>
+      </v-row>
     </v-container>
   </v-row>
 </template>
@@ -206,11 +218,8 @@ export default {
   },
   data() {
     return {
-      dialog: true,
       detailFlag: false,
       menu: false,
-      showPurchaseDialog: false,
-      radioGroup: 1,
       is_reacted: false,
       loading: false,
       userHasActivePlan: false,
@@ -229,6 +238,7 @@ export default {
   },
 
   async created() {
+    this.loading = true;
     let user = this.$auth.user;
     this.file.is_reacted && (this.is_reacted = this.file.is_reacted);
     Object.keys(this.file.reaction_summary).length &&
@@ -252,6 +262,7 @@ export default {
         });
     }
     await this.$store.commit("option/changeSnackbarMood", false);
+    this.loading = false;
   },
   methods: {
     async download() {
@@ -283,10 +294,6 @@ export default {
         });
       this.loading = false;
     },
-    toggleDialog() {
-      this.dialog = false;
-      this.$router.push("/front/files");
-    },
     async toggleReaction() {
       this.loading = true;
       await this.$axios
@@ -314,9 +321,6 @@ svg {
   > p {
     margin-top: 0.8rem;
   }
-}
-.v-dialog__content {
-  margin-top: 2rem;
 }
 @media screen and (max-width: 560px) {
   .btn-details {

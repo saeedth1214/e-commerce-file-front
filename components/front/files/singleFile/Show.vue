@@ -221,6 +221,7 @@ export default {
       detailFlag: false,
       menu: false,
       is_reacted: false,
+      loading: false,
       rendering: false,
       userHasActivePlan: false,
       userHasThisFile: false,
@@ -298,8 +299,8 @@ export default {
         .then((res) => {
           this.is_reacted = res.data.data.is_reacted;
           this.reactionSummary = { ...res.data.data.reaction_summary };
-          this.loading = false;
         });
+      this.loading = false;
     },
 
     async AddtoCart() {

@@ -237,16 +237,18 @@ export default {
     if (this.$auth.loggedIn) {
       await this.$axios
         .get(`frontend/users/${user.id}/active-plan`)
-        .then((res) => {
+        .then(async (res) => {
           if (res.data.data.id) {
             this.userHasActivePlan = true;
-          }else{
+          } else {
             await this.$axios
               .get(`frontend/users/${user.id}/files/${this.file.id}`)
               .then((res) => {
                 if (res.data.data.count) {
                   this.userHasThisFile = true;
                 }
+              });
+          }
         });
     }
     await this.$store.commit("option/changeSnackbarMood", false);
@@ -257,7 +259,6 @@ export default {
       if (!this.$auth.loggedIn) {
         return this.$router.push("/authenticate?login");
       }
-
       await this.$axios
         .post(`frontend/files/${this.file.id}/download`)
         .then((res) => {

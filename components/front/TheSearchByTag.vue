@@ -6,7 +6,10 @@
           <nuxt-link
             v-for="tag in tags"
             :key="tag.id"
-            :to="{ path: 'front/files', query: { format:'search',tag: tag.name } }"
+            :to="{
+              path: 'front/files',
+              query: { format: 'search', tag: tag.name },
+            }"
           >
             {{ tag.name }}
             <v-icon color="#fff">mdi-magnify</v-icon>
@@ -43,7 +46,7 @@ export default {
   a {
     color: #fff;
     text-decoration: none;
-    padding: 0.5rem;
+    padding: 0.2rem;
     border: 1px solid #fff;
     border-radius: 5px;
     margin-left: 5px;
@@ -52,6 +55,7 @@ export default {
     background: rgba(255, 255, 255, 0.2);
     text-align: center;
     cursor: pointer;
+    min-width: 180px;
   }
 }
 
@@ -64,11 +68,6 @@ export default {
     .tags {
       width: 500px;
       position: absolute;
-      // left: 0px;
-      // justify-content: flex-end !important;
-      a {
-        width: 140px;
-      }
     }
   }
 }

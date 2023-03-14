@@ -65,7 +65,7 @@
               </v-btn>
             </div>
           </li>
-          <li class="filter-item" @click="openContent">
+          <li class="filter-item" @click="openContent(1)" ref="li-1">
             <div class="item-label">
               <span>
                 <v-icon small>mdi-cash</v-icon>
@@ -83,7 +83,7 @@
               </v-chip-group>
             </div>
           </li>
-          <li class="filter-item" @click="openContent">
+          <li class="filter-item" @click="openContent(2)" ref="li-2">
             <div class="item-label">
               <span>
                 <v-icon small>mdi-sale</v-icon>
@@ -101,7 +101,7 @@
               </v-chip-group>
             </div>
           </li>
-          <li class="filter-item" @click="openContent">
+          <li class="filter-item" @click="openContent(3)" ref="li-3">
             <div class="item-label">
               <span>
                 <v-icon small>mdi-file</v-icon>
@@ -123,7 +123,7 @@
               </v-chip-group>
             </div>
           </li>
-          <li class="filter-item" @click="openContent">
+          <li class="filter-item" @click="openContent(4)" ref="li-4">
             <div class="item-label">
               <span>
                 <v-icon small>mdi-calendar-range</v-icon>
@@ -197,16 +197,12 @@ export default {
       this.published && (params["published"] = this.published);
       this.$emit("applyFilter", params);
     },
-    openContent(el) {
-      if (el.target.classList.contains("item-label")) {
-        el.target
-          .getElementsByClassName("v-icon")[1]
-          .classList.toggle("mdi-chevron-up");
-        let divContent = el.target.parentElement;
-        divContent
-          .getElementsByClassName("filter_sub_content")[0]
-          .classList.toggle("active_content");
-      }
+    openContent(index) {
+      let el = this.$refs["li-" + index];
+      el.getElementsByClassName("v-icon")[1].classList.toggle("mdi-chevron-up");
+      el.getElementsByClassName("filter_sub_content")[0].classList.toggle(
+        "active_content"
+      );
     },
   },
 };

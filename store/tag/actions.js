@@ -5,7 +5,7 @@ export default {
       .then((res) => {
         return res.data.data;
       });
-    await commit("SET_TAGS", tags);
+    await commit("SET_LANDING_TAGS", tags);
   },
   async fetchTags({ commit, state },payload) {
     let params= {};
@@ -15,6 +15,6 @@ export default {
       .then((res) => {
         return res.data.data;
       });
-    await commit("SET_TAGS", tags);
+    await commit("SET_SEARCH_BY_TAGS", tags);
   },
 };

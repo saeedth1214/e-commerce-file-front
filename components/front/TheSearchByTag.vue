@@ -20,7 +20,7 @@
 export default {
   computed: {
     tags() {
-      return this.$store.state.tag.tags;
+      return this.$store.state.tag.landingTags;
     },
   },
 };

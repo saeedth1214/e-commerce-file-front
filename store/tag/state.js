@@ -1,3 +1,4 @@
 export default () => {
-  tags: null;
+  landingTags: null;
+  searchByTags: null;
 };

@@ -120,7 +120,7 @@ export default {
           this.activePlan = {};
         })
         .catch((err) => {
-          if (ere.resposne.status === 400) {
+          if (err.resposne.status === 400) {
             this.showMessage("warning", err.response.message);
           }
         });

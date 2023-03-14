@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-card :loading="loading">
         <v-card-title>
-          <span v-if="file.amount_after_rebate > 0 || !userHasActivePlan">
+          <span v-if="!userHasActivePlan && !userHasThisFile">
             <v-btn
               color="primary"
               class="ma-2 subtitle-1 font-weight-light"
@@ -214,6 +214,7 @@ export default {
       is_reacted: false,
       loading: false,
       userHasActivePlan: false,
+      userHasThisFile: false,
       shoppingCart: [],
       reactionSummary: {
         like: 0,
@@ -239,7 +240,13 @@ export default {
         .then((res) => {
           if (res.data.data.id) {
             this.userHasActivePlan = true;
-          }
+          }else{
+            await this.$axios
+              .get(`frontend/users/${user.id}/files/${this.file.id}`)
+              .then((res) => {
+                if (res.data.data.count) {
+                  this.userHasThisFile = true;
+                }
         });
     }
     await this.$store.commit("option/changeSnackbarMood", false);

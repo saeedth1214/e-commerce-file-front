@@ -121,7 +121,7 @@ export default {
         let params = {};
         params["filters[unique][email]"] = this.email;
         await this.$axios
-          .get("panel/users", { params })
+          .get("frontend/users", { params })
           .then(async (res) => {
             if (!res.data.data.length) {
               this.overlay = false;

@@ -415,7 +415,10 @@ export default {
       await this.$router.push("/");
     },
     onClickOutside(e) {
-      if (!e.target.classList.contains("v-icon")) {
+      if (
+        !e.target.classList.contains("v-icon") &&
+        !e.target.classList.contains("v-avatar")
+      ) {
         this.auth = false;
       }
     },

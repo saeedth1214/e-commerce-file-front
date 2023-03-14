@@ -108,6 +108,7 @@
         type="card"
       ></v-skeleton-loader>
     </v-sheet>
+    <SnakBar />
   </div>
 </template>
 <script>

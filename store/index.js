@@ -15,6 +15,8 @@ const createStore = () => {
       async nuxtServerInit({ dispatch }) {
         await dispatch("category/fetchMenuBarCategories");
         await dispatch("tag/fetchLandingTags");
+        await dispatch("tag/fetchTags", { per_page: 30 });
+        await dispatch("file/fetchMostVisited");
       },
     },
     getters: {},

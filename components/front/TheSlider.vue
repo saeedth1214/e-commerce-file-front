@@ -38,15 +38,10 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      files: [],
-    };
-  },
-  async fetch() {
-    await this.$axios.get("frontend/files/most-visited").then((res) => {
-      this.files = res.data.data["most-visited"];
-    });
+  computed: {
+    files() {
+      return this.$store.state.file.sliderFiles;
+    },
   },
 };
 </script>

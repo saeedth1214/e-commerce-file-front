@@ -22,7 +22,6 @@
                 @click="amount = null"
                 tail
                 shaped
-                small
                 color="primary"
                 style="font-size: 0.8rem; padding: 0.5rem"
               >

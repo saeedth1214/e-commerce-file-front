@@ -2,7 +2,7 @@
   <div>
     <v-row dense v-if="!loading">
       <v-col cols="12" lg="3" sm="3" md="3">
-        <v-card :loading="infoLoading">
+        <v-card :loading="avatarLoading">
           <div class="avatar-box">
             <v-avatar
               size="60"
@@ -30,7 +30,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" lg="9" sm="9" md="9">
-        <v-card :loading="avatarLoading">
+        <v-card :loading="infoLoading">
           <v-card-text>
             <div>ویرایش اطلاعات</div>
             <v-divider></v-divider>
@@ -108,7 +108,7 @@
         type="card"
       ></v-skeleton-loader>
     </v-sheet>
-    <SnakBar />
+    <SnackBar />
   </div>
 </template>
 <script>
@@ -172,7 +172,7 @@ export default {
       this.$refs.uploader.click();
     },
 
-    uploadFile() {
+    async uploadFile() {
       if (!this.file) {
         return;
       }
@@ -193,9 +193,11 @@ export default {
       let formData = new FormData();
       formData.append("file", this.file);
 
-      this.$axios
+      await this.$axios
         .post("user/profile/change-avatar", formData, config)
         .then(async (res) => {
+          console.log(res.status);
+
           if (res.status === 204) {
             await this.$store.commit("option/changeSnackbarMood", true);
             await this.$store.commit(
@@ -208,7 +210,6 @@ export default {
             );
           }
         });
-
       this.avatarLoading = false;
     },
   },

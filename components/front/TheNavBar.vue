@@ -415,11 +415,6 @@ export default {
     },
     onClickOutside(e) {
       this.auth = false;
-      // if (
-      //   !e.target.classList.contains("v-icon") &&
-      //   !e.target.classList.contains("v-avatar")
-      // ) {
-      // }
     },
     onClickOutsideCategory() {
       this.active = false;

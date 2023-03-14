@@ -4,7 +4,7 @@
       @click.stop="$emit('drawerChangeState')"
     ></v-app-bar-nav-icon>
     <v-spacer />
-    <div class="auth">
+    <div class="auth" v-click-outside="onClickOutside">
       <v-avatar
         size="40"
         color="indigo darken-4"
@@ -24,7 +24,6 @@
         color="#fff"
         class="user-box-profile"
         :class="[auth ? 'active' : 'diActive']"
-        v-click-outside="onClickOutside"
       >
         <v-card-title style="border-bottom: 2px solid #253039">
           <div class="login-box-header">
@@ -152,9 +151,7 @@ export default {
       await this.$router.push("/");
     },
     onClickOutside(e) {
-      if (!e.target.classList.contains("v-icon")) {
-        this.auth = false;
-      }
+      this.auth = false;
     },
   },
 };

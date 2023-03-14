@@ -39,7 +39,7 @@
             class="ma-2 subtitle-1 font-weight-light"
             dark
             outlined
-            @click="toggleReaction()"
+            @click="toggleReaction"
           >
             <svg
               class="like_icon"
@@ -261,7 +261,7 @@ export default {
           }
         });
     }
-     this.$store.commit("option/changeSnackbarMood", false);
+    this.$store.commit("option/changeSnackbarMood", false);
     this.rendering = false;
   },
   methods: {
@@ -284,12 +284,9 @@ export default {
             if (err.response && err.response.status === 403) {
               message = "برای دانلود فایل ابتدا آن را خریداری کنید .";
             }
-            await this.$store.commit("option/changeSnackbarMood", true);
-            await this.$store.commit(
-              "option/changeSnackbarColor",
-              "orange darken-2"
-            );
-            await this.$store.commit("option/changeSnackbarText", message);
+            this.$store.commit("option/changeSnackbarMood", true);
+            this.$store.commit("option/changeSnackbarColor", "orange darken-2");
+            this.$store.commit("option/changeSnackbarText", message);
           }
         });
       this.loading = false;

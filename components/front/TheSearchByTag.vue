@@ -30,7 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .wrapper-tags {
-  width: 600px;
+  width: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +41,7 @@ export default {
   display: flex;
   margin: 0px auto;
   justify-content: center;
-  width: 500px;
+  width: 600px;
 
   a {
     color: #fff;
@@ -55,7 +55,7 @@ export default {
     background: rgba(255, 255, 255, 0.2);
     text-align: center;
     cursor: pointer;
-    min-width: 180px;
+    min-width: 160px;
   }
 }
 

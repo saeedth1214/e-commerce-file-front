@@ -8,7 +8,6 @@
     ></div>
   </section>
 </template>
-
 <script>
 export default {
   data() {
@@ -64,6 +63,10 @@ export default {
     min-height: 200px;
     max-height: 400px;
     overflow-y: auto;
+
+    .ql-blank > p {
+      min-height: 300px;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" class="pa-8">
     <v-container fluid>
-      <v-card :loading="loading" v-if="!loading">
+      <v-card :loading="loading" v-if="!rendering">
         <v-card-title>
           <span v-if="!userHasActivePlan && !userHasThisFile">
             <v-btn
@@ -177,7 +177,7 @@
             <v-skeleton-loader
               class="mx-auto"
               width="100%"
-              height="300px"
+              height="400px"
               type="card"
             ></v-skeleton-loader>
           </v-sheet>
@@ -221,7 +221,7 @@ export default {
       detailFlag: false,
       menu: false,
       is_reacted: false,
-      loading: false,
+      rendering: false,
       userHasActivePlan: false,
       userHasThisFile: false,
       shoppingCart: [],
@@ -238,7 +238,7 @@ export default {
   },
 
   async created() {
-    this.loading = true;
+    this.rendering = true;
     let user = this.$auth.user;
     this.file.is_reacted && (this.is_reacted = this.file.is_reacted);
     Object.keys(this.file.reaction_summary).length &&
@@ -261,8 +261,8 @@ export default {
           }
         });
     }
-    await this.$store.commit("option/changeSnackbarMood", false);
-    this.loading = false;
+     this.$store.commit("option/changeSnackbarMood", false);
+    this.rendering = false;
   },
   methods: {
     async download() {

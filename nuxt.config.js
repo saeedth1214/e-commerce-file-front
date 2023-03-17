@@ -45,7 +45,6 @@ export default {
     //panel
     { path: "~/components/panel/Header", extensions: ["vue"] },
     { path: "~/components/panel/SidebarAside", extensions: ["vue"] },
-    { path: "~/components/panel/Content/category", extensions: ["vue"] },
     { path: "~/components/panel/Content/attribute", extensions: ["vue"] },
     { path: "~/components/panel/Content/file", extensions: ["vue"] },
     { path: "~/components/panel/Content/plan", extensions: ["vue"] },
@@ -221,7 +220,7 @@ export default {
   },
   proxy: {
     "/api/": {
-      target: "https://api.v2.filymo.ir//",
+      target: "https://api.filymo.ir//",
     },
   },
   sweetalert: {
@@ -233,8 +232,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "https://api.v2.filymo.ir/api/panel/",
-    dropzoneUrlFront: "https://api.v2.filymo.ir/api/frontend/",
+    dropzoneUrl: "http://api.filymo.ir/api/panel/",
+    dropzoneUrlFront: "http://api.filymo.ir/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
     PER_PAGE: 15,

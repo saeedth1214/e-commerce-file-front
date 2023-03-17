@@ -245,7 +245,9 @@
                 </div>
               </li>
               <li>
-                <nuxt-link to="/front/plans">درباره من </nuxt-link>
+                <nuxt-link to="#" @click.native="downloadResume">
+                  رزومه</nuxt-link
+                >
               </li>
             </ul>
           </div>
@@ -343,7 +345,9 @@
               </div>
             </li>
             <li>
-              <nuxt-link to="/front/plans">درباره من </nuxt-link>
+              <nuxt-link to="#" @click.native="downloadResume">
+                رزومه</nuxt-link
+              >
             </li>
           </ul>
         </div>
@@ -422,6 +426,13 @@ export default {
     toggleInnerUl(el) {
       let ulElement = el.target.getElementsByClassName("topmenu_items")[0];
       ulElement?.classList.toggle("active-items");
+    },
+
+    async downloadResume() {
+      await this.$axios.get("frontend/files/download-csv").then((res) => {
+        if (res.status === 200) window.open(res.data.data.url, "_blank");
+        if (res.status === 204) alert("file not found.");
+      });
     },
   },
 };

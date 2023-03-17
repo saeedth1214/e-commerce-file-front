@@ -115,7 +115,7 @@
 export default {
   middleware(context) {
     if (!context.$auth.loggedIn || context.$auth.user.role_id !== 1) {
-      context.redirect("/");
+         context.redirect("/authenticate?login");
     }
   },
 

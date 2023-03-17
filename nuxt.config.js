@@ -232,8 +232,8 @@ export default {
     mode: "out-in",
   },
   env: {
-    dropzoneUrl: "http://api.filymo.ir/api/panel/",
-    dropzoneUrlFront: "http://api.filymo.ir/api/frontend/",
+    dropzoneUrl: "https://api.filymo.ir/api/panel/",
+    dropzoneUrlFront: "https://api.filymo.ir/api/frontend/",
     count: 5,
     CART_MAX_AGE: 60 * 60 * 24 * 7,
     PER_PAGE: 15,

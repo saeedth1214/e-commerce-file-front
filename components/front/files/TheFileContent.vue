@@ -7,19 +7,22 @@
     />
 
     <TheFileLists
-      :fileData="fileData"
+      :files="files"
+      :pagination='pagination'
       :showFilter="showFilter"
       :start="start"
       @closeFilter="$emit('closeFilter')"
       @fetchMoreFiles="fetchMoreFiles"
     />
+   
   </v-row>
 </template>
 <script>
 export default {
   data() {
     return {
-      fileData: {},
+      files: [],
+      pagination: {},
       start: true,
       page: null,
     };
@@ -55,10 +58,8 @@ export default {
     this.$route.query.amount &&
       (params["filters[amount]"] = this.$route.query.amount);
     await this.$axios.get("frontend/files", { params }).then((res) => {
-      this.fileData = {
-        files: res.data.data,
-        pagination: res.data.meta.pagination,
-      };
+      this.files = res.data.data;
+      this.pagination = res.data.meta.pagination;
     });
     this.start = false;
   },

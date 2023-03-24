@@ -1,13 +1,13 @@
 <template>
   <v-col cols="12" :md="showFilter ? '9' : '12'" :lg="showFilter ? '9' : '12'">
     <div class="mt-8" style="min-height: 350px" v-if="!start">
-      <v-row v-if="fileData.files?.length">
+      <v-row v-if="files.length">
         <v-col
           cols="12"
           md="3"
           sm="6"
           lg="3"
-          v-for="(file, Idx) in fileData.files"
+          v-for="(file, Idx) in files"
           :key="Idx"
         >
           <v-card
@@ -157,6 +157,17 @@
             </v-img>
           </v-card>
         </v-col>
+        <v-col cols="12">
+          <div class="mx-auto">
+            <v-pagination
+              v-model="pagination.current_page"
+              :length="pagination.total_pages"
+              @input="fetchMoreFiles"
+              circle
+              color="#00bdfe"
+            ></v-pagination>
+          </div>
+        </v-col>
       </v-row>
       <v-row dense v-else>
         <v-col cols="12">
@@ -171,17 +182,6 @@
             >مورد خاصی پیدا نشد</v-alert
           >
         </v-col>
-      </v-row>
-      <v-row dense v-if="fileData.files?.length">
-        <div class="mx-auto" style="margin-top: 1rem">
-          <v-pagination
-            v-model="fileData.pagination.current_page"
-            :length="fileData.pagination.total_pages"
-            @input="fetchMoreFiles"
-            circle
-            color="#00bdfe"
-          ></v-pagination>
-        </div>
       </v-row>
     </div>
     <div style="width: 100%; height: 400px" v-else>
@@ -209,7 +209,11 @@ export default {
     };
   },
   props: {
-    fileData: {
+    files: {
+      type: Array,
+      required: true,
+    },
+    pagination: {
       type: Object,
       required: true,
     },

@@ -173,10 +173,15 @@
         </v-col>
       </v-row>
       <v-row dense v-if="fileData.files?.length">
-        <ThePagination
-          :pagination="fileData.pagination"
-          @initialize="fetchMoreFiles"
-        />
+        <div class="mx-auto" style="margin-top: 1rem">
+          <v-pagination
+            v-model="fileData.pagination.current_page"
+            :length="fileData.pagination.total_pages"
+            @input="fetchMoreFiles"
+            circle
+            color="#00bdfe"
+          ></v-pagination>
+        </div>
       </v-row>
     </div>
     <div style="width: 100%; height: 400px" v-else>

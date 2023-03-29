@@ -55,6 +55,9 @@ export default {
   methods: {
     async finalPurchase() {
       this.loading = true;
+      if (!this.$auth.loggedIn) {
+        return this.$router.push("/authenticate?login");
+      }
       await this.$axios
         .get(`frontend/users/${this.$auth.user.id}/active-plan`)
         .then(async (res) => {

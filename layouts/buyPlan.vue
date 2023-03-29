@@ -24,7 +24,33 @@
             </p>
           </li>
           <li>
-            <div style="cursor: pointer; position: relative">
+            <div class="auth" v-if="!$auth.loggedIn">
+              <span>
+                <v-btn
+                  small
+                  outlined
+                  shaped
+                  nuxt
+                  to="/authenticate?login"
+                  style="font-size: 14; font-weight: 600"
+                >
+                  ورود
+                </v-btn>
+              </span>
+              <span>
+                <v-btn
+                  small
+                  outlined
+                  shaped
+                  nuxt
+                  to="/authenticate?register"
+                  style="font-size: 14; font-weight: 600"
+                >
+                  ثبت نام
+                </v-btn>
+              </span>
+            </div>
+            <div style="cursor: pointer; position: relative" v-else>
               <v-icon small> mdi-account</v-icon>
               <span v-if="$vuetify.breakpoint.mdAndUp">{{
                 $auth.user.mobile || $auth.user.email
@@ -110,15 +136,8 @@
     </v-container>
   </v-app>
 </template>
-
 <script>
 export default {
-  middleware(context) {
-    if (!context.$auth.loggedIn || context.$auth.user.role_id !== 1) {
-         context.redirect("/authenticate?login");
-    }
-  },
-
   methods: {
     async logout() {
       await this.$auth.logout();
@@ -129,6 +148,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.auth {
+  text-align: left;
+  margin-left: 0.5rem;
+  display: flex;
+
+  & > span a {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      color: #a5b7c6;
+    }
+  }
+}
 @media screen and (max-width: 690px) {
   footer {
     > div {

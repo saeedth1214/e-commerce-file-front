@@ -56,7 +56,10 @@
             </template>
           </v-img>
           <p class="text-body-2 font-weight-medium">
-            <NuxtLink :to="`front/files/${item.title}`">
+            <NuxtLink
+              :to="`/front/files/${item.title}`"
+              class="text-none text-subtitle-2 font-weight-medium"
+            >
               {{ item.title }}
             </NuxtLink>
           </p>

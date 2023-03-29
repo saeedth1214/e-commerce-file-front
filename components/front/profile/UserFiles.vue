@@ -55,7 +55,11 @@
               </v-row>
             </template>
           </v-img>
-          <p class="text-body-2 font-weight-medium">{{ item.title }}</p>
+          <p class="text-body-2 font-weight-medium">
+            <NuxtLink :to="`front/files/${item.title}`">
+              {{ item.title }}
+            </NuxtLink>
+          </p>
         </div>
       </template>
 
@@ -76,7 +80,7 @@
           {{ $formatMoney(item.amount) }}
         </span>
       </template>
-    
+
       <template v-slot:no-data>
         <p color="primary" class="text-body-2 font-weight-bold text-center">
           موردی یافت نشد

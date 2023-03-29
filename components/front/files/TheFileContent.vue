@@ -8,13 +8,12 @@
 
     <TheFileLists
       :files="files"
-      :pagination='pagination'
+      :pagination="pagination"
       :showFilter="showFilter"
       :start="start"
       @closeFilter="$emit('closeFilter')"
       @fetchMoreFiles="fetchMoreFiles"
     />
-   
   </v-row>
 </template>
 <script>
@@ -78,10 +77,8 @@ export default {
       let params = {};
       params = { ...this.query };
       await this.$axios.get("frontend/files", { params }).then((res) => {
-        this.fileData = {
-          files: res.data.data,
-          pagination: res.data.meta.pagination,
-        };
+        this.files = res.data.data;
+        this.pagination = res.data.meta.pagination;
       });
       this.start = false;
     },
@@ -95,10 +92,8 @@ export default {
       filters.format && (params["filters[format]"] = filters.format);
       filters.published && (params["filters[published]"] = filters.published);
       await this.$axios.get("frontend/files", { params }).then((res) => {
-        this.fileData = {
-          files: res.data.data,
-          pagination: res.data.meta.pagination,
-        };
+        this.files = res.data.data;
+        this.pagination = res.data.meta.pagination;
       });
       this.start = false;
     },

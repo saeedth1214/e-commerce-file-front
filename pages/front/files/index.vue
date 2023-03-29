@@ -136,7 +136,7 @@ export default {
         (temp["filters[category_name]"] = this.$route.query.category);
       this.$route.query.amount &&
         (temp["filters[amount]"] = this.$route.query.amount);
-      this.queryParameter = { ...temp };
+     this.queryParameter = { ...temp };
     },
   },
 };

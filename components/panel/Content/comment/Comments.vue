@@ -19,9 +19,7 @@
   </v-app>
 </template>
 <script>
-import showMessage from "@/mixins/showMessage.js";
 export default {
-  mixins: [showMessage],
   data() {
     return {
       comments: [],

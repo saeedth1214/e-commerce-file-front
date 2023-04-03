@@ -162,6 +162,7 @@
   </div>
 </template>
 <script>
+import showMessage from "@/mixins/showMessage.js";
 export default {
   data() {
     return {
@@ -185,6 +186,7 @@ export default {
       this.filterCommentByStatus(val);
     },
   },
+  mixins: [showMessage],
 
   async created() {
     this.itemsPerPage = process.env.PER_PAGE;

@@ -23,6 +23,14 @@ export default {
       type: Object,
       required: true,
     },
+    pagination: {
+      type: Object,
+      required: false,
+    },
+    pagination: {
+      type: Object,
+      required: false,
+    },
   },
 };
 </script>
